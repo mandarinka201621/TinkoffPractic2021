@@ -27,7 +27,7 @@ detekt {
 }
 
 task installGitHooks(type: Exec) {
-    commandLine 'git', 'config', 'core.hooksPath', '..githooks'
+    commandLine 'git', 'config', 'core.hooksPath', '.githooks'
 }
 
 task clean(type: Delete) {

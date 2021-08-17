@@ -30,37 +30,6 @@ task installGitHooks(type: Exec) {
     commandLine 'git', 'config', 'core.hooksPath', '..githooks'
 }
 
-def detektTask = tasks.named("detekt") {
-    include("**/*.kt")
-}
-
-// Open HTML report if detekt fails
-def openHtmlReportTask = tasks.register("openDetektHtmlReportInBrowser") {
-    onlyIf { !teamcityBuild && detektTask.get().state.failure != null }
-    doLast {
-        exec {
-            commandLine getOpenCommand(detektTask.get().htmlReportFile.orNull)
-        }
-    }
-}
-
-detektTask.configure {
-    dependsOn(":detektrules:assemble")
-    finalizedBy openHtmlReportTask
-}
-
-
-static def getOpenCommand(Object file) {
-    def currentOs = org.gradle.internal.os.OperatingSystem.current()
-    if (currentOs.macOsX) {
-        return ['open', file]
-    } else if (currentOs.linux) {
-        return ['xdg-open', file]
-    } else if (currentOs.windows) {
-        return ['cmd', '/c', 'start', file]
-    }
-}
-
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

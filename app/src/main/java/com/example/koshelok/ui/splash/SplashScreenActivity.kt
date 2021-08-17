@@ -9,8 +9,8 @@ import com.example.koshelok.R
 class SplashScreenActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.SplashTheme)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.splash_sceen_activity)
         startActivity(Intent(this, MainActivity::class.java))
     }
 }

@@ -6,6 +6,7 @@ import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.AccountSharedPreferences
 import com.example.koshelok.EncryptedSharedPreferencesFactory
@@ -60,7 +61,7 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
             )
 
             accountSharedPreferences.email = account.email.orEmpty()
-            viewBinding.buttonGoogle.visibility = View.INVISIBLE
+            findNavController().navigate(R.id.action_onBoardScreenFragment_to_detailWalletFragment)
         }
     }
 

@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navHost"
     app:startDestination="@id/onboardScreenFragment">
     <fragment
         android:id="@+id/onboardScreenFragment"
         android:name="com.example.koshelok.ui.onboarding.OnBoardingScreenFragment"
-        android:label="OnboardScreenFragment" />
+        android:label="OnboardScreenFragment"
+        tools:layout="@layout/fragment_onboarding_screen">
+        <action
+            android:id="@+id/action_onBoardScreenFragment_to_detailWalletFragment"
+            app:destination="@id/detailWalletFragment"
+            app:popUpTo="@id/navHost"
+            app:popUpToInclusive="true"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/detailWalletFragment"
+        android:name="com.example.koshelok.ui.detailwallet.DetailWalletFragment"
+        android:label="DetailWalletFragment"
+        tools:layout="@layout/fragment_detail_wallet"/>
 </navigation>

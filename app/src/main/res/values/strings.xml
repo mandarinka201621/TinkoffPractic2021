@@ -14,4 +14,14 @@
     <string name="title_welcome">Добро пожаловать в КошелОК</string>
     <string name="text_welcome">Тут вы сможете контролировать свои доходы и расходы</string>
     <string name="text_button_google">Войти с помощью Google</string>
+    <string name="capitalization_text">Капитализация</string>
+    <string name="salary_text">Зарплата</string>
+    <string name="part_time_text">Подработка</string>
+    <string name="present_text">Подарок</string>
+    <string name="supermarket_text">Супермаркет</string>
+    <string name="fly_text">Полёты</string>
+    <string name="jewelry_text">Украшения</string>
+    <string name="restaurant">Рестараны</string>
+    <string name="replenishment">Пополнение</string>
+    <string name="spending">Траты</string>
 </resources>

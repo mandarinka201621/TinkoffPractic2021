@@ -22,4 +22,5 @@
     <string name="text_expense">Расход</string>
     <string name="choose_category">Выберите категорию</string>
     <string name="icon_category_description">Иконка категории</string>
+    <string name="farther">Далее</string>
 </resources>

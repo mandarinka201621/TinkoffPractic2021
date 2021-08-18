@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">KoshelOK</string>
+    <string name="title_name">КошелОК</string>
+    <string name="description_logo">Логотип приложения</string>
+    <string name="description_welcome_icon">Изображение добро пожаловать</string>
+    <string name="title_welcome">Добро пожаловать в КошелОК</string>
+    <string name="text_welcome">Тут вы сможете контролировать свои доходы и расходы</string>
+    <string name="text_button_google">Войти с помощью Google</string>
 </resources>

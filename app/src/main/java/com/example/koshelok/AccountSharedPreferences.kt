@@ -1,32 +1,14 @@
 package com.example.koshelok
 
-import android.content.Context
-import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKey
+import android.content.SharedPreferences
 
-object AccountSharedPreferences {
-    private const val NAME_SHARED_PREF = "name_shared_pref"
-    private const val EMAIL_KEY = "email_key"
+class AccountSharedPreferences(private val sharedPreferences: SharedPreferences) {
 
-    fun writeEmail(context: Context, email: String) {
-        val sharedPreferences = EncryptedSharedPreferences.create(
-            context,
-            NAME_SHARED_PREF,
-            MasterKey.Builder(context).setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build(),
-            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-        )
-        sharedPreferences.edit().putString(EMAIL_KEY, email).apply()
-    }
+    var email: String
+        get() = sharedPreferences.getString(EMAIL_KEY, "").orEmpty()
+        set(value) = sharedPreferences.edit().putString(EMAIL_KEY, value).apply()
 
-    fun readEmail(context: Context):String{
-        val sharedPreferences = EncryptedSharedPreferences.create(
-            context,
-            NAME_SHARED_PREF,
-            MasterKey.Builder(context).build(),
-            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-        )
-        return sharedPreferences.getString(EMAIL_KEY, "")?:""
+    private companion object {
+        const val EMAIL_KEY = "email_key"
     }
 }

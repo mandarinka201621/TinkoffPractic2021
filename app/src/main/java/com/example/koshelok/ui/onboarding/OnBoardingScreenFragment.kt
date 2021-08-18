@@ -8,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.AccountSharedPreferences
+import com.example.koshelok.EncryptedSharedPreferencesFactory
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentOnboardingScreenBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -24,7 +25,7 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
             val account = task.result
 
             startDetailWalletFragment(account)
-    }
+        }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,8 +55,13 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
 
     private fun startDetailWalletFragment(account: GoogleSignInAccount?) {
         if (account != null) {
-            context?.let { AccountSharedPreferences.writeEmail(it, account.email ?: "") }
+            val accountSharedPreferences = AccountSharedPreferences(
+                sharedPreferences = EncryptedSharedPreferencesFactory().create(requireContext())
+            )
+
+            accountSharedPreferences.email = account.email.orEmpty()
             viewBinding.buttonGoogle.visibility = View.INVISIBLE
         }
     }
+
 }

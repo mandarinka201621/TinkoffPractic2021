@@ -3,23 +3,31 @@ package com.example.koshelok.ui.detailwallet
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentDetailWalletBinding
 
 class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet) {
     private val binding by viewBinding(FragmentDetailWalletBinding::bind)
+    private val viewModel: DetailWalletVewModel by viewModels()
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
             toolbar.inflateMenu(R.menu.menu_detail_wallet)
             addOperation.setOnClickListener {
-                Toast.makeText(requireContext(), getString(R.string.click), Toast.LENGTH_SHORT)
-                    .show()
+                //TODO сделать переход на следюущий экран
             }
+            val detailWalletAdapter = DetailWalletAdapter()
+            detailWalletList.run {
+                adapter = detailWalletAdapter
+                layoutManager = LinearLayoutManager(requireContext())
+            }
+            detailWalletAdapter.setData(viewModel.changeData())
         }
     }
 

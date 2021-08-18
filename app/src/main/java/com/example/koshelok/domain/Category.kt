@@ -1,4 +1,6 @@
-package com.example.koshelok
+package com.example.koshelok.domain
+
+import com.example.koshelok.R
 
 sealed class Category {
 

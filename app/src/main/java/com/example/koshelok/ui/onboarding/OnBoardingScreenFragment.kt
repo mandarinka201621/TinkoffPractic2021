@@ -36,14 +36,6 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        val account = GoogleSignIn.getLastSignedInAccount(requireContext())
-        if (account != null) {
-            startDetailWalletFragment(account)
-        }
-    }
-
     private fun getSignInIntent(): Intent {
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

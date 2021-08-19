@@ -35,6 +35,7 @@
             android:layout_height="wrap_content"
             android:digits="0123456789"
             android:maxLength="9"
+            android:focusableInTouchMode="true"
             android:importantForAutofill="no"
             android:inputType="numberDecimal"
             tools:ignore="LabelFor" />
@@ -45,9 +46,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:background="@drawable/button_not_available"
+        android:background="@drawable/selector_backgroud_button"
         android:padding="14dp"
         android:text="@string/ready_button"
+        android:enabled="false"
+        android:textColor="@drawable/selector_color_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

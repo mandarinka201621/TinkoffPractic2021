@@ -30,8 +30,8 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet) {
                 adapter = detailWalletAdapter
                 layoutManager = LinearLayoutManager(requireContext())
             }
-            viewModel.getData().observe(viewLifecycleOwner){ data:List<DetailWalletItem>? ->
-                if (data != null){
+            viewModel.getData().observe(viewLifecycleOwner) { data: List<DetailWalletItem>? ->
+                if (data != null) {
                     detailWalletAdapter.setData(data)
                 }
             }

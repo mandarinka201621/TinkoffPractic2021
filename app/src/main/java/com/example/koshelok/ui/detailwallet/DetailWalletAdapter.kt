@@ -83,6 +83,9 @@ class DetailWalletCallback : DiffUtil.ItemCallback<DetailWalletItem>() {
         }else if(oldItem is DetailWalletItem.HeaderDetailWallet && newItem is DetailWalletItem.HeaderDetailWallet){
             oldItem.nameWallet == newItem.nameWallet
         }
+        else if (oldItem is DetailWalletItem.Transaction && newItem is DetailWalletItem.Transaction){
+            oldItem.id == newItem.id
+        }
         else oldItem == newItem
     }
 

@@ -72,7 +72,7 @@ class TransactionHolder(view: View) : BaseHolder(view) {
                     category = root.context.getString(R.string.replenishment)
                 } else {
                     moneyText =
-                        root.context.getString(R.string.consumption_money, data.money.toString())
+                        root.context.getString(R.string.consumption_money, data.money)
                     category = root.context.getString(R.string.spending)
                 }
                 money.text = moneyText

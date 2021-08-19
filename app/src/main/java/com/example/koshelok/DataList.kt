@@ -12,7 +12,7 @@ object DataList {
                 icon = R.drawable.salary,
                 color = Color.parseColor("#00B92D")
             ),
-            money = 2000,
+            money = "2000",
             time = "15:41",
             day = "2021-08-19"
         ),
@@ -22,7 +22,7 @@ object DataList {
                 icon = R.drawable.salary,
                 color = Color.parseColor("#00B92D")
             ),
-            money = 7000,
+            money = "7000",
             time = "12:11",
             day = "2021-08-18"
         ),
@@ -32,7 +32,7 @@ object DataList {
                 icon = R.drawable.jewelry,
                 color = Color.parseColor("#5833ee")
             ),
-            money = 5000,
+            money = "5000",
             time = "11:56",
             day = "2021-08-15"
         )

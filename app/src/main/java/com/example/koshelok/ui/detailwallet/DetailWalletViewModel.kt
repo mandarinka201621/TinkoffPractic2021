@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.koshelok.DataList
-import com.example.koshelok.domain.Category
 
 class DetailWalletViewModel : ViewModel() {
     private val data = mutableListOf<DetailWalletItem.Transaction>()
@@ -20,7 +19,7 @@ class DetailWalletViewModel : ViewModel() {
         return DataList.data
     }
 
-    fun getData():LiveData<List<DetailWalletItem>>{
+    fun getData(): LiveData<List<DetailWalletItem>> {
         return detailWalletData
     }
 
@@ -30,21 +29,12 @@ class DetailWalletViewModel : ViewModel() {
     }
 
     private fun changeData(): List<DetailWalletItem> {
-        var income = 0
-        var consumption = 0
-        data.forEach { transaction ->
-            if (transaction.category is Category.Income) {
-                income += transaction.money
-            } else {
-                consumption += transaction.money
-            }
-        }
         val headerDetailWallet = DetailWalletItem.HeaderDetailWallet(
-            amountMoney = income - consumption,
+            amountMoney = "9000",
             nameWallet = "Кошелек 1",
-            income = income,
-            consumption = consumption,
-            limit = 10000
+            income = "7000",
+            consumption = "2000",
+            limit = "10000"
         )
         return mutableListOf<DetailWalletItem>().apply {
             add(headerDetailWallet)

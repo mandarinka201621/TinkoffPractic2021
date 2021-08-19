@@ -13,11 +13,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val account = GoogleSignIn.getLastSignedInAccount(this)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.mainContainer) as NavHostFragment
+        val navController: NavController = navHostFragment.navController
         if (account != null) {
-            val navHostFragment =
-                supportFragmentManager.findFragmentById(R.id.mainContainer) as NavHostFragment
-            val navController: NavController = navHostFragment.navController
             navController.navigate(R.id.detailWalletFragment)
+        }
+        else{
+            navController.navigate(R.id.onboardScreenFragment)
         }
     }
 }

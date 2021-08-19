@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.mainContainer) as NavHostFragment
         val navController: NavController = navHostFragment.navController
         if (account != null) {
+            navController.popBackStack(R.id.onboardScreenFragment,true)
             navController.navigate(R.id.detailWalletFragment)
         }
         else{

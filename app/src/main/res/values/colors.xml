@@ -9,5 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="background_button">#333333</color>
     <color name="background_card">#5833ee</color>
+    <color name="background_income_icon">#00B92D</color>
     <color name="background_black">#333333</color>
 </resources>

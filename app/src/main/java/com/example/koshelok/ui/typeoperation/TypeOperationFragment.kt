@@ -52,7 +52,6 @@ class TypeOperationFragment : Fragment(R.layout.fragment_type_operation_transact
                 binding.expenseImageView.visibility = View.VISIBLE
                 setStateButton()
             }
-            else -> Unit
         }
     }
 

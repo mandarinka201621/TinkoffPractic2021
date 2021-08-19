@@ -12,6 +12,7 @@ class TypeOperationViewModel : ViewModel() {
 
     fun setSelectType(select: Select) {
         _typeOperation.value = select
+        Select.valueOf(select.name)
     }
 
     enum class Select {

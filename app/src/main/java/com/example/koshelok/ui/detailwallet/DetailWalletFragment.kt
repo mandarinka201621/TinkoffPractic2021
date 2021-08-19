@@ -19,6 +19,9 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
             toolbar.inflateMenu(R.menu.menu_detail_wallet)
+            toolbar.setNavigationOnClickListener {
+                requireActivity().onBackPressed()
+            }
             val detailWalletAdapter = DetailWalletAdapter()
             addOperation.setOnClickListener {
                 //TODO сделать переход на следюущий экран
@@ -27,7 +30,11 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet) {
                 adapter = detailWalletAdapter
                 layoutManager = LinearLayoutManager(requireContext())
             }
-            detailWalletAdapter.setData(viewModel.changeData())
+            viewModel.getData().observe(viewLifecycleOwner){ data:List<DetailWalletItem>? ->
+                if (data != null){
+                    detailWalletAdapter.setData(data)
+                }
+            }
         }
     }
 

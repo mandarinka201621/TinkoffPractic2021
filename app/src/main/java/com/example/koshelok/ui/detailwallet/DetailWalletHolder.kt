@@ -10,11 +10,10 @@ import com.example.koshelok.databinding.ItemDayBinding
 import com.example.koshelok.databinding.ItemHeaderDetailWalletBinding
 import com.example.koshelok.databinding.ItemTransactionBinding
 import com.example.koshelok.domain.Category
+import com.example.koshelok.extentions.getDay
 import kotlinx.datetime.Clock
-import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.minus
 import kotlinx.datetime.toLocalDate
 import kotlinx.datetime.toLocalDateTime
 
@@ -25,6 +24,7 @@ class HeaderHolder(view: View) : BaseHolder(view) {
     override fun onBind(data: DetailWalletItem) {
         if (data is DetailWalletItem.HeaderDetailWallet) {
             with(binding) {
+                wallet.text = data.nameWallet
                 amountMoney.text =
                     root.context.getString(R.string.income_money, data.amountMoney.toString())
                 income.text = root.context.getString(R.string.income_money, data.income.toString())
@@ -51,11 +51,7 @@ class DayHolder(view: View) : BaseHolder(view) {
         val currentTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
         val currentDate =
             LocalDate(currentTime.year, currentTime.monthNumber, currentTime.dayOfMonth)
-        return when (currentDate.minus(localDay)) {
-            DatePeriod(0, 0, 0) -> binding.root.context.getString(R.string.today)
-            DatePeriod(0, 0, 1) -> binding.root.context.getString(R.string.yesterday)
-            else -> "${localDay.dayOfMonth}.${localDay.monthNumber}"
-        }
+        return currentDate.getDay(localDay, binding.root.context)
     }
 }
 

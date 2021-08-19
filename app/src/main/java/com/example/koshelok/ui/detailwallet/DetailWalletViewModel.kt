@@ -1,27 +1,35 @@
 package com.example.koshelok.ui.detailwallet
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.koshelok.DataList
 import com.example.koshelok.domain.Category
 
 class DetailWalletViewModel : ViewModel() {
     private val data = mutableListOf<DetailWalletItem.Transaction>()
+    private val detailWalletData = MutableLiveData<List<DetailWalletItem>>()
 
     init {
-        data.addAll(getData())
+        data.addAll(uploadData())
+        detailWalletData.value = changeData()
     }
 
-    private fun getData(): List<DetailWalletItem.Transaction> {
+    private fun uploadData(): List<DetailWalletItem.Transaction> {
         //TODO потом заменить на получение данных из сервака
         return DataList.data
     }
 
-    fun addTransaction(transaction: DetailWalletItem.Transaction): List<DetailWalletItem> {
-        data.add(transaction)
-        return changeData()
+    fun getData():LiveData<List<DetailWalletItem>>{
+        return detailWalletData
     }
 
-    fun changeData(): List<DetailWalletItem> {
+    fun addTransaction(transaction: DetailWalletItem.Transaction) {
+        data.add(transaction)
+        detailWalletData.value = changeData()
+    }
+
+    private fun changeData(): List<DetailWalletItem> {
         var income = 0
         var consumption = 0
         data.forEach { transaction ->
@@ -33,6 +41,7 @@ class DetailWalletViewModel : ViewModel() {
         }
         val headerDetailWallet = DetailWalletItem.HeaderDetailWallet(
             amountMoney = income - consumption,
+            nameWallet = "Кошелек 1",
             income = income,
             consumption = consumption,
             limit = 10000

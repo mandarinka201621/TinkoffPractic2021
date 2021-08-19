@@ -28,6 +28,18 @@
     <string name="income_money">%1$s ₽</string>
     <string name="consumption_money">-%1$s ₽</string>
     <string name="limit_money">/ %1$s ₽</string>
+    <string name="january">%1$s января</string>
+    <string name="february">%1$s февраля</string>
+    <string name="march">%1$s марта</string>
+    <string name="april">%1$s апреля</string>
+    <string name="may">%1$s мая</string>
+    <string name="june">%1$s июня</string>
+    <string name="july">%1$s июля</string>
+    <string name="august">%1$s августа</string>
+    <string name="september">%1$s сентября</string>
+    <string name="october">%1$s октярбря</string>
+    <string name="november">%1$s ноября</string>
+    <string name="december">%1$s декабря</string>
     <string name="today">Сегодня</string>
     <string name="yesterday">Вчера</string>
 </resources>

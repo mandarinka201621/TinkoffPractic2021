@@ -78,55 +78,15 @@ class DetailWalletAdapter : RecyclerView.Adapter<BaseHolder>() {
 
 class DetailWalletCallback : DiffUtil.ItemCallback<DetailWalletItem>() {
     override fun areItemsTheSame(oldItem: DetailWalletItem, newItem: DetailWalletItem): Boolean {
-        return when (oldItem){
-            is DetailWalletItem.HeaderDetailWallet ->{
-                if (newItem is DetailWalletItem.HeaderDetailWallet) {
-                    oldItem.id == newItem.id
-                }
-                else newItem == oldItem
-            }
-            is DetailWalletItem.Day ->{
-                if (newItem is DetailWalletItem.Day) {
-                    oldItem.day == newItem.day
-                }
-                else{
-                    newItem == oldItem
-                }
-            }
-            is  DetailWalletItem.Transaction -> {
-                oldItem == newItem
-            }
+        return if (oldItem is DetailWalletItem.Day && newItem is DetailWalletItem.Day){
+            oldItem.day == newItem.day
+        }else if(oldItem is DetailWalletItem.HeaderDetailWallet && newItem is DetailWalletItem.HeaderDetailWallet){
+            oldItem.nameWallet == newItem.nameWallet
         }
+        else oldItem == newItem
     }
 
     override fun areContentsTheSame(oldItem: DetailWalletItem, newItem: DetailWalletItem): Boolean {
-        return when(oldItem){
-            is DetailWalletItem.HeaderDetailWallet ->{
-                when {
-                    oldItem.amountMoney != (newItem as DetailWalletItem.HeaderDetailWallet).amountMoney -> {
-                        false
-                    }
-                    oldItem.consumption != newItem.consumption -> {
-                        false
-                    }
-                    oldItem.income != newItem.income -> {
-                        false
-                    }
-                    else -> oldItem.limit == newItem.limit
-                }
-            }
-            is DetailWalletItem.Day -> {
-                oldItem.day == (newItem as DetailWalletItem.Day).day
-            }
-            is DetailWalletItem.Transaction -> {
-                when{
-                    oldItem.category != (newItem as DetailWalletItem.Transaction).category -> false
-                    oldItem.day != newItem.day -> false
-                    oldItem.time != newItem.time -> false
-                    oldItem.money != newItem.money -> false
-                    else -> true
-                }
-            }
-        }
+        return oldItem == newItem
     }
 }

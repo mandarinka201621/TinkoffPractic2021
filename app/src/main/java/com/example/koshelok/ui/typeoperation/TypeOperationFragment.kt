@@ -4,6 +4,9 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentTypeOperationTransactionBinding
@@ -11,49 +14,45 @@ import com.example.koshelok.databinding.FragmentTypeOperationTransactionBinding
 class TypeOperationFragment : Fragment(R.layout.fragment_type_operation_transaction) {
 
     private val binding by viewBinding(FragmentTypeOperationTransactionBinding::bind)
-
-    private var select: Int = NOTHING_SELECTED
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        select = savedInstanceState?.getInt(KEY_SELECT) ?: NOTHING_SELECTED
-    }
+    private val viewModel: TypeOperationViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        checkChoose(select)
+        viewModel.typeOperation.observe(viewLifecycleOwner, Observer {
+            checkChoose(it)
+        })
         setClickListener()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putInt(KEY_SELECT, select)
     }
 
     private fun setClickListener() {
         binding.incomeLayout.setOnClickListener {
-            checkChoose(SELECT_INCOME)
+            viewModel.setSelectType(TypeOperationViewModel.Select.SELECT_INCOME)
         }
         binding.expenseLayout.setOnClickListener {
-            checkChoose(SELECT_EXPENSE)
+            viewModel.setSelectType(TypeOperationViewModel.Select.SELECT_EXPENSE)
+        }
+        binding.addTypeOperationButton.setOnClickListener {
+            launchCategoryFinishedFragment()
         }
     }
 
-    private fun checkChoose(selected: Int) {
-        select = selected
+    private fun launchCategoryFinishedFragment() {
+        findNavController().navigate(R.id.action_typeOperationFragment_to_categoryOperationFragment)
+    }
+
+    private fun checkChoose(selected: TypeOperationViewModel.Select) {
         when (selected) {
-            0 -> {
+            TypeOperationViewModel.Select.SELECT_INCOME -> {
                 binding.incomeImageView.visibility = View.VISIBLE
                 binding.expenseImageView.visibility = View.INVISIBLE
                 setStateButton()
             }
-            1 -> {
+            TypeOperationViewModel.Select.SELECT_EXPENSE -> {
                 binding.incomeImageView.visibility = View.INVISIBLE
                 binding.expenseImageView.visibility = View.VISIBLE
                 setStateButton()
             }
-            else -> {
-            }
+            else -> Unit
         }
     }
 
@@ -61,14 +60,7 @@ class TypeOperationFragment : Fragment(R.layout.fragment_type_operation_transact
         with(binding.addTypeOperationButton) {
             setBackgroundResource(R.drawable.button_enabled)
             setTextColor(Color.WHITE)
+            isEnabled = true
         }
-    }
-
-    companion object {
-        private const val SELECT_INCOME = 0
-        private const val SELECT_EXPENSE = 1
-        private const val NOTHING_SELECTED = -1
-
-        private const val KEY_SELECT = "key_choose"
     }
 }

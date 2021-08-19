@@ -23,4 +23,11 @@
     <string name="choose_category">Выберите категорию</string>
     <string name="icon_category_description">Иконка категории</string>
     <string name="farther">Далее</string>
+    <string name="new_operation">Новая операция</string>
+    <string name="main_operation">Основные</string>
+    <string name="sum">Сумма</string>
+    <string name="type">Тип</string>
+    <string name="category">Категория</string>
+    <string name="edition_settings">Дополнительные настройки</string>
+    <string name="data_operation">Дата операции</string>
 </resources>

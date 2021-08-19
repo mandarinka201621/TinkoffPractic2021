@@ -17,16 +17,15 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet) {
         with(binding) {
             toolbar.inflateMenu(R.menu.menu_detail_wallet)
             addOperation.setOnClickListener {
-                context?.let {
-                    Toast.makeText(it, getString(R.string.click), Toast.LENGTH_SHORT).show()
-                }
+                Toast.makeText(requireContext(), getString(R.string.click), Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.settingButton -> {
+            R.id.settingsButton -> {
                 //TODO сделать кнопку настроек
             }
         }

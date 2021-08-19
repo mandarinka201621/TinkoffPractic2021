@@ -24,22 +24,15 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
         { result: ActivityResult? ->
             val task = GoogleSignIn.getSignedInAccountFromIntent(result?.data)
             val account = task.result
-
-            startDetailWalletFragment(account)
+            if (account != null) {
+                startDetailWalletFragment(account)
+            }
         }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewBinding.buttonGoogle.setOnClickListener {
             loginResultHandler.launch(getSignInIntent())
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        context?.let {
-            val account = GoogleSignIn.getLastSignedInAccount(it)
-            startDetailWalletFragment(account)
         }
     }
 
@@ -54,15 +47,13 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
         return mGoogleSignInClient.signInIntent
     }
 
-    private fun startDetailWalletFragment(account: GoogleSignInAccount?) {
-        if (account != null) {
-            val accountSharedPreferences = AccountSharedPreferences(
-                sharedPreferences = EncryptedSharedPreferencesFactory().create(requireContext())
-            )
+    private fun startDetailWalletFragment(account: GoogleSignInAccount) {
+        val accountSharedPreferences = AccountSharedPreferences(
+            sharedPreferences = EncryptedSharedPreferencesFactory().create(requireContext())
+        )
 
-            accountSharedPreferences.email = account.email.orEmpty()
-            findNavController().navigate(R.id.action_onBoardScreenFragment_to_detailWalletFragment)
-        }
+        accountSharedPreferences.email = account.email.orEmpty()
+        findNavController().navigate(R.id.action_onBoardScreenFragment_to_detailWalletFragment)
     }
 
 }

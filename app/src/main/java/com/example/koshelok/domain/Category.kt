@@ -1,65 +1,26 @@
 package com.example.koshelok.domain
 
-import com.example.koshelok.R
+import android.graphics.Color
 
 sealed class Category {
 
     abstract val icon: Int
-    abstract val typeOperation: Int
+    abstract val typeOperation: String
     abstract val color: Int
-
-    sealed class Income : Category() {
-
-        class Salary(
-            override val color: Int = R.color.background_income_icon,
-        ) : Income() {
-            override val icon: Int = R.drawable.salary
-            override val typeOperation: Int = R.string.salary_text
-        }
-
-        class PartTime(
-            override val color: Int = R.color.background_income_icon
-        ) : Income() {
-            override val icon: Int = R.drawable.salary
-            override val typeOperation: Int = R.string.part_time_text
-        }
-
-        class Present(
-            override val color: Int = R.color.background_income_icon
-        ) : Income() {
-            override val icon: Int = R.drawable.present
-            override val typeOperation: Int = R.string.present_text
-
-        }
-
-        class Capitalization(
-            override val color: Int = R.color.background_income_icon
-        ) : Income() {
-            override val icon: Int = R.drawable.capitalization
-            override val typeOperation: Int = R.string.capitalization_text
-        }
-
+    private companion object{
+        const val GREEN_COLOR = "#00B92D"
+        const val BLUE_COLOR = "#5833EE"
     }
 
-    sealed class Consumption : Category() {
-        class Supermarket(override val color: Int = R.color.background_card) : Consumption() {
-            override val icon: Int = R.drawable.supermarket
-            override val typeOperation: Int = R.string.supermarket_text
-        }
+    data class Income(
+        override val typeOperation: String,
+        override val icon: Int,
+        override val color: Int = Color.parseColor(GREEN_COLOR)
+    ) : Category()
 
-        class Fly(override val color: Int = R.color.background_card) : Consumption() {
-            override val icon: Int = R.drawable.fly
-            override val typeOperation: Int = R.string.fly_text
-        }
-
-        class Jewelry(override val color: Int = R.color.background_card) : Consumption() {
-            override val icon: Int = R.drawable.jewelry
-            override val typeOperation: Int = R.string.jewelry_text
-        }
-
-        class Restaurant(override val color: Int = R.color.background_card) : Consumption() {
-            override val icon: Int = R.drawable.restaurant
-            override val typeOperation: Int = R.string.restaurant
-        }
-    }
+    data class Consumption(
+        override val typeOperation: String,
+        override val icon: Int,
+        override val color: Int = Color.parseColor(BLUE_COLOR)
+    ): Category()
 }

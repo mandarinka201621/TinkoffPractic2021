@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.koshelok.DataList
 import com.example.koshelok.domain.Category
 
-class DetailWalletVewModel : ViewModel() {
+class DetailWalletViewModel : ViewModel() {
     private val data = mutableListOf<DetailWalletItem.Transaction>()
 
     init {
@@ -16,10 +16,14 @@ class DetailWalletVewModel : ViewModel() {
         return DataList.data
     }
 
+    fun addTransaction(transaction: DetailWalletItem.Transaction): List<DetailWalletItem> {
+        data.add(transaction)
+        return changeData()
+    }
+
     fun changeData(): List<DetailWalletItem> {
         var income = 0
         var consumption = 0
-        val detailWalletItems = mutableListOf<DetailWalletItem>()
         data.forEach { transaction ->
             if (transaction.category is Category.Income) {
                 income += transaction.money
@@ -33,11 +37,12 @@ class DetailWalletVewModel : ViewModel() {
             consumption = consumption,
             limit = 10000
         )
-        detailWalletItems.add(headerDetailWallet)
-        data.groupBy { it.day }.forEach { (key, list) ->
-            detailWalletItems.add(DetailWalletItem.Day(key))
-            detailWalletItems.addAll(list)
+        return mutableListOf<DetailWalletItem>().apply {
+            add(headerDetailWallet)
+            data.groupBy { it.day }.forEach { (key, list) ->
+                add(DetailWalletItem.Day(key))
+                addAll(list.sortedBy { it.time }.reversed())
+            }
         }
-        return detailWalletItems
     }
 }

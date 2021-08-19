@@ -12,17 +12,17 @@ import com.example.koshelok.databinding.FragmentDetailWalletBinding
 
 class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet) {
     private val binding by viewBinding(FragmentDetailWalletBinding::bind)
-    private val viewModel: DetailWalletVewModel by viewModels()
+    private val viewModel: DetailWalletViewModel by viewModels()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
             toolbar.inflateMenu(R.menu.menu_detail_wallet)
+            val detailWalletAdapter = DetailWalletAdapter()
             addOperation.setOnClickListener {
                 //TODO сделать переход на следюущий экран
             }
-            val detailWalletAdapter = DetailWalletAdapter()
             detailWalletList.run {
                 adapter = detailWalletAdapter
                 layoutManager = LinearLayoutManager(requireContext())

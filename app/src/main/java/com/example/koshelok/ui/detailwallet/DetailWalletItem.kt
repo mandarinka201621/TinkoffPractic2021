@@ -4,6 +4,7 @@ import com.example.koshelok.domain.Category
 
 sealed class DetailWalletItem {
     data class HeaderDetailWallet(
+        val id: Int = 0,
         val amountMoney: Int,
         val income: Int,
         val consumption: Int,

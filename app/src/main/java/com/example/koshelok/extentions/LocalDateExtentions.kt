@@ -41,6 +41,6 @@ fun LocalDate.getDay(newDate: LocalDate, context: Context): String {
     return when (minus(newDate)) {
         DatePeriod(0, 0, 0) -> context.getString(R.string.today)
         DatePeriod(0, 0, 1) -> context.getString(R.string.yesterday)
-        else -> getDayWithMonth(context)
+        else -> newDate.getDayWithMonth(context)
     }
 }

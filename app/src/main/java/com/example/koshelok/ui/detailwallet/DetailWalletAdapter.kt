@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.koshelok.R
 
 class DetailWalletAdapter(private val swipeOptionsCallback: SwipeOptionsCallback) :
-    RecyclerView.Adapter<BaseHolder>() {
+    RecyclerView.Adapter<DetailWalletHolder>() {
 
     private val diffUtil = AsyncListDiffer(this, DetailWalletCallback())
 
@@ -16,11 +16,11 @@ class DetailWalletAdapter(private val swipeOptionsCallback: SwipeOptionsCallback
         diffUtil.submitList(newData)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailWalletHolder {
         return createHolder(parent, viewType)
     }
 
-    override fun onBindViewHolder(holder: BaseHolder, position: Int) {
+    override fun onBindViewHolder(holder: DetailWalletHolder, position: Int) {
         holder.onBind(
             diffUtil.currentList[position]
         )
@@ -46,7 +46,7 @@ class DetailWalletAdapter(private val swipeOptionsCallback: SwipeOptionsCallback
 
     override fun getItemCount(): Int = diffUtil.currentList.size
 
-    private fun createHolder(parent: ViewGroup, type: Int): BaseHolder {
+    private fun createHolder(parent: ViewGroup, type: Int): DetailWalletHolder {
         return when (type) {
             HEADER_TYPE -> {
                 HeaderHolder(

@@ -12,4 +12,5 @@
     <color name="background_income_icon">#00B92D</color>
     <color name="background_black">#333333</color>
     <color name="background_gray">#C7C9CC</color>
+    <color name="background_light_gray">#9C9C9C</color>
 </resources>

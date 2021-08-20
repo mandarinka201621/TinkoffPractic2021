@@ -42,4 +42,7 @@
     <string name="you_really_delete_transaction">Вы действительно хотите удалить запись?</string>
     <string name="delete_transaction">Удалить</string>
     <string name="cancel">Отмена</string>
+    <string name="general_score">Общий баланс</string>
+    <string name="general_income">Общий доход</string>
+    <string name="general_consumption">Общий расход</string>
 </resources>

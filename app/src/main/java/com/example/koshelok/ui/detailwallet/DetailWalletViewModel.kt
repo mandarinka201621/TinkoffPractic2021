@@ -28,13 +28,19 @@ class DetailWalletViewModel : ViewModel() {
         detailWalletData.value = changeData()
     }
 
+    fun deleteTransaction(transaction: DetailWalletItem.Transaction) {
+        data.remove(transaction)
+        detailWalletData.value = changeData()
+    }
+
     private fun changeData(): List<DetailWalletItem> {
         val headerDetailWallet = DetailWalletItem.HeaderDetailWallet(
-            amountMoney = "9000",
+            amountMoney = "9000 ₽",
             nameWallet = "Кошелек 1",
-            income = "7000",
-            consumption = "2000",
-            limit = "10000"
+            income = "7000 ₽",
+            consumption = "2000 ₽",
+            limit = "/10000 ₽",
+            currency = "рубль"
         )
         return mutableListOf<DetailWalletItem>().apply {
             add(headerDetailWallet)

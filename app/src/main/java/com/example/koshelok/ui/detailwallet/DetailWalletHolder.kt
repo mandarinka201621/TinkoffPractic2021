@@ -10,12 +10,6 @@ import com.example.koshelok.databinding.ItemDayBinding
 import com.example.koshelok.databinding.ItemHeaderDetailWalletBinding
 import com.example.koshelok.databinding.ItemTransactionBinding
 import com.example.koshelok.domain.Category
-import com.example.koshelok.extentions.getDay
-import kotlinx.datetime.Clock
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDate
-import kotlinx.datetime.toLocalDateTime
 
 class HeaderHolder(view: View) : BaseHolder(view) {
 
@@ -25,12 +19,10 @@ class HeaderHolder(view: View) : BaseHolder(view) {
         if (data is DetailWalletItem.HeaderDetailWallet) {
             with(binding) {
                 wallet.text = data.nameWallet
-                amountMoney.text =
-                    root.context.getString(R.string.income_money, data.amountMoney.toString())
-                income.text = root.context.getString(R.string.income_money, data.income.toString())
-                consumption.text =
-                    root.context.getString(R.string.income_money, data.consumption.toString())
-                limit.text = root.context.getString(R.string.limit_money, data.limit.toString())
+                amountMoney.text = data.amountMoney
+                income.text = data.income
+                consumption.text = data.consumption
+                limit.text = data.limit
             }
         }
     }
@@ -42,20 +34,12 @@ class DayHolder(view: View) : BaseHolder(view) {
 
     override fun onBind(data: DetailWalletItem) {
         if (data is DetailWalletItem.Day) {
-            binding.day.text = checkData(data.day)
+            binding.day.text = data.day
         }
-    }
-
-    private fun checkData(day: String): String {
-        val localDay = day.toLocalDate()
-        val currentTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-        val currentDate =
-            LocalDate(currentTime.year, currentTime.monthNumber, currentTime.dayOfMonth)
-        return currentDate.getDay(localDay, binding.root.context)
     }
 }
 
-class TransactionHolder(view: View) : BaseHolder(view) {
+class TransactionHolder(view: View, private val swipeCallback: SwipeOptionsCallback) : BaseHolder(view) {
 
     private val binding by viewBinding(ItemTransactionBinding::bind)
 
@@ -68,16 +52,21 @@ class TransactionHolder(view: View) : BaseHolder(view) {
                 val moneyText: String
                 val category: String
                 if (data.category is Category.Income) {
-                    moneyText = root.context.getString(R.string.income_money, data.money.toString())
+                    moneyText = data.money
                     category = root.context.getString(R.string.replenishment)
                 } else {
-                    moneyText =
-                        root.context.getString(R.string.consumption_money, data.money)
+                    moneyText = data.money
                     category = root.context.getString(R.string.spending)
                 }
                 money.text = moneyText
                 categoryText.text = category
                 time.text = data.time
+                deleteButton.setOnClickListener {
+                    swipeCallback.deleteTransaction(data)
+                }
+                editButton.setOnClickListener {
+
+                }
             }
         }
     }

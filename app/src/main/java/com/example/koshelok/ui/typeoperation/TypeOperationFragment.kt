@@ -7,14 +7,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentTypeOperationTransactionBinding
+import com.example.koshelok.ui.sumoperation.SumOperationFragmentArgs
 
 class TypeOperationFragment : Fragment(R.layout.fragment_type_operation_transaction) {
 
     private val binding by viewBinding(FragmentTypeOperationTransactionBinding::bind)
     private val viewModel: TypeOperationViewModel by viewModels()
+
+    private val args by navArgs<SumOperationFragmentArgs>()
+    private val transaction by lazy { args.transaction }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -22,6 +27,8 @@ class TypeOperationFragment : Fragment(R.layout.fragment_type_operation_transact
             checkChoose(it)
         })
         setClickListener()
+        setOnBackPressedListener()
+        transaction.let { viewModel.setSelectType(it) }
     }
 
     private fun setClickListener() {
@@ -37,7 +44,10 @@ class TypeOperationFragment : Fragment(R.layout.fragment_type_operation_transact
     }
 
     private fun launchCategoryFinishedFragment() {
-        findNavController().navigate(R.id.action_typeOperationFragment_to_categoryOperationFragment)
+        transaction.type = viewModel.typeOperation.value
+        findNavController().navigate(
+            TypeOperationFragmentDirections
+                .actionTypeOperationFragmentToCategoryOperationFragment(transaction))
     }
 
     private fun checkChoose(selected: TypeOperationViewModel.Select) {
@@ -60,6 +70,12 @@ class TypeOperationFragment : Fragment(R.layout.fragment_type_operation_transact
             setBackgroundResource(R.drawable.button_enabled)
             setTextColor(Color.WHITE)
             isEnabled = true
+        }
+    }
+
+    private fun setOnBackPressedListener(){
+        binding.toolbar.setNavigationOnClickListener {
+            requireActivity().onBackPressed()
         }
     }
 }

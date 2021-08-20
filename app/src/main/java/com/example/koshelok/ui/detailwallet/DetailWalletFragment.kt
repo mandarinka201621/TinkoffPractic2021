@@ -6,15 +6,16 @@ import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentDetailWalletBinding
+import com.example.koshelok.ui.model.Transaction
 
 class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOptionsCallback {
     private val binding by viewBinding(FragmentDetailWalletBinding::bind)
     private val viewModel: DetailWalletViewModel by viewModels()
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -25,7 +26,7 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
             }
             val detailWalletAdapter = DetailWalletAdapter(this@DetailWalletFragment)
             addOperation.setOnClickListener {
-                //TODO сделать переход на следюущий экран
+                launchTypeFragment()
             }
             detailWalletList.run {
                 adapter = detailWalletAdapter
@@ -47,6 +48,14 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
             }
         }
         return true
+    }
+
+    private fun launchTypeFragment() {
+        findNavController().navigate(
+            DetailWalletFragmentDirections.actionDetailWalletFragmentToSumOperationFragment(
+                    Transaction(0, null, null, null, null)
+            )
+        )
     }
 
     override fun deleteTransaction(data: DetailWalletItem.Transaction) {

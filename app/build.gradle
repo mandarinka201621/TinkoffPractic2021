@@ -50,6 +50,10 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     //viewBinding
     implementation 'com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.4.6'
+    //encrypted
+    implementation 'androidx.security:security-crypto:1.1.0-alpha03'
+    //swipe
+    implementation 'ru.rambler.android:swipe-layout:1.1.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'

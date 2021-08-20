@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -14,139 +13,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/back_button" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/wallet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/wallet_text"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/amountMoney"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:text="@string/zero_money"
-        android:textColor="@color/black"
-        android:textSize="32sp"
-        app:layout_constraintStart_toStartOf="@id/wallet"
-        app:layout_constraintTop_toBottomOf="@id/wallet" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/centerGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/incomeButton"
-        android:layout_width="0dp"
-        android:layout_height="79dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="4dp"
-        app:cardCornerRadius="8dp"
-        android:backgroundTint="@color/background_card"
-        app:layout_constraintEnd_toEndOf="@id/centerGuideline"
-        app:layout_constraintStart_toStartOf="@id/wallet"
-        app:layout_constraintTop_toBottomOf="@id/amountMoney" >
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <ImageView
-                android:id="@+id/greenIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:src="@drawable/green_circle"
-                app:layout_constraintBottom_toBottomOf="@id/incomeText"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/incomeText"
-                tools:ignore="ContentDescription" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/incomeText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/income_text"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toEndOf="@id/greenIcon"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="@string/zero_money"
-                android:textColor="@color/white"
-                android:textSize="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@id/greenIcon"
-                tools:ignore="SpUsage" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/consumptionButton"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/detailWalletList"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="16dp"
-        app:cardCornerRadius="8dp"
-        android:backgroundTint="@color/background_card"
-        app:layout_constraintBottom_toBottomOf="@id/incomeButton"
+        android:overScrollMode="never"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/centerGuideline"
-        app:layout_constraintTop_toTopOf="@id/incomeButton" >
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        <ImageView
-            android:id="@+id/redIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:src="@drawable/red_circle"
-            app:layout_constraintBottom_toBottomOf="@id/consumptionText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/consumptionText"
-            tools:ignore="ContentDescription" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/consumptionText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/income_text"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toEndOf="@id/redIcon"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="@string/many_money"
-            android:textColor="@color/white"
-            android:textSize="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/redIcon"
-            tools:ignore="SpUsage" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toTopOf="@id/addOperation"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/emptyNotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/empty_notes"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -157,6 +39,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:padding="14dp"
         android:backgroundTint="@color/background_button"
         android:text="@string/add_operation"
         app:layout_constraintBottom_toBottomOf="parent"

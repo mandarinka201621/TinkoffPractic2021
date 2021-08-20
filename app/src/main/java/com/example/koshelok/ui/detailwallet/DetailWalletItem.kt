@@ -9,7 +9,8 @@ sealed class DetailWalletItem {
         val amountMoney: String,
         val income: String,
         val consumption: String,
-        val limit: String
+        val limit: String,
+        val currency: String
     ) : DetailWalletItem()
 
     data class Day(val day: String) : DetailWalletItem()
@@ -19,7 +20,8 @@ sealed class DetailWalletItem {
         val category: Category,
         val money: String,
         val time: String,
-        val day: String
+        val day: String,
+        val currency: String
     ) :
         DetailWalletItem()
 }

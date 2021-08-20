@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.koshelok.R
 
-class DetailWalletAdapter : RecyclerView.Adapter<BaseHolder>() {
+class DetailWalletAdapter(private val optionsCallback: OptionsCallback) :
+    RecyclerView.Adapter<BaseHolder>() {
 
     private val diffUtil = AsyncListDiffer(this, DetailWalletCallback())
 
@@ -62,7 +63,8 @@ class DetailWalletAdapter : RecyclerView.Adapter<BaseHolder>() {
             TRANSACTION_TYPE -> {
                 TransactionHolder(
                     LayoutInflater.from(parent.context)
-                        .inflate(R.layout.item_transaction, parent, false)
+                        .inflate(R.layout.item_transaction, parent, false),
+                    optionsCallback
                 )
             }
             else -> throw IllegalStateException("error viewType")
@@ -76,17 +78,20 @@ class DetailWalletAdapter : RecyclerView.Adapter<BaseHolder>() {
     }
 }
 
+interface OptionsCallback {
+    fun deleteTransaction(data: DetailWalletItem.Transaction)
+    fun editTransaction(data: DetailWalletItem.Transaction)
+}
+
 class DetailWalletCallback : DiffUtil.ItemCallback<DetailWalletItem>() {
     override fun areItemsTheSame(oldItem: DetailWalletItem, newItem: DetailWalletItem): Boolean {
-        return if (oldItem is DetailWalletItem.Day && newItem is DetailWalletItem.Day){
+        return if (oldItem is DetailWalletItem.Day && newItem is DetailWalletItem.Day) {
             oldItem.day == newItem.day
-        }else if(oldItem is DetailWalletItem.HeaderDetailWallet && newItem is DetailWalletItem.HeaderDetailWallet){
+        } else if (oldItem is DetailWalletItem.HeaderDetailWallet && newItem is DetailWalletItem.HeaderDetailWallet) {
             oldItem.nameWallet == newItem.nameWallet
-        }
-        else if (oldItem is DetailWalletItem.Transaction && newItem is DetailWalletItem.Transaction){
+        } else if (oldItem is DetailWalletItem.Transaction && newItem is DetailWalletItem.Transaction) {
             oldItem.id == newItem.id
-        }
-        else oldItem == newItem
+        } else oldItem == newItem
     }
 
     override fun areContentsTheSame(oldItem: DetailWalletItem, newItem: DetailWalletItem): Boolean {

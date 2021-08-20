@@ -39,6 +39,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:padding="14dp"
         android:backgroundTint="@color/background_button"
         android:text="@string/add_operation"
         app:layout_constraintBottom_toBottomOf="parent"

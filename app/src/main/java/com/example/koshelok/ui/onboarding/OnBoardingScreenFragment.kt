@@ -6,6 +6,7 @@ import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.AccountSharedPreferences
@@ -31,6 +32,14 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val account = GoogleSignIn.getLastSignedInAccount(requireContext())
+        if (account != null) {
+            findNavController().navigate(
+                R.id.detailWalletFragment, null, NavOptions.Builder()
+                    .setPopUpTo(R.id.onboardScreenFragment, true)
+                    .build()
+            )
+        }
         viewBinding.buttonGoogle.setOnClickListener {
             loginResultHandler.launch(getSignInIntent())
         }

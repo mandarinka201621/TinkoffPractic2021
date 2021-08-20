@@ -11,7 +11,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentDetailWalletBinding
 
-class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet),OptionsCallback{
+class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOptionsCallback {
     private val binding by viewBinding(FragmentDetailWalletBinding::bind)
     private val viewModel: DetailWalletViewModel by viewModels()
 
@@ -50,15 +50,16 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet),OptionsCa
     }
 
     override fun deleteTransaction(data: DetailWalletItem.Transaction) {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setMessage(requireContext().getString(R.string.you_really_delete_transaction))
+        AlertDialog.Builder(requireContext())
+            .setMessage(requireContext().getString(R.string.you_really_delete_transaction))
             .setPositiveButton(requireContext().getString(R.string.delete_transaction)) { _, _ ->
                 viewModel.deleteTransaction(data)
             }
             .setNegativeButton(requireContext().getString(R.string.cancel)) { dialog, _ ->
                 dialog.cancel()
             }
-            .create().show()
+            .create()
+            .show()
     }
 
     override fun editTransaction(data: DetailWalletItem.Transaction) {

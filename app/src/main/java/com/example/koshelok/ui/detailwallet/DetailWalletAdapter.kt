@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.koshelok.R
 
-class DetailWalletAdapter(private val optionsCallback: OptionsCallback) :
+class DetailWalletAdapter(private val swipeOptionsCallback: SwipeOptionsCallback) :
     RecyclerView.Adapter<BaseHolder>() {
 
     private val diffUtil = AsyncListDiffer(this, DetailWalletCallback())
@@ -64,7 +64,7 @@ class DetailWalletAdapter(private val optionsCallback: OptionsCallback) :
                 TransactionHolder(
                     LayoutInflater.from(parent.context)
                         .inflate(R.layout.item_transaction, parent, false),
-                    optionsCallback
+                    swipeOptionsCallback
                 )
             }
             else -> throw IllegalStateException("error viewType")
@@ -78,7 +78,7 @@ class DetailWalletAdapter(private val optionsCallback: OptionsCallback) :
     }
 }
 
-interface OptionsCallback {
+interface SwipeOptionsCallback {
     fun deleteTransaction(data: DetailWalletItem.Transaction)
     fun editTransaction(data: DetailWalletItem.Transaction)
 }

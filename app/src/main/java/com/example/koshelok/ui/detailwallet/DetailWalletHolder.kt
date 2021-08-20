@@ -39,7 +39,7 @@ class DayHolder(view: View) : BaseHolder(view) {
     }
 }
 
-class TransactionHolder(view: View, private val callback: OptionsCallback) : BaseHolder(view) {
+class TransactionHolder(view: View, private val swipeCallback: SwipeOptionsCallback) : BaseHolder(view) {
 
     private val binding by viewBinding(ItemTransactionBinding::bind)
 
@@ -62,7 +62,7 @@ class TransactionHolder(view: View, private val callback: OptionsCallback) : Bas
                 categoryText.text = category
                 time.text = data.time
                 deleteButton.setOnClickListener {
-                    callback.deleteTransaction(data)
+                    swipeCallback.deleteTransaction(data)
                 }
                 editButton.setOnClickListener {
 

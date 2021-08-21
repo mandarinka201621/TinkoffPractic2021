@@ -12,6 +12,7 @@ import com.example.koshelok.databinding.FragmentAddOperationTransactionBinding
 import com.example.koshelok.extentions.getDayWithMonth
 import com.example.koshelok.extentions.getNowDateTime
 import com.example.koshelok.ui.sumoperation.SumOperationFragmentArgs
+import com.example.koshelok.ui.typeoperation.TypeOperationViewModel
 
 class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transaction) {
 
@@ -34,9 +35,16 @@ class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transactio
 
     private fun setupTransaction() {
         binding.sumTextView.text = transaction.sum
-        binding.typeTextView.text = transaction.type?.name
+        binding.typeTextView.text = getTypeToString()
         binding.categoryTextView.text = transaction.categoryModel?.typeOperation
-        binding.dateTextView.text = transaction.date?.getNowDateTime()?.getDayWithMonth(requireContext())
+        binding.dateTextView.text =
+            transaction.date?.getNowDateTime()?.getDayWithMonth(requireContext())
+    }
+
+    private fun getTypeToString() = when (viewModel.transaction.value?.type) {
+        TypeOperationViewModel.Select.SELECT_EXPENSE -> requireContext().getString(R.string.income_text)
+        TypeOperationViewModel.Select.SELECT_INCOME -> requireContext().getString(R.string.text_expense)
+        else -> throw NullPointerException("Error type")
     }
 
     private fun setOnBackPressedListener() {

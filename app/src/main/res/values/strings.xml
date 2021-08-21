@@ -25,9 +25,6 @@
     <string name="farther">Далее</string>
     <string name="new_operation">Новая операция</string>
     <string name="main_operation">Основные</string>
-    <string name="sum">Сумма</string>
-    <string name="type">Тип</string>
-    <string name="category">Категория</string>
     <string name="edition_settings">Дополнительные настройки</string>
     <string name="data_operation">Дата операции</string>
     <string name="capitalization_text">Капитализация</string>
@@ -58,4 +55,13 @@
     <string name="you_really_delete_transaction">Вы действительно хотите удалить запись?</string>
     <string name="delete_transaction">Удалить</string>
     <string name="cancel">Отмена</string>
+    <string name="checked_category">Выбранная категория</string>
+    <string name="icon_category">Иконка категории</string>
+    <string name="check_category">Выберите категорию</string>
+    <string name="create_transaction">Создать транзакцию</string>
+    <string name="main">Основные</string>
+    <string name="sum">Сумма</string>
+    <string name="type">Тип</string>
+    <string name="category">Категория</string>
+    <string name="date">Дата</string>
 </resources>

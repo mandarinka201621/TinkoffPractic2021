@@ -60,9 +60,7 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
         val accountSharedPreferences = AccountSharedPreferences(
             sharedPreferences = EncryptedSharedPreferencesFactory().create(requireContext())
         )
-
         accountSharedPreferences.email = account.email.orEmpty()
-        findNavController().navigate(R.id.action_onBoardScreenFragment_to_detailWalletFragment)
+        findNavController().navigate(R.id.action_onboardScreenFragment_to_detailWalletFragment)
     }
-
 }

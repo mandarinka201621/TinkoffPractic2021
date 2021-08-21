@@ -5,7 +5,9 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentSumOperationTransactionBinding
@@ -16,17 +18,22 @@ class SumOperationFragment : Fragment(R.layout.fragment_sum_operation_transactio
 
     private val binding by viewBinding(FragmentSumOperationTransactionBinding::bind)
 
+    private val args by navArgs<SumOperationFragmentArgs>()
+    private val transaction by lazy { args.transaction }
+    private val viewModel: SumOperationViewModel by viewModels()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setAddTextChangedListener()
-        backPressedListener()
+        setOnBackPressedListener()
         binding.sumOperationEditText.showKeyboard()
         binding.addSumOperationButton.setOnClickListener {
             launchTypeFragment()
         }
+        transaction.let { viewModel.setSumType(it) }
     }
 
-    private fun backPressedListener() {
+    private fun setOnBackPressedListener() {
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
@@ -34,7 +41,10 @@ class SumOperationFragment : Fragment(R.layout.fragment_sum_operation_transactio
 
     private fun launchTypeFragment() {
         binding.sumOperationEditText.hideKeyboard()
-        TODO()
+        transaction.sum = binding.sumOperationEditText.text.toString()
+        findNavController().navigate(
+            SumOperationFragmentDirections
+                .actionSumOperationFragmentToTypeOperationFragment(transaction))
     }
 
     private fun setAddTextChangedListener() {

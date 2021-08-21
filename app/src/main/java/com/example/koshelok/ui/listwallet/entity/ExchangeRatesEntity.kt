@@ -1,6 +1,6 @@
-package com.example.koshelok.ui.listwallet.model
+package com.example.koshelok.ui.listwallet.entity
 
-data class ExchangeRatesModel(
+data class ExchangeRatesEntity(
     val firstCurrency: String,
     val firstCourse: String,
     val firstIsUp: Boolean,

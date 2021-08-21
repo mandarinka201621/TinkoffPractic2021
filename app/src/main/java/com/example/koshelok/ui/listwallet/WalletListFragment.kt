@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentWalletListBinding
-import com.example.koshelok.ui.listwallet.model.BalanceModel
-import com.example.koshelok.ui.listwallet.model.ExchangeRatesModel
-import com.example.koshelok.ui.listwallet.model.WalletModel
+import com.example.koshelok.ui.listwallet.entity.BalancEntity
+import com.example.koshelok.ui.listwallet.entity.ExchangeRatesEntity
+import com.example.koshelok.ui.listwallet.entity.WalletEntity
 
 class WalletListFragment : Fragment() {
 
@@ -36,7 +36,7 @@ class WalletListFragment : Fragment() {
                 adapter = walletsAdapter
             }
 
-            viewModel.balanceData.observe(viewLifecycleOwner) { balanceModel: BalanceModel? ->
+            viewModel.balanceData.observe(viewLifecycleOwner) { balanceModel: BalancEntity? ->
                 if (balanceModel != null) {
                     with(balance) {
                         amountMoney.text = balanceModel.amountMoney
@@ -46,20 +46,20 @@ class WalletListFragment : Fragment() {
                 }
             }
 
-            viewModel.exchangeRatesData.observe(viewLifecycleOwner) { exchangeRatesModel: ExchangeRatesModel? ->
-                if (exchangeRatesModel != null) {
+            viewModel.exchangeRatesData.observe(viewLifecycleOwner) { exchangeRatesEntity: ExchangeRatesEntity? ->
+                if (exchangeRatesEntity != null) {
                     with(exchangeRates) {
-                        firstCourse.text = exchangeRatesModel.firstCourse
-                        firstCheck.isActivated = exchangeRatesModel.firstIsUp
-                        secondCourse.text = exchangeRatesModel.secondCourse
-                        secondCheck.isActivated = exchangeRatesModel.secondIsUp
-                        thirdCourse.text = exchangeRatesModel.thirdCourse
-                        thirdCheck.isActivated = exchangeRatesModel.thirdIsUp
+                        firstCourse.text = exchangeRatesEntity.firstCourse
+                        firstCheck.isActivated = exchangeRatesEntity.firstIsUp
+                        secondCourse.text = exchangeRatesEntity.secondCourse
+                        secondCheck.isActivated = exchangeRatesEntity.secondIsUp
+                        thirdCourse.text = exchangeRatesEntity.thirdCourse
+                        thirdCheck.isActivated = exchangeRatesEntity.thirdIsUp
                     }
                 }
             }
 
-            viewModel.walletsData.observe(viewLifecycleOwner) { wallets: List<WalletModel>? ->
+            viewModel.walletsData.observe(viewLifecycleOwner) { wallets: List<WalletEntity>? ->
                 if (wallets != null) {
                     walletsAdapter.setData(wallets)
                     emptyWallets.visibility = if (wallets.isEmpty()) View.VISIBLE else View.GONE

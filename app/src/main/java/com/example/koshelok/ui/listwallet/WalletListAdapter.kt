@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.koshelok.R
-import com.example.koshelok.ui.listwallet.model.WalletModel
+import com.example.koshelok.ui.listwallet.entity.WalletEntity
 
 class WalletListAdapter : RecyclerView.Adapter<WalletHolder>() {
 
@@ -29,17 +29,17 @@ class WalletListAdapter : RecyclerView.Adapter<WalletHolder>() {
         holder.resetSwipe()
     }
 
-    fun setData(data: List<WalletModel>) {
+    fun setData(data: List<WalletEntity>) {
         diffUtil.submitList(data)
     }
 }
 
-class WalletCallback : DiffUtil.ItemCallback<WalletModel>() {
-    override fun areItemsTheSame(oldItem: WalletModel, newItem: WalletModel): Boolean {
+class WalletCallback : DiffUtil.ItemCallback<WalletEntity>() {
+    override fun areItemsTheSame(oldItem: WalletEntity, newItem: WalletEntity): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: WalletModel, newItem: WalletModel): Boolean {
+    override fun areContentsTheSame(oldItem: WalletEntity, newItem: WalletEntity): Boolean {
         return oldItem == newItem
     }
 

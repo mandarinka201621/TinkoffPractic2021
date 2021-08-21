@@ -34,17 +34,25 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
 
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/topCardBarrier"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/amountMoney"/>
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/incomeButton"
         android:layout_width="0dp"
-        android:layout_height="79dp"
+        android:layout_height="wrap_content"
+        android:minHeight="79dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="4dp"
         app:cardCornerRadius="8dp"
         android:backgroundTint="@color/background_card"
         app:layout_constraintEnd_toEndOf="@id/centerGuideline"
         app:layout_constraintStart_toStartOf="@id/wallet"
-        app:layout_constraintTop_toBottomOf="@id/amountMoney" >
+        app:layout_constraintTop_toBottomOf="@id/amountMoney">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -74,11 +82,11 @@
                 android:id="@+id/income"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="12dp"
                 android:text="@string/zero_money"
                 android:textColor="@color/white"
                 android:textSize="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/incomeText"
                 app:layout_constraintStart_toStartOf="@id/greenIcon"
                 tools:ignore="SpUsage" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -87,12 +95,12 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/consumptionButton"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="79dp"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="16dp"
         app:cardCornerRadius="8dp"
         android:backgroundTint="@color/background_card"
-        app:layout_constraintBottom_toBottomOf="@id/incomeButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/centerGuideline"
         app:layout_constraintTop_toTopOf="@id/incomeButton" >
@@ -125,11 +133,11 @@
                 android:id="@+id/consumption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="12dp"
                 android:text="@string/many_money"
                 android:textColor="@color/white"
                 android:textSize="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/consumptionText"
                 app:layout_constraintStart_toStartOf="@id/redIcon"
                 tools:ignore="SpUsage" />
 
@@ -146,4 +154,5 @@
                 tools:ignore="SmallSp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

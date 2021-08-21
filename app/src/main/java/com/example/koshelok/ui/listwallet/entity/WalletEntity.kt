@@ -1,7 +1,7 @@
-package com.example.koshelok.ui.listwallet.model
+package com.example.koshelok.ui.listwallet.entity
 
 
-data class WalletModel(
+data class WalletEntity(
     val id: Long,
     val name: String,
     val amountMoney: String,

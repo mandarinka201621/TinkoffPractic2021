@@ -1,21 +1,29 @@
 package com.example.koshelok.ui.detailwallet
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentDetailWalletBinding
+import com.example.koshelok.di.component.DaggerTransactionComponent
+import com.example.koshelok.ui.appComponent
 import com.example.koshelok.ui.model.Transaction
 
 class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOptionsCallback {
     private val binding by viewBinding(FragmentDetailWalletBinding::bind)
     private val viewModel: DetailWalletViewModel by viewModels()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        DaggerTransactionComponent.builder().appComponent(context.appComponent).build()
+            .injectDetailWalletFragment(this)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

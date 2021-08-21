@@ -1,6 +1,6 @@
 package com.example.koshelok.ui.typeoperation
 
-import android.graphics.Color
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -11,6 +11,8 @@ import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentTypeOperationTransactionBinding
+import com.example.koshelok.di.component.DaggerTransactionComponent
+import com.example.koshelok.ui.appComponent
 import com.example.koshelok.ui.sumoperation.SumOperationFragmentArgs
 
 class TypeOperationFragment : Fragment(R.layout.fragment_type_operation_transaction) {
@@ -20,6 +22,12 @@ class TypeOperationFragment : Fragment(R.layout.fragment_type_operation_transact
 
     private val args by navArgs<SumOperationFragmentArgs>()
     private val transaction by lazy { args.transaction }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        DaggerTransactionComponent.builder().appComponent(context.appComponent).build()
+            .injectTypeOperationFragment(this)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -1,15 +1,17 @@
 package com.example.koshelok.ui.listwallet
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentWalletListBinding
+import com.example.koshelok.di.component.DaggerWalletsComponent
+import com.example.koshelok.ui.appComponent
 import com.example.koshelok.ui.listwallet.entity.BalanceEntity
 import com.example.koshelok.ui.listwallet.entity.ExchangeRatesEntity
 import com.example.koshelok.ui.listwallet.entity.WalletEntity
@@ -18,6 +20,12 @@ class WalletListFragment : Fragment() {
 
     private val binding by viewBinding(FragmentWalletListBinding::bind)
     private val viewModel: WalletListViewModel by viewModels()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        DaggerWalletsComponent.builder().appComponent(context.appComponent).build()
+            .injectWalletsList(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

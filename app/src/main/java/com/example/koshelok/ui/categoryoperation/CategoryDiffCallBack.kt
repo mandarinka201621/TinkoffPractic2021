@@ -6,7 +6,7 @@ import com.example.koshelok.ui.model.CategoryModel
 class CategoryDiffCallBack : DiffUtil.ItemCallback<CategoryModel>() {
 
     override fun areItemsTheSame(oldItem: CategoryModel, newItem: CategoryModel): Boolean {
-        return oldItem === newItem
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: CategoryModel, newItem: CategoryModel): Boolean {

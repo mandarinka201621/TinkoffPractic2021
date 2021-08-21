@@ -37,10 +37,12 @@
                 android:layout_marginEnd="5dp"
                 android:textColor="@color/black"
                 android:textSize="16sp"
+                android:ellipsize="end"
+                android:maxLines="1"
                 app:layout_constraintEnd_toStartOf="@id/money"
                 app:layout_constraintStart_toEndOf="@id/icon"
                 app:layout_constraintTop_toTopOf="@id/icon"
-                tools:text="gkewmlgklqwq" />
+                tools:text="gkewml" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/categoryText"

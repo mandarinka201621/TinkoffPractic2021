@@ -1,4 +1,4 @@
-package com.example.koshelok.ui.listwallet
+package com.example.koshelok.ui.listwallet.model
 
 data class BalanceModel(
     val amountMoney:String,

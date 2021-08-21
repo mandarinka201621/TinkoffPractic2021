@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentWalletListBinding
+import com.example.koshelok.ui.listwallet.model.BalanceModel
+import com.example.koshelok.ui.listwallet.model.ExchangeRatesModel
+import com.example.koshelok.ui.listwallet.model.WalletModel
 
 class WalletListFragment : Fragment() {
 
@@ -43,8 +46,21 @@ class WalletListFragment : Fragment() {
                 }
             }
 
-            viewModel.walletsData.observe(viewLifecycleOwner) { wallets: List<WalletsListItem>? ->
-                if (wallets != null){
+            viewModel.exchangeRatesData.observe(viewLifecycleOwner) { exchangeRatesModel: ExchangeRatesModel? ->
+                if (exchangeRatesModel != null) {
+                    with(exchangeRates) {
+                        firstCourse.text = exchangeRatesModel.firstCourse
+                        firstCheck.isActivated = exchangeRatesModel.firstIsUp
+                        secondCourse.text = exchangeRatesModel.secondCourse
+                        secondCheck.isActivated = exchangeRatesModel.secondIsUp
+                        thirdCourse.text = exchangeRatesModel.thirdCourse
+                        thirdCheck.isActivated = exchangeRatesModel.thirdIsUp
+                    }
+                }
+            }
+
+            viewModel.walletsData.observe(viewLifecycleOwner) { wallets: List<WalletModel>? ->
+                if (wallets != null) {
                     walletsAdapter.setData(wallets)
                 }
             }

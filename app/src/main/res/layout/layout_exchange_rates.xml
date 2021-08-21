@@ -27,7 +27,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             tools:text="USD"
             />
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/firstCourse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,10 +44,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
+            android:src="@drawable/selector_change_course"
             app:layout_constraintStart_toEndOf="@id/firstCourse"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:src="@drawable/check_up"/>
+            app:layout_constraintBottom_toBottomOf="parent" />
         <TextView
             android:id="@+id/secondCurrency"
             android:layout_width="wrap_content"
@@ -58,7 +58,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             tools:text="EUR"
             />
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/secondCourse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -76,11 +76,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
+            android:src="@drawable/selector_change_course"
             app:layout_constraintStart_toEndOf="@id/secondCourse"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:src="@drawable/check_up"/>
-        <TextView
+            />
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/thirdCurrency"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -90,7 +91,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             tools:text="GBR"
             />
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/thirdCourse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -107,9 +108,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="18dp"
+            android:src="@drawable/selector_change_course"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:src="@drawable/check_up"/>
+           />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

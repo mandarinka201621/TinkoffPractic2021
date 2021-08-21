@@ -8,45 +8,50 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.koshelok.R
 
 class DetailWalletAdapter(private val swipeOptionsCallback: SwipeOptionsCallback) :
-    RecyclerView.Adapter<BaseHolder>() {
+    RecyclerView.Adapter<DetailWalletHolder>() {
 
     private val diffUtil = AsyncListDiffer(this, DetailWalletCallback())
 
-    fun setData(newData: List<DetailWalletItem>) {
-        diffUtil.submitList(newData)
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailWalletHolder {
         return createHolder(parent, viewType)
     }
 
-    override fun onBindViewHolder(holder: BaseHolder, position: Int) {
+    override fun onBindViewHolder(holder: DetailWalletHolder, position: Int) {
         holder.onBind(
             diffUtil.currentList[position]
         )
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when {
-            diffUtil.currentList[position] is DetailWalletItem.HeaderDetailWallet -> {
+        return when (diffUtil.currentList[position]) {
+            is DetailWalletItem.HeaderDetailWallet -> {
                 HEADER_TYPE
             }
-            diffUtil.currentList[position]
-                    is DetailWalletItem.Day -> {
+            is DetailWalletItem.Day -> {
                 DAY_TYPE
             }
-            diffUtil.currentList[position] is DetailWalletItem.Transaction -> {
+            is DetailWalletItem.Transaction -> {
                 TRANSACTION_TYPE
             }
-            else -> {
-                super.getItemViewType(position)
-            }
+
         }
     }
 
     override fun getItemCount(): Int = diffUtil.currentList.size
 
-    private fun createHolder(parent: ViewGroup, type: Int): BaseHolder {
+    override fun onViewRecycled(holder: DetailWalletHolder) {
+        super.onViewRecycled(holder)
+        if (holder is TransactionHolder) {
+            holder.resetSwipe()
+        }
+    }
+
+
+    fun setData(newData: List<DetailWalletItem>) {
+        diffUtil.submitList(newData)
+    }
+
+    private fun createHolder(parent: ViewGroup, type: Int): DetailWalletHolder {
         return when (type) {
             HEADER_TYPE -> {
                 HeaderHolder(

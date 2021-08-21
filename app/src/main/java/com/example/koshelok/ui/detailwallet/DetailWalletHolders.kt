@@ -11,7 +11,7 @@ import com.example.koshelok.databinding.ItemHeaderDetailWalletBinding
 import com.example.koshelok.databinding.ItemTransactionBinding
 import com.example.koshelok.domain.Category
 
-class HeaderHolder(view: View) : BaseHolder(view) {
+class HeaderHolder(view: View) : DetailWalletHolder(view) {
 
     private val binding by viewBinding(ItemHeaderDetailWalletBinding::bind)
 
@@ -28,7 +28,7 @@ class HeaderHolder(view: View) : BaseHolder(view) {
     }
 }
 
-class DayHolder(view: View) : BaseHolder(view) {
+class DayHolder(view: View) : DetailWalletHolder(view) {
 
     private val binding by viewBinding(ItemDayBinding::bind)
 
@@ -39,7 +39,7 @@ class DayHolder(view: View) : BaseHolder(view) {
     }
 }
 
-class TransactionHolder(view: View, private val swipeCallback: SwipeOptionsCallback) : BaseHolder(view) {
+class TransactionHolder(view: View, private val swipeCallback: SwipeOptionsCallback) : DetailWalletHolder(view) {
 
     private val binding by viewBinding(ItemTransactionBinding::bind)
 
@@ -70,9 +70,13 @@ class TransactionHolder(view: View, private val swipeCallback: SwipeOptionsCallb
             }
         }
     }
+
+    fun resetSwipe(){
+        binding.swipeLayout.reset()
+    }
 }
 
-abstract class BaseHolder(view: View) : RecyclerView.ViewHolder(view) {
+abstract class DetailWalletHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     abstract fun onBind(data: DetailWalletItem)
 

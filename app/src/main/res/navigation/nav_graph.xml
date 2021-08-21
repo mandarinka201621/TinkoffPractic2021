@@ -92,4 +92,9 @@
             android:name="transaction"
             app:argType="com.example.koshelok.ui.model.Transaction" />
     </fragment>
+    <fragment
+        android:id="@+id/walletListFragment"
+        android:name="com.example.koshelok.ui.listwallet.WalletListFragment"
+        android:label="WalletListFragment"
+        tools:layout="@layout/fragment_wallet_list"/>
 </navigation>

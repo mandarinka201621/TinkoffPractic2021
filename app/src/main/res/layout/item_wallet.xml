@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ru.rambler.libs.swipe_layout.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ru.rambler.libs.swipe_layout.SwipeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipeLayout"
@@ -23,6 +24,8 @@
                 android:layout_height="40dp"
                 android:layout_margin="16dp"
                 android:background="@drawable/circle_icon"
+                android:backgroundTint="@color/background_card"
+                android:src="@drawable/wallet"
                 android:scaleType="center"
                 app:cardCornerRadius="50dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -30,50 +33,32 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/typeOperation"
+                android:id="@+id/nameWallet"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="5dp"
+                android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textSize="16sp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                app:layout_constraintEnd_toStartOf="@id/money"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="5dp"
                 app:layout_constraintStart_toEndOf="@id/icon"
-                app:layout_constraintTop_toTopOf="@id/icon"
-                tools:text="gkewml" />
+                app:layout_constraintEnd_toStartOf="@id/amountMoney"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="kgwnk"/>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/categoryText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="13sp"
-                app:layout_constraintBottom_toBottomOf="@id/icon"
-                app:layout_constraintEnd_toEndOf="@id/typeOperation"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@id/typeOperation"
-                tools:text="gknekg" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/money"
+                android:id="@+id/amountMoney"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/icon"
-                tools:text="gwkemqwl" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="13sp"
-                app:layout_constraintBottom_toBottomOf="@id/icon"
-                app:layout_constraintEnd_toEndOf="@id/money"
-                tools:text="gknekg" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                tools:text="kgwnkj"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
@@ -84,7 +69,7 @@
         app:bring_to_clamp="40dp"
         app:clamp="self"
         app:gravity="right"
-        app:sticky="100dp">
+        app:sticky="120dp">
 
         <ImageView
             android:id="@+id/editButton"
@@ -108,6 +93,17 @@
             android:layout_margin="16dp"
             android:src="@drawable/delete" />
 
+
+        <ImageView
+            android:id="@+id/hideButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/circle_icon"
+            android:backgroundTint="@color/background_gray"
+            android:scaleType="center"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/delete" />
 
     </LinearLayout>
 

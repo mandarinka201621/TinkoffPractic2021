@@ -1,18 +1,21 @@
 package com.example.koshelok.extentions
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.example.koshelok.R
 import java.sql.Date
+import java.text.SimpleDateFormat
 import java.util.*
 
 fun Long.checkDate(context: Context): String {
-    return getNowDateTime().getDay(Calendar.getInstance(), context)
+    return getCalendar().getDay(Calendar.getInstance(), context)
 }
 
-fun Long.getNowDateTime(): Calendar {
+fun Long.getCalendar(): Calendar {
     val date = Date(this)
     return GregorianCalendar().apply {
         time = date
+        timeZone = TimeZone.getDefault()
     }
 }
 
@@ -45,3 +48,10 @@ fun Calendar.getDayWithMonth(context: Context): String {
 }
 
 fun Calendar.getDayOfMonth(): String = this.get(Calendar.DAY_OF_MONTH).toString()
+
+@SuppressLint("SimpleDateFormat")
+fun Long.getTime(): String {
+    val calendar = this.getCalendar()
+    val formatter = SimpleDateFormat("HH:mm")
+    return formatter.format(calendar.time)
+}

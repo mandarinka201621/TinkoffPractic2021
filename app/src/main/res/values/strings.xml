@@ -55,6 +55,10 @@
     <string name="you_really_delete_transaction">Вы действительно хотите удалить запись?</string>
     <string name="delete_transaction">Удалить</string>
     <string name="cancel">Отмена</string>
+    <string name="general_score">Общий баланс</string>
+    <string name="general_income">Общий доход</string>
+    <string name="general_consumption">Общий расход</string>
+    <string name="empty_wallets">У вас пока нет созданных кошельков</string>
     <string name="checked_category">Выбранная категория</string>
     <string name="icon_category">Иконка категории</string>
     <string name="check_category">Выберите категорию</string>

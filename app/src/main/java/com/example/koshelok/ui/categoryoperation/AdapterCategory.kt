@@ -1,7 +1,6 @@
 package com.example.koshelok.ui.categoryoperation
 
 import android.content.res.ColorStateList
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,7 +40,6 @@ class AdapterCategory(private val onCategoryItemClick: CategoryItemClickListener
         private val binding by viewBinding(ItemCategoryBinding::bind)
 
         fun onBind(data: CategoryModel) {
-            Log.i("test3", data.toString())
             with(binding) {
                 iconImageView.setImageDrawable(ContextCompat.getDrawable(root.context, data.icon))
                 iconImageView.backgroundTintList = ColorStateList.valueOf(data.color)

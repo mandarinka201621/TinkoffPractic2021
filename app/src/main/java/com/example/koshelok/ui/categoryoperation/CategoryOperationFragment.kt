@@ -55,7 +55,7 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
 
     private fun launchAddTransactionFragment() {
         transaction.categoryModel = viewModel.getEnableCategory()
-        transaction.date = viewModel.getDate()
+        transaction.date = System.currentTimeMillis()
         findNavController().navigate(
             CategoryOperationFragmentDirections.actionCategoryOperationFragmentToAddOperationFragment(
                 transaction
@@ -71,6 +71,7 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
 
     override fun onClickItem(position: Int, item: CategoryModel) {
         viewModel.changeEnableState(position, item)
+        adapterCategory.notifyDataSetChanged()
         isSelectedCategory()
     }
 }

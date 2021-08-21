@@ -12,10 +12,6 @@ class DetailWalletAdapter(private val swipeOptionsCallback: SwipeOptionsCallback
 
     private val diffUtil = AsyncListDiffer(this, DetailWalletCallback())
 
-    fun setData(newData: List<DetailWalletItem>) {
-        diffUtil.submitList(newData)
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailWalletHolder {
         return createHolder(parent, viewType)
     }
@@ -45,9 +41,14 @@ class DetailWalletAdapter(private val swipeOptionsCallback: SwipeOptionsCallback
 
     override fun onViewRecycled(holder: DetailWalletHolder) {
         super.onViewRecycled(holder)
-        if (holder is TransactionHolder){
+        if (holder is TransactionHolder) {
             holder.resetSwipe()
         }
+    }
+
+
+    fun setData(newData: List<DetailWalletItem>) {
+        diffUtil.submitList(newData)
     }
 
     private fun createHolder(parent: ViewGroup, type: Int): DetailWalletHolder {

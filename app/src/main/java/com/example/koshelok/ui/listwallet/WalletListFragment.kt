@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentWalletListBinding
-import com.example.koshelok.ui.listwallet.entity.BalancEntity
+import com.example.koshelok.ui.listwallet.entity.BalanceEntity
 import com.example.koshelok.ui.listwallet.entity.ExchangeRatesEntity
 import com.example.koshelok.ui.listwallet.entity.WalletEntity
 
@@ -36,7 +36,7 @@ class WalletListFragment : Fragment() {
                 adapter = walletsAdapter
             }
 
-            viewModel.balanceData.observe(viewLifecycleOwner) { balanceModel: BalancEntity? ->
+            viewModel.balanceData.observe(viewLifecycleOwner) { balanceModel: BalanceEntity? ->
                 if (balanceModel != null) {
                     with(balance) {
                         amountMoney.text = balanceModel.amountMoney

@@ -15,7 +15,6 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
     private val binding by viewBinding(FragmentDetailWalletBinding::bind)
     private val viewModel: DetailWalletViewModel by viewModels()
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {

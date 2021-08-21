@@ -27,7 +27,7 @@ class WalletListViewModel : ViewModel() {
 
     private fun uploadBalance() {
         //TODO загружать из сервака
-
+        _walletsData.value = listOf()
     }
 
     private fun uploadExchangeRates() {

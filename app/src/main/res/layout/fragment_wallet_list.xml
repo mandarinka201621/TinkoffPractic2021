@@ -48,6 +48,16 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/emptyWallets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/empty_wallets"
+        android:visibility="gone"
+        android:layout_marginTop="200dp"
+        android:textAlignment="center"
+        />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/walletList"
         android:layout_width="match_parent"

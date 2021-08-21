@@ -45,4 +45,5 @@
     <string name="general_score">Общий баланс</string>
     <string name="general_income">Общий доход</string>
     <string name="general_consumption">Общий расход</string>
+    <string name="empty_wallets">У вас пока нет созданных кошельков</string>
 </resources>

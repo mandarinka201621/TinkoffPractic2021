@@ -62,6 +62,7 @@ class WalletListFragment : Fragment() {
             viewModel.walletsData.observe(viewLifecycleOwner) { wallets: List<WalletModel>? ->
                 if (wallets != null) {
                     walletsAdapter.setData(wallets)
+                    emptyWallets.visibility = if (wallets.isEmpty()) View.VISIBLE else View.GONE
                 }
             }
 

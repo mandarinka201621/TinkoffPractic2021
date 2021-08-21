@@ -45,3 +45,4 @@ fun Calendar.getDayWithMonth(context: Context): String {
 }
 
 fun Calendar.getDayOfMonth(): String = this.get(Calendar.DAY_OF_MONTH).toString()
+

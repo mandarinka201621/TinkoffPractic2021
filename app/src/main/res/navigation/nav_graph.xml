@@ -21,4 +21,9 @@
         android:name="com.example.koshelok.ui.detailwallet.DetailWalletFragment"
         android:label="DetailWalletFragment"
         tools:layout="@layout/fragment_detail_wallet"/>
+    <fragment
+        android:id="@+id/walletListFragment"
+        android:name="com.example.koshelok.ui.listwallet.WalletListFragment"
+        android:label="WalletListFragment"
+        tools:layout="@layout/fragment_wallet_list"/>
 </navigation>

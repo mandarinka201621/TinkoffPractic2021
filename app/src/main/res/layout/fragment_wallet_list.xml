@@ -13,24 +13,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|enterAlways">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:orientation="vertical">
             <include
                 android:id="@+id/balance"
                 layout="@layout/layout_general_wallet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-
-            <include
-                android:id="@+id/exchangeRates"
-                layout="@layout/layout_exchange_rates"
-                />
-            </LinearLayout>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -38,10 +27,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-    >
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/walletList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-</FrameLayout>
+        >
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/walletList"
+            android:overScrollMode="never"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+

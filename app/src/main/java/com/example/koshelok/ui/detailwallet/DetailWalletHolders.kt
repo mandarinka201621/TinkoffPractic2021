@@ -70,6 +70,10 @@ class TransactionHolder(view: View, private val swipeCallback: SwipeOptionsCallb
             }
         }
     }
+
+    fun resetSwipe(){
+        binding.swipeLayout.reset()
+    }
 }
 
 abstract class DetailWalletHolder(view: View) : RecyclerView.ViewHolder(view) {

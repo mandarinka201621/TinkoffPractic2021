@@ -37,13 +37,13 @@ class WalletListFragment : Fragment() {
                 if (balanceModel != null) {
                     with(balance) {
                         amountMoney.text = balanceModel.amountMoney
-                        incomeMoney.text = balanceModel.consumptionMoney
+                        incomeMoney.text = balanceModel.incomeMoney
                         consumptionMoney.text = balanceModel.consumptionMoney
                     }
                 }
             }
 
-            viewModel.walletsData.observe(viewLifecycleOwner) { wallets: List<Wallet>? ->
+            viewModel.walletsData.observe(viewLifecycleOwner) { wallets: List<WalletsListItem>? ->
                 if (wallets != null){
                     walletsAdapter.setData(wallets)
                 }

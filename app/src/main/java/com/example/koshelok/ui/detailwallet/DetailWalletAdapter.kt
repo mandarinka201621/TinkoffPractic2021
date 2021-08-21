@@ -27,24 +27,28 @@ class DetailWalletAdapter(private val swipeOptionsCallback: SwipeOptionsCallback
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when {
-            diffUtil.currentList[position] is DetailWalletItem.HeaderDetailWallet -> {
+        return when (diffUtil.currentList[position]) {
+            is DetailWalletItem.HeaderDetailWallet -> {
                 HEADER_TYPE
             }
-            diffUtil.currentList[position]
-                    is DetailWalletItem.Day -> {
+            is DetailWalletItem.Day -> {
                 DAY_TYPE
             }
-            diffUtil.currentList[position] is DetailWalletItem.Transaction -> {
+            is DetailWalletItem.Transaction -> {
                 TRANSACTION_TYPE
             }
-            else -> {
-                super.getItemViewType(position)
-            }
+
         }
     }
 
     override fun getItemCount(): Int = diffUtil.currentList.size
+
+    override fun onViewRecycled(holder: DetailWalletHolder) {
+        super.onViewRecycled(holder)
+        if (holder is TransactionHolder){
+            holder.resetSwipe()
+        }
+    }
 
     private fun createHolder(parent: ViewGroup, type: Int): DetailWalletHolder {
         return when (type) {

@@ -9,8 +9,8 @@ import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentAddOperationTransactionBinding
+import com.example.koshelok.extentions.getCalendar
 import com.example.koshelok.extentions.getDayWithMonth
-import com.example.koshelok.extentions.getNowDateTime
 import com.example.koshelok.ui.sumoperation.SumOperationFragmentArgs
 import com.example.koshelok.ui.typeoperation.TypeOperationViewModel
 
@@ -38,7 +38,7 @@ class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transactio
         binding.typeTextView.text = getTypeToString()
         binding.categoryTextView.text = transaction.categoryModel?.typeOperation
         binding.dateTextView.text =
-            transaction.date?.getNowDateTime()?.getDayWithMonth(requireContext())
+            transaction.date?.getCalendar()?.getDayWithMonth(requireContext())
     }
 
     private fun getTypeToString() = when (viewModel.transaction.value?.type) {

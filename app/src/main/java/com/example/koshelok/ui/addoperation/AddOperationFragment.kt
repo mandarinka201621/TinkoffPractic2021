@@ -9,6 +9,8 @@ import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentAddOperationTransactionBinding
+import com.example.koshelok.extentions.getDayWithMonth
+import com.example.koshelok.extentions.getNowDateTime
 import com.example.koshelok.ui.sumoperation.SumOperationFragmentArgs
 
 class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transaction) {
@@ -34,7 +36,7 @@ class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transactio
         binding.sumTextView.text = transaction.sum
         binding.typeTextView.text = transaction.type?.name
         binding.categoryTextView.text = transaction.categoryModel?.typeOperation
-        binding.dateTextView.text = transaction.date.toString()
+        binding.dateTextView.text = transaction.date?.getNowDateTime()?.getDayWithMonth(requireContext())
     }
 
     private fun setOnBackPressedListener() {

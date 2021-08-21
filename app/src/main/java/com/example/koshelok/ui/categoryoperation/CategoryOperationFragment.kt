@@ -10,15 +10,19 @@ import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentCategoryOperationTransactionBinding
+import com.example.koshelok.ui.model.CategoryModel
 import com.example.koshelok.ui.sumoperation.SumOperationFragmentArgs
 
-class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_transaction) {
+class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_transaction),
+    CategoryItemClickListener {
 
     private val binding by viewBinding(FragmentCategoryOperationTransactionBinding::bind)
     private val viewModel: CategoryViewModel by viewModels()
 
     private val args by navArgs<SumOperationFragmentArgs>()
     private val transaction by lazy { args.transaction }
+
+    private lateinit var adapterCategory: AdapterCategory
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,20 +36,19 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
     }
 
     private fun setupRecycler() {
-        val adapterCategory = AdapterCategory()
+        adapterCategory = AdapterCategory(this@CategoryOperationFragment)
         binding.categoryRecyclerView.adapter = adapterCategory
-        viewModel.listCategoryModel.observe(viewLifecycleOwner, Observer {
-            adapterCategory.submitList(it)
-        })
-
-        adapterCategory.onCategoryItemClick = {
-            viewModel.changeEnableState(it)
-            isSelectedCategory()
-        }
+        viewModel.listCategoryModel.observe(
+            viewLifecycleOwner,
+            Observer { data: List<CategoryModel>? ->
+                if (data != null) {
+                    adapterCategory.submitList(data)
+                }
+            })
     }
 
     private fun isSelectedCategory() {
-        if (viewModel.isSelect() == true) {
+        if (viewModel.isSelect()) {
             binding.addSumOperationButton.isEnabled = true
         }
     }
@@ -64,5 +67,10 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
         binding.toolbar.setNavigationOnClickListener {
             requireActivity().onBackPressed()
         }
+    }
+
+    override fun onClickItem(position: Int, item: CategoryModel) {
+        viewModel.changeEnableState(position, item)
+        isSelectedCategory()
     }
 }

@@ -1,6 +1,7 @@
 package com.example.koshelok.ui.categoryoperation
 
 import android.content.res.ColorStateList
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,18 +13,16 @@ import com.example.koshelok.R
 import com.example.koshelok.databinding.ItemCategoryBinding
 import com.example.koshelok.ui.model.CategoryModel
 
-class AdapterCategory :
+class AdapterCategory(private val onCategoryItemClick: CategoryItemClickListener) :
     ListAdapter<CategoryModel, AdapterCategory.CategoryViewHolder>(CategoryDiffCallBack()) {
-
-    var onCategoryItemClick: ((CategoryModel) -> (Unit))? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): CategoryViewHolder {
         val rootView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_category, parent, false)
+            .inflate(R.layout.item_category, parent, false)
         val viewHolder = CategoryViewHolder(rootView)
         viewHolder.itemView.setOnClickListener {
             if (viewHolder.adapterPosition != RecyclerView.NO_POSITION)
-                onClicked(currentList[viewHolder.adapterPosition])
+                onClicked(viewHolder.adapterPosition, currentList[viewHolder.adapterPosition])
         }
         return viewHolder
     }
@@ -34,25 +33,27 @@ class AdapterCategory :
         holder.onBind(currentList[position])
     }
 
-    private fun onClicked(item: CategoryModel) {
-        onCategoryItemClick?.invoke(item)
+    private fun onClicked(position: Int, item: CategoryModel) {
+        onCategoryItemClick.onClickItem(position, item)
     }
-
-    class CategoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class CategoryViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
         private val binding by viewBinding(ItemCategoryBinding::bind)
 
         fun onBind(data: CategoryModel) {
+            Log.i("test3", data.toString())
             with(binding) {
                 iconImageView.setImageDrawable(ContextCompat.getDrawable(root.context, data.icon))
                 iconImageView.backgroundTintList = ColorStateList.valueOf(data.color)
                 titleTextView.text = data.typeOperation
-                if (data.enable) {
-                    checkImageView.visibility = View.VISIBLE
-                } else {
-                    checkImageView.visibility = View.INVISIBLE
-                }
+                if (data.isEnable) checkImageView.visibility =
+                    View.VISIBLE else checkImageView.visibility = View.INVISIBLE
             }
         }
     }
+
+}
+
+interface CategoryItemClickListener {
+    fun onClickItem(position: Int, item: CategoryModel)
 }

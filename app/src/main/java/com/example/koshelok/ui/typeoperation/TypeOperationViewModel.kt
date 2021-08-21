@@ -24,8 +24,8 @@ class TypeOperationViewModel : ViewModel() {
         _transaction.value = transaction
     }
 
-    enum class Select(val type: Boolean) {
-        SELECT_INCOME(true),
-        SELECT_EXPENSE(false)
+    enum class Select {
+        SELECT_INCOME,
+        SELECT_EXPENSE
     }
 }

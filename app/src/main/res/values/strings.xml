@@ -14,6 +14,19 @@
     <string name="title_welcome">Добро пожаловать в КошелОК</string>
     <string name="text_welcome">Тут вы сможете контролировать свои доходы и расходы</string>
     <string name="text_button_google">Войти с помощью Google</string>
+    <string name="enter_sum_title">Введите сумму</string>
+    <string name="sum_operation">Сумма операции</string>
+    <string name="ready_button">ГОТОВО</string>
+    <string name="choose_type_operation">Выберите тип операции</string>
+    <string name="text_income">Доход</string>
+    <string name="text_expense">Расход</string>
+    <string name="choose_category">Выберите категорию</string>
+    <string name="icon_category_description">Иконка категории</string>
+    <string name="farther">Далее</string>
+    <string name="new_operation">Новая операция</string>
+    <string name="main_operation">Основные</string>
+    <string name="edition_settings">Дополнительные настройки</string>
+    <string name="data_operation">Дата операции</string>
     <string name="capitalization_text">Капитализация</string>
     <string name="salary_text">Зарплата</string>
     <string name="part_time_text">Подработка</string>
@@ -46,4 +59,13 @@
     <string name="general_income">Общий доход</string>
     <string name="general_consumption">Общий расход</string>
     <string name="empty_wallets">У вас пока нет созданных кошельков</string>
+    <string name="checked_category">Выбранная категория</string>
+    <string name="icon_category">Иконка категории</string>
+    <string name="check_category">Выберите категорию</string>
+    <string name="create_transaction">Создать транзакцию</string>
+    <string name="main">Основные</string>
+    <string name="sum">Сумма</string>
+    <string name="type">Тип</string>
+    <string name="category">Категория</string>
+    <string name="date">Дата</string>
 </resources>

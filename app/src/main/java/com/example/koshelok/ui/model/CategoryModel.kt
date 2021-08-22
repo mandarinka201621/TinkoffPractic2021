@@ -10,4 +10,4 @@ data class CategoryModel(
     val color: Int,
     var isEnable: Boolean,
     val id: Int
-) : Parcelable
+):Parcelable

@@ -1,6 +1,6 @@
 package com.example.koshelok.di
 
-import android.content.Context
+import android.app.Application
 import com.example.koshelok.di.module.AppModule
 import dagger.BindsInstance
 import dagger.Component
@@ -14,7 +14,7 @@ interface AppComponent: InjectFragments {
     interface Builder {
 
         @BindsInstance
-        fun context(context: Context): Builder
+        fun context(app:Application): Builder
 
         fun build(): AppComponent
     }

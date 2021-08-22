@@ -1,4 +1,4 @@
-package com.example.koshelok
+package com.example.koshelok.data.factory
 
 import android.content.Context
 import android.content.SharedPreferences

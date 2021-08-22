@@ -25,8 +25,8 @@ class TypeOperationViewModel @Inject constructor() : ViewModel() {
         _transaction.value = transaction
     }
 
-    enum class Select {
-        SELECT_INCOME,
-        SELECT_EXPENSE
+    enum class Select(val code:Int) {
+        SELECT_INCOME(0),
+        SELECT_EXPENSE(1)
     }
 }

@@ -1,6 +1,9 @@
 package com.example.koshelok.data.service.api
 
-data class SendTransactionApi (
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class CreateTransactionApi (
     val idWallet: Long,
     val money: String,
     val idCategory: Long,

@@ -1,7 +1,6 @@
 package com.example.koshelok.ui.detailwallet
 
 import com.example.koshelok.domain.Category
-import java.util.*
 
 sealed class DetailWalletItem {
     data class HeaderDetailWallet(
@@ -16,7 +15,7 @@ sealed class DetailWalletItem {
     data class Day(val day: String) : DetailWalletItem()
 
     data class Transaction(
-        val id: String = UUID.randomUUID().toString(),
+        val id: Long,
         val category: Category,
         val money: String,
         val time: String,

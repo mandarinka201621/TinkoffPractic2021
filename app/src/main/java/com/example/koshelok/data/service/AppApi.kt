@@ -1,10 +1,10 @@
 package com.example.koshelok.data.service
 
-import com.example.koshelok.data.service.api.AnswerServerApi
 import com.example.koshelok.data.service.api.BalanceApi
 import com.example.koshelok.data.service.api.CategoryApi
 import com.example.koshelok.data.service.api.CreateTransactionApi
 import com.example.koshelok.data.service.api.ExchangeRatesApi
+import com.example.koshelok.data.service.api.ResponseApi
 import com.example.koshelok.data.service.api.TransactionApi
 import com.example.koshelok.data.service.api.WalletApi
 import io.reactivex.rxjava3.core.Single
@@ -28,16 +28,16 @@ interface AppApi {
     fun getWallet(walletId: Long): Single<WalletApi>
 
     @POST("addTransaction")
-    fun addTransaction(transactionApi: CreateTransactionApi): Single<AnswerServerApi>
+    fun addTransaction(transactionApi: CreateTransactionApi): Single<ResponseApi>
 
     @POST("addWallet")
-    fun addWallet(walletApi: WalletApi): Single<AnswerServerApi>
+    fun addWallet(walletApi: WalletApi): Single<ResponseApi>
 
     @PUT("editTransaction")
-    fun editTransaction(transactionApi: CreateTransactionApi): Single<AnswerServerApi>
+    fun editTransaction(transactionApi: CreateTransactionApi): Single<ResponseApi>
 
     @DELETE("deleteTransaction")
-    fun deleteTransaction(id: Long): Single<AnswerServerApi>
+    fun deleteTransaction(id: Long): Single<ResponseApi>
 
     @GET("getBalance")
     fun getBalance(): Single<BalanceApi>

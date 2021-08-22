@@ -7,10 +7,12 @@ import com.example.koshelok.data.service.api.BalanceApi
 import com.example.koshelok.data.service.api.CategoryApi
 import com.example.koshelok.data.service.api.CreateTransactionApi
 import com.example.koshelok.data.service.api.ExchangeRatesApi
+import com.example.koshelok.data.service.api.ResponseApi
 import com.example.koshelok.data.service.api.TransactionApi
 import com.example.koshelok.data.service.api.WalletApi
 import com.example.koshelok.domain.Category
 import com.example.koshelok.domain.Currency
+import com.example.koshelok.domain.Response
 import com.example.koshelok.domain.TypeOperation
 import com.example.koshelok.ui.detailwallet.DetailWalletItem
 import com.example.koshelok.ui.listwallet.entity.BalanceEntity
@@ -111,4 +113,7 @@ class Mapper @Inject constructor(private val iconFactory: IconFactory) {
             currency = Currency.valueOf(walletApi.currency),
             isHide = walletApi.isHide
         )
+
+    fun mapResponseApiToResponse(responseApi: ResponseApi) =
+        Response(responseApi.code)
 }

@@ -34,7 +34,7 @@ class TypeOperationFragment : Fragment(R.layout.fragment_type_operation_transact
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.typeOperation.observe(viewLifecycleOwner){
+        viewModel.typeOperation.observe(viewLifecycleOwner) {
             checkChoose(it)
         }
         setClickListener()

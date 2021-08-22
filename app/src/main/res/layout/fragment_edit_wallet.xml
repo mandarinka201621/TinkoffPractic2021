@@ -5,27 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
+        app:title="@string/new_wallet"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/back_button"
-        app:title="@string/check_category" />
-
-    <TextView
-        android:id="@+id/mainTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="@string/main"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+        app:navigationIcon="@drawable/back_button" />
 
     <FrameLayout
         android:id="@+id/titleFrame"
@@ -34,7 +23,7 @@
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mainTextView">
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <TextView
             android:layout_width="wrap_content"
@@ -44,14 +33,14 @@
             android:textSize="18sp" />
 
         <LinearLayout
-            android:id="@+id/layoutSum"
+            android:id="@+id/typeLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/sumTextView"
+                android:id="@+id/titleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -66,7 +55,7 @@
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/typeFrame"
+        android:id="@+id/currencyFrame"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="16dp"
@@ -77,20 +66,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/type"
+            android:text="@string/currency"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
         <LinearLayout
-            android:id="@+id/layoutType"
+            android:id="@+id/currencyLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:orientation="horizontal"
-            tools:ignore="UseCompoundDrawables">
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/typeTextView"
+                android:id="@+id/currencyTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -105,83 +93,30 @@
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/categoryFrame"
+        android:id="@+id/limitFrame"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/typeFrame">
+        app:layout_constraintTop_toBottomOf="@id/currencyFrame">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/category"
+            android:text="Лимит"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
         <LinearLayout
-            android:id="@+id/layoutCategory"
+            android:id="@+id/limitLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:orientation="horizontal"
-            tools:ignore="UseCompoundDrawables">
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/categoryTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <ImageView
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_gravity="center|center_vertical"
-                android:layout_marginStart="8dp"
-                android:src="@drawable/ic_baseline_arrow_forward_ios_24"
-                tools:ignore="ContentDescription" />
-        </LinearLayout>
-    </FrameLayout>
-
-
-    <TextView
-        android:id="@+id/additionTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="@string/main"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/categoryFrame" />
-
-    <FrameLayout
-        android:id="@+id/dateFrame"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/additionTextView">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sum"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
-        <LinearLayout
-            android:id="@+id/layoutDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:orientation="horizontal"
-            tools:ignore="UseCompoundDrawables">
-
-            <TextView
-                android:id="@+id/dateTextView"
+                android:id="@+id/limitTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -196,14 +131,15 @@
     </FrameLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/addOperationButton"
+        android:id="@+id/createWalletButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:background="@drawable/button_enabled"
+        android:background="@drawable/selector_background_button"
+        android:enabled="false"
         android:padding="14dp"
-        android:text="@string/create_transaction"
-        android:textColor="@color/white"
+        android:text="@string/create_wallet"
+        android:textColor="@drawable/selector_color_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

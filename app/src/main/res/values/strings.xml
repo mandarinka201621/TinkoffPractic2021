@@ -68,4 +68,9 @@
     <string name="type">Тип</string>
     <string name="category">Категория</string>
     <string name="date">Дата</string>
+    <string name="imagine_name">Придумайте название</string>
+    <string name="title_wallet">Название кошелька</string>
+    <string name="new_wallet">Новый кошелек</string>
+    <string name="currency">Валюта</string>
+    <string name="create_wallet">Создать кошелек</string>
 </resources>

@@ -1,8 +1,10 @@
 package com.example.koshelok.data.service
 
 import com.example.koshelok.data.service.api.AnswerServerApi
+import com.example.koshelok.data.service.api.BalanceApi
 import com.example.koshelok.data.service.api.CategoryApi
 import com.example.koshelok.data.service.api.CreateTransactionApi
+import com.example.koshelok.data.service.api.ExchangeRatesApi
 import com.example.koshelok.data.service.api.TransactionApi
 import com.example.koshelok.data.service.api.WalletApi
 import io.reactivex.rxjava3.core.Single
@@ -36,4 +38,10 @@ interface AppApi {
 
     @DELETE("deleteTransaction")
     fun deleteTransaction(id: Long): Single<AnswerServerApi>
+
+    @GET("getBalance")
+    fun getBalance(): Single<BalanceApi>
+
+    @GET("getExchangeRates")
+    fun getExchangeRates(): Single<ExchangeRatesApi>
 }

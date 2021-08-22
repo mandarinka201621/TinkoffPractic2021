@@ -1,6 +1,7 @@
 package com.example.koshelok.ui.detailwallet
 
 import com.example.koshelok.domain.Category
+import com.example.koshelok.domain.Currency
 
 sealed class DetailWalletItem {
     data class HeaderDetailWallet(
@@ -20,7 +21,7 @@ sealed class DetailWalletItem {
         val money: String,
         val time: String,
         val day: String,
-        val currency: String
+        val currency: Currency
     ) :
         DetailWalletItem()
 }

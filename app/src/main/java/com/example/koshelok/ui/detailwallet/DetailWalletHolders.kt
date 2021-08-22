@@ -9,7 +9,7 @@ import com.example.koshelok.R
 import com.example.koshelok.databinding.ItemDayBinding
 import com.example.koshelok.databinding.ItemHeaderDetailWalletBinding
 import com.example.koshelok.databinding.ItemTransactionBinding
-import com.example.koshelok.ui.typeoperation.TypeOperationViewModel
+import com.example.koshelok.domain.TypeOperation
 
 class HeaderHolder(view: View) : DetailWalletHolder(view) {
 
@@ -52,11 +52,11 @@ class TransactionHolder(view: View, private val swipeCallback: SwipeOptionsCallb
                 val moneyText: String
                 val category: String
                 when(data.category.type){
-                    TypeOperationViewModel.Select.SELECT_INCOME ->{
+                    TypeOperation.SELECT_INCOME ->{
                         moneyText = data.money
                         category = root.context.getString(R.string.replenishment)
                     }
-                    TypeOperationViewModel.Select.SELECT_EXPENSE ->{
+                    TypeOperation.SELECT_EXPENSE ->{
                         moneyText = data.money
                         category = root.context.getString(R.string.spending)
                     }

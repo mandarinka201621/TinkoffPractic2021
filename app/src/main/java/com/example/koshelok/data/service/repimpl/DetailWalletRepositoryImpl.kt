@@ -8,7 +8,6 @@ import com.example.koshelok.data.service.Mapper
 import com.example.koshelok.domain.repository.DetailWalletRepository
 import com.example.koshelok.ui.detailwallet.DetailWalletItem
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 class DetailWalletRepositoryImpl @Inject constructor(
@@ -18,8 +17,7 @@ class DetailWalletRepositoryImpl @Inject constructor(
 ) :
     DetailWalletRepository {
 
-    override fun getTransactions(walletId: Long): Single<List<DetailWalletItem>>
-    {
+    override fun getTransactions(walletId: Long): Single<List<DetailWalletItem>> {
         return appApi.getTransactions(walletId)
             .map {
                 it.sortedByDescending { api -> api.time }
@@ -33,13 +31,12 @@ class DetailWalletRepositoryImpl @Inject constructor(
                                 transactions.firstOrNull()?.time?.checkDate(context) ?: key
                             )
                         )
-                        this.addAll(transactions.map { api->
+                        this.addAll(transactions.map { api ->
                             mapper.mapTransactionApiToDetailWalletTransaction(api)
                         })
                     }
                 }.toList()
             }
-            .subscribeOn(Schedulers.io())
     }
 
     override fun getDataWallet(walletId: Long): Single<DetailWalletItem.HeaderDetailWallet> {
@@ -47,6 +44,5 @@ class DetailWalletRepositoryImpl @Inject constructor(
             .map {
                 mapper.mapWalletApiToHeaderWallet(it)
             }
-            .subscribeOn(Schedulers.io())
     }
 }

@@ -15,11 +15,13 @@ class DetailWalletUseCaseImpl @Inject constructor(
 ) : DetailWalletUseCase {
 
     override fun invoke(walletId: Long): Single<List<DetailWalletItem>> {
-        return Single.zip(detailWalletRepository.getTransactions(walletId),
-            detailWalletRepository.getDataWallet(walletId), { transactions, wallet ->
-                return@zip mutableListOf<DetailWalletItem>(wallet).apply {
-                    addAll(transactions.reversed())
-                }.toList()
-            })
+        return Single.zip(
+            detailWalletRepository.getTransactions(walletId),
+            detailWalletRepository.getDataWallet(walletId)
+        ) { transactions, wallet ->
+            return@zip mutableListOf<DetailWalletItem>(wallet).apply {
+                addAll(transactions.reversed())
+            }.toList()
+        }
     }
 }

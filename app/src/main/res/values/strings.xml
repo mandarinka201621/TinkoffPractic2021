@@ -68,4 +68,5 @@
     <string name="type">Тип</string>
     <string name="category">Категория</string>
     <string name="date">Дата</string>
+    <string name="add_wallet">Создать кошелек</string>
 </resources>

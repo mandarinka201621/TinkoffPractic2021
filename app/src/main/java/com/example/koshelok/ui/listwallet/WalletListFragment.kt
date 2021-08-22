@@ -2,10 +2,9 @@ package com.example.koshelok.ui.listwallet
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
@@ -17,14 +16,14 @@ import com.example.koshelok.ui.listwallet.entity.ExchangeRatesEntity
 import com.example.koshelok.ui.listwallet.entity.WalletEntity
 import javax.inject.Inject
 
-class WalletListFragment : Fragment() {
+class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
 
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
     private val binding by viewBinding(FragmentWalletListBinding::bind)
-    private lateinit var viewModel: WalletListViewModel
+    private val viewModel: WalletListViewModel by viewModels { viewModelFactory }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -32,17 +31,8 @@ class WalletListFragment : Fragment() {
             .injectWalletsList(this)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_wallet_list, container, false)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       viewModel = viewModelFactory.create(WalletListViewModel::class.java)
         with(binding) {
             val walletsAdapter = WalletListAdapter()
             walletList.run {

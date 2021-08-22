@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -23,7 +24,7 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
     lateinit var viewModelFactory: ViewModelFactory
 
     private val binding by viewBinding(FragmentCategoryOperationTransactionBinding::bind)
-    private lateinit var viewModel: CategoryViewModel
+    private val viewModel: CategoryViewModel by viewModels {viewModelFactory}
 
     private val args by navArgs<SumOperationFragmentArgs>()
     private val transaction by lazy { args.transaction }
@@ -37,7 +38,6 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = viewModelFactory.create(CategoryViewModel::class.java)
         setupRecycler()
         clickBackButton()
         isSelectedCategory()

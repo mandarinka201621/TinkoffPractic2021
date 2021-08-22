@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -25,7 +26,7 @@ class SumOperationFragment : Fragment(R.layout.fragment_sum_operation_transactio
     private val binding by viewBinding(FragmentSumOperationTransactionBinding::bind)
     private val args by navArgs<SumOperationFragmentArgs>()
     private val transaction by lazy { args.transaction }
-    private lateinit var viewModel: SumOperationViewModel
+    private val viewModel: SumOperationViewModel by viewModels { viewModelFactory }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -35,7 +36,6 @@ class SumOperationFragment : Fragment(R.layout.fragment_sum_operation_transactio
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = viewModelFactory.create(SumOperationViewModel::class.java)
         setAddTextChangedListener()
         setOnBackPressedListener()
         binding.sumOperationEditText.showKeyboard()
@@ -45,24 +45,24 @@ class SumOperationFragment : Fragment(R.layout.fragment_sum_operation_transactio
         transaction.let { viewModel.setSumType(it) }
     }
 
+    override fun onPause() {
+        super.onPause()
+        binding.sumOperationEditText.hideKeyboard()
+    }
+
     private fun setOnBackPressedListener() {
-        hideKeyboard()
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
     }
 
+
     private fun launchTypeFragment() {
-        hideKeyboard()
         transaction.sum = binding.sumOperationEditText.text.toString()
         findNavController().navigate(
             SumOperationFragmentDirections
                 .actionSumOperationFragmentToTypeOperationFragment(transaction)
         )
-    }
-
-    private fun hideKeyboard(){
-        binding.sumOperationEditText.hideKeyboard()
     }
 
     private fun setAddTextChangedListener() {

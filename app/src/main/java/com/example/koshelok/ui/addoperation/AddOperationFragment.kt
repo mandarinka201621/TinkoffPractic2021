@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -25,7 +26,7 @@ class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transactio
     private val binding by viewBinding(FragmentAddOperationTransactionBinding::bind)
     private val args by navArgs<SumOperationFragmentArgs>()
     private val transaction by lazy { args.transaction }
-    private lateinit var viewModel: AddOperationViewModel
+    private val viewModel: AddOperationViewModel by viewModels { viewModelFactory }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -34,7 +35,6 @@ class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transactio
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = viewModelFactory.create(AddOperationViewModel::class.java)
         transaction.let { viewModel.setTransaction(it) }
         setupTransaction()
         setOnBackPressedListener()

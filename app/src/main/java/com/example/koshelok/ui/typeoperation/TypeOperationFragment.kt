@@ -3,6 +3,7 @@ package com.example.koshelok.ui.typeoperation
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -22,8 +23,7 @@ class TypeOperationFragment : Fragment(R.layout.fragment_type_operation_transact
     lateinit var viewModelFactory: ViewModelFactory
 
     private val binding by viewBinding(FragmentTypeOperationTransactionBinding::bind)
-    //private lateinit var viewModel: TypeOperationViewModel
-    private val viewModel:TypeOperationViewModel by viewModels()
+    private val viewModel:TypeOperationViewModel by viewModels { viewModelFactory }
     private val args by navArgs<SumOperationFragmentArgs>()
     private val transaction by lazy { args.transaction }
 
@@ -35,8 +35,8 @@ class TypeOperationFragment : Fragment(R.layout.fragment_type_operation_transact
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       // viewModel = viewModelFactory.create(TypeOperationViewModel::class.java)
         viewModel.typeOperation.observe(viewLifecycleOwner) {
+            Log.d("tut_operation", it.toString())
             checkChoose(it)
         }
         setClickListener()

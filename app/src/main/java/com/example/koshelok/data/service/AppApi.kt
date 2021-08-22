@@ -34,7 +34,7 @@ interface AppApi {
     fun addWallet(walletApi: WalletApi): Single<AnswerServerApi>
 
     @PUT("editTransaction")
-    fun editTransaction(transactionApi: TransactionApi): Single<AnswerServerApi>
+    fun editTransaction(transactionApi: CreateTransactionApi): Single<AnswerServerApi>
 
     @DELETE("deleteTransaction")
     fun deleteTransaction(id: Long): Single<AnswerServerApi>

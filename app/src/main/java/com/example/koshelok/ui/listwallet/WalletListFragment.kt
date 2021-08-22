@@ -6,24 +6,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
+import com.example.koshelok.data.ViewModelFactory
 import com.example.koshelok.databinding.FragmentWalletListBinding
-import com.example.koshelok.di.component.DaggerWalletsComponent
 import com.example.koshelok.ui.appComponent
 import com.example.koshelok.ui.listwallet.entity.BalanceEntity
 import com.example.koshelok.ui.listwallet.entity.ExchangeRatesEntity
 import com.example.koshelok.ui.listwallet.entity.WalletEntity
+import javax.inject.Inject
 
 class WalletListFragment : Fragment() {
 
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
     private val binding by viewBinding(FragmentWalletListBinding::bind)
-    private val viewModel: WalletListViewModel by viewModels()
+    private lateinit var viewModel: WalletListViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        DaggerWalletsComponent.builder().appComponent(context.appComponent).build()
+        context.appComponent
             .injectWalletsList(this)
     }
 
@@ -37,6 +42,7 @@ class WalletListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+       viewModel = viewModelFactory.create(WalletListViewModel::class.java)
         with(binding) {
             val walletsAdapter = WalletListAdapter()
             walletList.run {

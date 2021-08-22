@@ -6,31 +6,36 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
+import com.example.koshelok.data.ViewModelFactory
 import com.example.koshelok.databinding.FragmentSumOperationTransactionBinding
-import com.example.koshelok.di.component.DaggerTransactionComponent
+import com.example.koshelok.extentions.hideKeyboard
+import com.example.koshelok.extentions.showKeyboard
 import com.example.koshelok.ui.appComponent
+import javax.inject.Inject
 
 class SumOperationFragment : Fragment(R.layout.fragment_sum_operation_transaction) {
 
-    private val binding by viewBinding(FragmentSumOperationTransactionBinding::bind)
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
+    private val binding by viewBinding(FragmentSumOperationTransactionBinding::bind)
     private val args by navArgs<SumOperationFragmentArgs>()
     private val transaction by lazy { args.transaction }
-    private val viewModel: SumOperationViewModel by viewModels()
+    private lateinit var viewModel: SumOperationViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        DaggerTransactionComponent.builder().appComponent(context.appComponent).build()
+        context.appComponent
             .injectSumOperationFragment(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = viewModelFactory.create(SumOperationViewModel::class.java)
         setAddTextChangedListener()
         setOnBackPressedListener()
         binding.sumOperationEditText.showKeyboard()
@@ -51,7 +56,8 @@ class SumOperationFragment : Fragment(R.layout.fragment_sum_operation_transactio
         transaction.sum = binding.sumOperationEditText.text.toString()
         findNavController().navigate(
             SumOperationFragmentDirections
-                .actionSumOperationFragmentToTypeOperationFragment(transaction))
+                .actionSumOperationFragmentToTypeOperationFragment(transaction)
+        )
     }
 
     private fun setAddTextChangedListener() {

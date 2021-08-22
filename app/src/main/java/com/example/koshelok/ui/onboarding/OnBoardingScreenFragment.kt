@@ -37,7 +37,7 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        context.appComponent.inject(this)
+        context.appComponent.injectOnBoardFragment(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

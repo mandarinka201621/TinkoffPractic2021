@@ -6,27 +6,33 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
+import com.example.koshelok.data.ViewModelFactory
 import com.example.koshelok.databinding.FragmentDetailWalletBinding
-import com.example.koshelok.di.component.DaggerTransactionComponent
 import com.example.koshelok.ui.appComponent
 import com.example.koshelok.ui.model.Transaction
+import javax.inject.Inject
 
 class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOptionsCallback {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
     private val binding by viewBinding(FragmentDetailWalletBinding::bind)
-    private val viewModel: DetailWalletViewModel by viewModels()
+    private lateinit var viewModel: DetailWalletViewModel
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        DaggerTransactionComponent.builder().appComponent(context.appComponent).build()
-            .injectDetailWalletFragment(this)
+        context.appComponent.injectDetailWalletFragment(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = viewModelFactory.create(DetailWalletViewModel::class.java)
         with(binding) {
             toolbar.inflateMenu(R.menu.menu_detail_wallet)
             toolbar.setNavigationOnClickListener {
@@ -61,7 +67,7 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
     private fun launchTypeFragment() {
         findNavController().navigate(
             DetailWalletFragmentDirections.actionDetailWalletFragmentToSumOperationFragment(
-                    Transaction(0, null, null, null, null)
+                Transaction(0, null, null, null, null)
             )
         )
     }

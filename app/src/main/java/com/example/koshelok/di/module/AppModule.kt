@@ -6,7 +6,8 @@ import dagger.Module
 import dagger.Provides
 
 @Module(
-    includes = [BindsModule::class, NetworkModule::class])
+    includes = [BindsModule::class, NetworkModule::class, ViewModelModule::class]
+)
 class AppModule {
 
     @Provides

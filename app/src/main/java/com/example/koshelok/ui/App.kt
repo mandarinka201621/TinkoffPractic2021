@@ -2,8 +2,8 @@ package com.example.koshelok.ui
 
 import android.app.Application
 import android.content.Context
-import com.example.koshelok.di.component.AppComponent
-import com.example.koshelok.di.component.DaggerAppComponent
+import com.example.koshelok.di.AppComponent
+import com.example.koshelok.di.DaggerAppComponent
 
 
 class App : Application() {

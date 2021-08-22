@@ -1,18 +1,14 @@
-package com.example.koshelok.di.component
+package com.example.koshelok.di
 
 import android.content.Context
-import com.example.koshelok.di.AppScope
 import com.example.koshelok.di.module.AppModule
-import com.example.koshelok.ui.onboarding.OnBoardingScreenFragment
 import dagger.BindsInstance
 import dagger.Component
 
 @AppScope
 @Component(
     modules = [AppModule::class])
-interface AppComponent {
-
-    fun inject(onBoardingScreenFragment: OnBoardingScreenFragment)
+interface AppComponent: InjectFragments {
 
     @Component.Builder
     interface Builder {

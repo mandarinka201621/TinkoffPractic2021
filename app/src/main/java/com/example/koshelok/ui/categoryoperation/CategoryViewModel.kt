@@ -6,8 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.example.koshelok.R
 import com.example.koshelok.ui.model.CategoryModel
 import com.example.koshelok.ui.model.Transaction
+import javax.inject.Inject
 
-class CategoryViewModel : ViewModel() {
+class CategoryViewModel @Inject constructor() : ViewModel() {
 
     val listCategoryModel = MutableLiveData<List<CategoryModel>>()
 

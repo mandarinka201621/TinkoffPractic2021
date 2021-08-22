@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.koshelok.ui.model.Transaction
+import javax.inject.Inject
 
-class TypeOperationViewModel : ViewModel() {
+class TypeOperationViewModel @Inject constructor() : ViewModel() {
 
     val typeOperation: LiveData<Select>
         get() = _typeOperation

@@ -35,8 +35,7 @@ class TypeOperationFragment : Fragment(R.layout.fragment_type_operation_transact
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.typeOperation.observe(viewLifecycleOwner) {
-            Log.d("tut_operation", it.toString())
+        viewModel.typeOperation.observe(viewLifecycleOwner, Observer {
             checkChoose(it)
         }
         setClickListener()
@@ -81,8 +80,6 @@ class TypeOperationFragment : Fragment(R.layout.fragment_type_operation_transact
 
     private fun setStateButton() {
         with(binding.addTypeOperationButton) {
-            setBackgroundResource(R.drawable.button_enabled)
-            setTextColor(Color.WHITE)
             isEnabled = true
         }
     }

@@ -1,4 +1,4 @@
-package com.example.koshelok
+package com.example.koshelok.data
 
 import android.content.SharedPreferences
 import javax.inject.Inject

@@ -9,10 +9,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
+import com.example.koshelok.data.extentions.getCalendar
+import com.example.koshelok.data.extentions.getDayWithMonth
 import com.example.koshelok.data.factory.ViewModelFactory
 import com.example.koshelok.databinding.FragmentAddOperationTransactionBinding
-import com.example.koshelok.extentions.getCalendar
-import com.example.koshelok.extentions.getDayWithMonth
 import com.example.koshelok.ui.appComponent
 import com.example.koshelok.ui.sumoperation.SumOperationFragmentArgs
 import com.example.koshelok.ui.typeoperation.TypeOperationViewModel

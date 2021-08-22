@@ -1,4 +1,4 @@
-package com.example.koshelok.extentions
+package com.example.koshelok.data.extentions
 
 import android.annotation.SuppressLint
 import android.content.Context

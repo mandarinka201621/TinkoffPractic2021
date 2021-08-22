@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
-import com.example.koshelok.data.ViewModelFactory
+import com.example.koshelok.data.factory.ViewModelFactory
 import com.example.koshelok.databinding.FragmentDetailWalletBinding
 import com.example.koshelok.ui.appComponent
 import com.example.koshelok.ui.model.Transaction

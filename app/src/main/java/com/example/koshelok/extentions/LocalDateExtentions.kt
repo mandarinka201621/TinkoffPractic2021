@@ -55,3 +55,10 @@ fun Long.getTime(): String {
     val formatter = SimpleDateFormat("HH:mm")
     return formatter.format(calendar.time)
 }
+
+@SuppressLint("SimpleDateFormat")
+fun Long.getDate():String{
+    val calendar = this.getCalendar()
+    val formatter = SimpleDateFormat("yyyy-MM-dd")
+    return formatter.format(calendar.time)
+}

@@ -1,4 +1,4 @@
-package com.example.koshelok.data
+package com.example.koshelok.data.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

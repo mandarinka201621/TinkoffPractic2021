@@ -1,9 +1,7 @@
 package com.example.koshelok.ui.typeoperation
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -11,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
-import com.example.koshelok.data.ViewModelFactory
+import com.example.koshelok.data.factory.ViewModelFactory
 import com.example.koshelok.databinding.FragmentTypeOperationTransactionBinding
 import com.example.koshelok.ui.appComponent
 import com.example.koshelok.ui.sumoperation.SumOperationFragmentArgs
@@ -35,7 +33,7 @@ class TypeOperationFragment : Fragment(R.layout.fragment_type_operation_transact
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.typeOperation.observe(viewLifecycleOwner, Observer {
+        viewModel.typeOperation.observe(viewLifecycleOwner){
             checkChoose(it)
         }
         setClickListener()

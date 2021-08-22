@@ -8,7 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
-import com.example.koshelok.data.ViewModelFactory
+import com.example.koshelok.data.factory.ViewModelFactory
 import com.example.koshelok.databinding.FragmentWalletListBinding
 import com.example.koshelok.ui.appComponent
 import com.example.koshelok.ui.listwallet.entity.BalanceEntity

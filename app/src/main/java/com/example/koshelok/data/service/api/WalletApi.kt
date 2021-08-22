@@ -1,5 +1,8 @@
 package com.example.koshelok.data.service.api
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class WalletApi(
     val id: Long,
     val name: String,

@@ -1,6 +1,5 @@
 package com.example.koshelok.ui.typeoperation
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -67,8 +66,6 @@ class TypeOperationFragment : Fragment(R.layout.fragment_type_operation_transact
 
     private fun setStateButton() {
         with(binding.addTypeOperationButton) {
-            setBackgroundResource(R.drawable.button_enabled)
-            setTextColor(Color.WHITE)
             isEnabled = true
         }
     }

@@ -40,11 +40,16 @@ class SumOperationFragment : Fragment(R.layout.fragment_sum_operation_transactio
     }
 
     private fun launchTypeFragment() {
-        binding.sumOperationEditText.hideKeyboard()
         transaction.sum = binding.sumOperationEditText.text.toString()
         findNavController().navigate(
             SumOperationFragmentDirections
-                .actionSumOperationFragmentToTypeOperationFragment(transaction))
+                .actionSumOperationFragmentToTypeOperationFragment(transaction)
+        )
+    }
+
+    override fun onStop() {
+        super.onStop()
+        binding.sumOperationEditText.hideKeyboard()
     }
 
     private fun setAddTextChangedListener() {

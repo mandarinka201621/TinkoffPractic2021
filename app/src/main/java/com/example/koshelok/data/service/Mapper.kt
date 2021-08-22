@@ -67,7 +67,7 @@ class Mapper @Inject constructor(private val iconFactory: IconFactory) {
                 id = transaction.idCategory,
                 type = mapIntToTypeCategory(transaction.type),
                 operation = transaction.operation,
-                iconId = transaction.idIcon,
+                iconId = iconFactory.convertNumberToDrawableId(transaction.idIcon),
                 color = transaction.color
             ),
             money = transaction.money,

@@ -45,17 +45,11 @@ class SumOperationFragment : Fragment(R.layout.fragment_sum_operation_transactio
         transaction.let { viewModel.setSumType(it) }
     }
 
-    override fun onPause() {
-        super.onPause()
-        binding.sumOperationEditText.hideKeyboard()
-    }
-
     private fun setOnBackPressedListener() {
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
     }
-
 
     private fun launchTypeFragment() {
         transaction.sum = binding.sumOperationEditText.text.toString()
@@ -63,6 +57,11 @@ class SumOperationFragment : Fragment(R.layout.fragment_sum_operation_transactio
             SumOperationFragmentDirections
                 .actionSumOperationFragmentToTypeOperationFragment(transaction)
         )
+    }
+
+    override fun onStop() {
+        super.onStop()
+        binding.sumOperationEditText.hideKeyboard()
     }
 
     private fun setAddTextChangedListener() {

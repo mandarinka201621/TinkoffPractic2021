@@ -34,17 +34,22 @@ class SumOperationFragment : Fragment(R.layout.fragment_sum_operation_transactio
     }
 
     private fun setOnBackPressedListener() {
+        hideKeyboard()
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
     }
 
     private fun launchTypeFragment() {
-        binding.sumOperationEditText.hideKeyboard()
+        hideKeyboard()
         transaction.sum = binding.sumOperationEditText.text.toString()
         findNavController().navigate(
             SumOperationFragmentDirections
                 .actionSumOperationFragmentToTypeOperationFragment(transaction))
+    }
+
+    private fun hideKeyboard(){
+        binding.sumOperationEditText.hideKeyboard()
     }
 
     private fun setAddTextChangedListener() {

@@ -5,14 +5,16 @@ import com.example.koshelok.di.AppScope
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
 
 private const val BASE_URL = "https://api.github.com/"
 
+@ExperimentalSerializationApi
 @Module
-class NetworkModule{
+class NetworkModule {
 
     private val contentType = "application/json".toMediaType()
 
@@ -22,7 +24,6 @@ class NetworkModule{
             .addConverterFactory(Json.asConverterFactory(contentType))
             .baseUrl(BASE_URL).build()
     }
-
 
     @AppScope
     @Provides

@@ -53,10 +53,13 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
             viewModel.exchangeRatesData.observe(viewLifecycleOwner) { exchangeRatesEntity: ExchangeRatesEntity? ->
                 if (exchangeRatesEntity != null) {
                     with(exchangeRates) {
+                        firstCurrency.text = exchangeRatesEntity.firstCurrency.name
                         firstCourse.text = exchangeRatesEntity.firstCourse
                         firstCheck.isActivated = exchangeRatesEntity.firstIsUp
+                        secondCurrency.text = exchangeRatesEntity.secondCurrency.name
                         secondCourse.text = exchangeRatesEntity.secondCourse
                         secondCheck.isActivated = exchangeRatesEntity.secondIsUp
+                        thirdCurrency.text = exchangeRatesEntity.thirdCurrency.name
                         thirdCourse.text = exchangeRatesEntity.thirdCourse
                         thirdCheck.isActivated = exchangeRatesEntity.thirdIsUp
                     }

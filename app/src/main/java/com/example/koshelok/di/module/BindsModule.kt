@@ -1,7 +1,9 @@
 package com.example.koshelok.di.module
 
 import com.example.koshelok.data.service.repimpl.DetailWalletRepositoryImpl
+import com.example.koshelok.data.service.repimpl.ListWalletRepositoryImpl
 import com.example.koshelok.domain.repository.DetailWalletRepository
+import com.example.koshelok.domain.repository.ListWalletRepository
 import com.example.koshelok.domain.usecase.DetailWalletUseCase
 import com.example.koshelok.domain.usecase.DetailWalletUseCaseImpl
 import dagger.Binds
@@ -16,4 +18,7 @@ interface BindsModule {
 
     @Binds
     fun bindDetailUseCase(detailWalletUseCaseImpl: DetailWalletUseCaseImpl): DetailWalletUseCase
+
+    @Binds
+    fun bindListWalletRepository(listWalletRepositoryImpl: ListWalletRepositoryImpl): ListWalletRepository
 }

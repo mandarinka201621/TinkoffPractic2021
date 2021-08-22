@@ -5,6 +5,7 @@ import com.example.koshelok.data.extentions.getTime
 import com.example.koshelok.data.factory.IconFactory
 import com.example.koshelok.data.service.api.BalanceApi
 import com.example.koshelok.data.service.api.CategoryApi
+import com.example.koshelok.data.service.api.CreateTransactionApi
 import com.example.koshelok.data.service.api.ExchangeRatesApi
 import com.example.koshelok.data.service.api.TransactionApi
 import com.example.koshelok.data.service.api.WalletApi
@@ -15,6 +16,8 @@ import com.example.koshelok.ui.detailwallet.DetailWalletItem
 import com.example.koshelok.ui.listwallet.entity.BalanceEntity
 import com.example.koshelok.ui.listwallet.entity.ExchangeRatesEntity
 import com.example.koshelok.ui.listwallet.entity.WalletEntity
+import com.example.koshelok.ui.model.Transaction
+import java.util.*
 import javax.inject.Inject
 
 class Mapper @Inject constructor(private val iconFactory: IconFactory) {
@@ -69,6 +72,15 @@ class Mapper @Inject constructor(private val iconFactory: IconFactory) {
             time = transaction.time.getTime(),
             day = transaction.time.getDate(),
             currency = Currency.valueOf(transaction.currency)
+        )
+
+    fun mapTransactionToTransactionApi(transaction: Transaction) =
+        CreateTransactionApi(
+            idWallet = transaction.idWallet,
+            money = transaction.sum?:"0",
+            idCategory = transaction.categoryModel?.id?:0,
+            time = transaction.date?:Calendar.getInstance().timeInMillis,
+            currency = transaction.currency.name
         )
 
     fun mapExchangeRatesApiToExchangeRatesEntity(exchangeRatesApi: ExchangeRatesApi) =

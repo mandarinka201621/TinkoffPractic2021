@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.data.factory.ViewModelFactory
-import com.example.koshelok.databinding.FragmentWalletListBinding
+import com.example.koshelok.databinding.FragmentListWalletBinding
 import com.example.koshelok.ui.appComponent
 import com.example.koshelok.ui.listwallet.entity.BalanceEntity
 import com.example.koshelok.ui.listwallet.entity.ExchangeRatesEntity
 import com.example.koshelok.ui.listwallet.entity.WalletEntity
 import javax.inject.Inject
 
-class WalletListFragment : Fragment(R.layout.fragment_list_wallet) {
+class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
 
 
     @Inject

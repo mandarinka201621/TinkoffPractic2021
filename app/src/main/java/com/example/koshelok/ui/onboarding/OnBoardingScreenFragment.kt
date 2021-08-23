@@ -1,5 +1,6 @@
 package com.example.koshelok.ui.onboarding
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -10,14 +11,18 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.AccountSharedPreferences
-import com.example.koshelok.EncryptedSharedPreferencesFactory
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentOnboardingScreenBinding
+import com.example.koshelok.ui.appComponent
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import javax.inject.Inject
 
 class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
+
+    @Inject
+    lateinit var accountSharedPreferences: AccountSharedPreferences
 
     private val viewBinding by viewBinding(FragmentOnboardingScreenBinding::bind)
     private val loginResultHandler =
@@ -29,6 +34,11 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
                 startDetailWalletFragment(account)
             }
         }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        context.appComponent.inject(this)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,9 +67,6 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
     }
 
     private fun startDetailWalletFragment(account: GoogleSignInAccount) {
-        val accountSharedPreferences = AccountSharedPreferences(
-            sharedPreferences = EncryptedSharedPreferencesFactory().create(requireContext())
-        )
         accountSharedPreferences.email = account.email.orEmpty()
         findNavController().navigate(R.id.action_onboardScreenFragment_to_walletListFragment)
     }

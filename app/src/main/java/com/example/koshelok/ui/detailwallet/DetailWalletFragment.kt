@@ -1,6 +1,7 @@
 package com.example.koshelok.ui.detailwallet
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -11,12 +12,25 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
+import com.example.koshelok.data.ViewModelFactory
 import com.example.koshelok.databinding.FragmentDetailWalletBinding
+import com.example.koshelok.ui.appComponent
 import com.example.koshelok.ui.model.Transaction
+import javax.inject.Inject
 
 class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOptionsCallback {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
     private val binding by viewBinding(FragmentDetailWalletBinding::bind)
-    private val viewModel: DetailWalletViewModel by viewModels()
+    private val viewModel: DetailWalletViewModel by viewModels { viewModelFactory }
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        context.appComponent.inject(this)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

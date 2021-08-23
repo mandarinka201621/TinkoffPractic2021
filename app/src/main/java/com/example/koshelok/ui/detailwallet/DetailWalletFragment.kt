@@ -24,7 +24,7 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
 
     private val binding by viewBinding(FragmentDetailWalletBinding::bind)
     private val viewModel: DetailWalletViewModel by viewModels { viewModelFactory }
-
+    private val walletId = 0L
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -33,6 +33,7 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.uploadData(walletId = walletId)
         with(binding) {
             toolbar.inflateMenu(R.menu.menu_detail_wallet)
             toolbar.setNavigationOnClickListener {
@@ -46,11 +47,15 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
                 adapter = detailWalletAdapter
                 layoutManager = LinearLayoutManager(requireContext())
             }
-            viewModel.getData().observe(viewLifecycleOwner) { data: List<DetailWalletItem>? ->
+            viewModel.detailWalletData.observe(viewLifecycleOwner) { data: List<DetailWalletItem>? ->
                 if (data != null) {
                     detailWalletAdapter.setData(data)
                     emptyNotes.visibility = if (data.size <= 1) View.VISIBLE else View.GONE
                 }
+            }
+
+            viewModel.responseData.observe(viewLifecycleOwner){
+                viewModel.uploadData(walletId)
             }
         }
     }

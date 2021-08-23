@@ -3,7 +3,6 @@ package com.example.koshelok.ui.detailwallet
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.koshelok.DataList
 import com.example.koshelok.domain.Response
 import com.example.koshelok.domain.repository.DeleteTransactionRepository
 import com.example.koshelok.domain.usecase.DetailWalletUseCase
@@ -16,20 +15,20 @@ class DetailWalletViewModel @Inject constructor(
     private val deleteTransactionRepository: DeleteTransactionRepository
 ) : ViewModel() {
 
-    val detailWalletData = MutableLiveData<List<DetailWalletItem>>()
-    val responseData = MutableLiveData<Response>()
+    val detailWalletData: LiveData<List<DetailWalletItem>>
+        get() = _detailWalletData
+    val responseData: LiveData<Response>
+        get() = _responseData
 
-    fun uploadData(walletId: Long): List<DetailWalletItem> {
+    private val _detailWalletData = MutableLiveData<List<DetailWalletItem>>()
+    private val _responseData = MutableLiveData<Response>()
+
+    fun uploadData(walletId: Long) {
         detailWalletUseCase(walletId).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {  detailWalletsItems ->
-                detailWalletData.value = detailWalletsItems
+            .subscribe { detailWalletsItems ->
+                _detailWalletData.value = detailWalletsItems
             }
-        return DataList.data
-    }
-
-    fun getData(): LiveData<List<DetailWalletItem>> {
-        return detailWalletData
     }
 
     fun deleteTransaction(transaction: DetailWalletItem.Transaction) {
@@ -37,7 +36,7 @@ class DetailWalletViewModel @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { response ->
-
+                _responseData.value = response
             }
     }
 }

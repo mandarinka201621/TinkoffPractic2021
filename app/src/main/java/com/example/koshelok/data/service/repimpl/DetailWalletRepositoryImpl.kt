@@ -35,7 +35,7 @@ class DetailWalletRepositoryImpl @Inject constructor(
                             mapper.mapTransactionApiToDetailWalletTransaction(api)
                         })
                     }
-                }.toList()
+                }.toList().reversed()
             }
     }
 

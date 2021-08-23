@@ -27,10 +27,10 @@
         <action
             android:id="@+id/action_detailWalletFragment_to_sumOperationFragment"
             app:destination="@id/sumOperationFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:exitAnim="@anim/slide_out_bottom"
+            app:enterAnim="@anim/slide_in_top"
+            app:popEnterAnim="@anim/slide_out_top"
+            app:popExitAnim="@anim/slide_in_bottom" />
     </fragment>
     <fragment
         android:id="@+id/sumOperationFragment"
@@ -40,10 +40,10 @@
         <action
             android:id="@+id/action_sumOperationFragment_to_typeOperationFragment"
             app:destination="@id/typeOperationFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:enterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/sumOperationFragment" />
         <argument
             android:name="transaction"
@@ -57,10 +57,10 @@
         <action
             android:id="@+id/action_typeOperationFragment_to_categoryOperationFragment"
             app:destination="@id/categoryOperationFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:enterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/typeOperationFragment" />
         <argument
             android:name="transaction"
@@ -74,10 +74,10 @@
         <action
             android:id="@+id/action_categoryOperationFragment_to_addOperationFragment"
             app:destination="@id/addOperationFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:enterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/categoryOperationFragment" />
         <argument
             android:name="transaction"

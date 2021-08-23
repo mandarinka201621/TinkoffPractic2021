@@ -40,7 +40,7 @@ class SumOperationFragment : Fragment(R.layout.fragment_sum_operation_transactio
     }
 
     private fun launchTypeFragment() {
-        transaction.sum = binding.sumOperationEditText.text.toString()
+        transaction.sum = binding.sumOperationEditText.text.toString().trimStart('0')
         findNavController().navigate(
             SumOperationFragmentDirections
                 .actionSumOperationFragmentToTypeOperationFragment(transaction)

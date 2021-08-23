@@ -10,7 +10,7 @@ sealed class DetailWalletItem {
         val income: String,
         val consumption: String,
         val limit: String?,
-        val currency: String
+        val currency: Currency
     ) : DetailWalletItem()
 
     data class Day(val day: String) : DetailWalletItem()

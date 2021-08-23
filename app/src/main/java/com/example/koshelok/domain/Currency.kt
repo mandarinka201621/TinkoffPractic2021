@@ -1,5 +1,5 @@
 package com.example.koshelok.domain
 
-enum class Currency {
-    RUB, EUR, USD, GBR
+enum class Currency(val icon: String) {
+    RUB("₽"), EUR("€"), USD("$"), GBR("£")
 }

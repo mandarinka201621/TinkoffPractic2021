@@ -1,5 +1,6 @@
 package com.example.koshelok.ui.detailwallet
 
+import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -15,14 +16,19 @@ class HeaderHolder(view: View) : DetailWalletHolder(view) {
 
     private val binding by viewBinding(ItemHeaderDetailWalletBinding::bind)
 
+    @SuppressLint("SetTextI18n")
     override fun onBind(data: DetailWalletItem) {
         if (data is DetailWalletItem.HeaderDetailWallet) {
             with(binding) {
                 wallet.text = data.nameWallet
-                amountMoney.text = data.amountMoney
-                income.text = data.income
-                consumption.text = data.consumption
-                limit.text = data.limit
+                amountMoney.text = data.amountMoney + data.currency.icon
+                income.text = data.income + data.currency.icon
+                consumption.text = data.consumption + data.currency.icon
+                if (data.limit == null) {
+                    limit.visibility = View.GONE
+                } else {
+                    limit.text = data.limit
+                }
             }
         }
     }
@@ -44,6 +50,7 @@ class TransactionHolder(view: View, private val swipeCallback: SwipeOptionsCallb
 
     private val binding by viewBinding(ItemTransactionBinding::bind)
 
+    @SuppressLint("SetTextI18n")
     override fun onBind(data: DetailWalletItem) {
         if (data is DetailWalletItem.Transaction) {
             with(binding) {
@@ -58,11 +65,11 @@ class TransactionHolder(view: View, private val swipeCallback: SwipeOptionsCallb
                         category = root.context.getString(R.string.replenishment)
                     }
                     TypeOperation.SELECT_EXPENSE -> {
-                        moneyText = data.money
+                        moneyText = "-${data.money}"
                         category = root.context.getString(R.string.spending)
                     }
                 }
-                money.text = moneyText
+                money.text = moneyText+data.currency.icon
                 categoryText.text = category
                 time.text = data.time
                 deleteButton.setOnClickListener {

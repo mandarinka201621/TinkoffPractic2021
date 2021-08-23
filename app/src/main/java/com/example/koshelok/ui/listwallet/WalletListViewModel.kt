@@ -38,5 +38,4 @@ class WalletListViewModel @Inject constructor() : RxViewModel() {
     private fun uploadWallets() {
         //TODO загружать из сервака
     }
-
 }

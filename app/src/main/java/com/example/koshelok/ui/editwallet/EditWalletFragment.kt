@@ -40,7 +40,8 @@ class EditWalletFragment : Fragment(R.layout.fragment_edit_wallet) {
         }
 
     private fun launchDetailWalletFragment() {
-        findNavController().navigate(R.id.action_editWalletFragment_to_detailWalletFragment)
+        //TODO тут надо принять id после создания
+        findNavController().navigate(EditWalletFragmentDirections.actionEditWalletFragmentToDetailWalletFragment(0))
     }
 
     private fun setOnCLickEditWalletListener() {

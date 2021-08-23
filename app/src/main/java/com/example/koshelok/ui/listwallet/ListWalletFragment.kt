@@ -1,5 +1,6 @@
 package com.example.koshelok.ui.listwallet
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentListWalletBinding
+import com.example.koshelok.domain.Currency
 import com.example.koshelok.ui.appComponent
 import com.example.koshelok.ui.factory.ViewModelFactory
 import com.example.koshelok.ui.listwallet.entity.BalanceEntity
@@ -32,10 +34,11 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
             .inject(this)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
-            val walletsAdapter = WalletListAdapter()
+            val walletsAdapter = WalletListAdapter(::transitionToDetailWallet)
             walletList.run {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = walletsAdapter
@@ -48,9 +51,9 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
             viewModel.balanceData.observe(viewLifecycleOwner) { balanceModel: BalanceEntity? ->
                 if (balanceModel != null) {
                     with(balance) {
-                        amountMoney.text = balanceModel.amountMoney
-                        incomeMoney.text = balanceModel.incomeMoney
-                        consumptionMoney.text = balanceModel.consumptionMoney
+                        amountMoney.text = balanceModel.amountMoney + Currency.RUB.icon
+                        incomeMoney.text = balanceModel.incomeMoney + Currency.RUB.icon
+                        consumptionMoney.text = balanceModel.consumptionMoney + Currency.RUB.icon
                     }
                 }
             }
@@ -79,6 +82,12 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
             }
 
         }
+    }
+
+    private fun transitionToDetailWallet(walletId: Long) {
+        findNavController().navigate(
+            ListWalletFragmentDirections.actionWalletListFragmentToDetailWalletFragment(walletId)
+        )
     }
 
     private fun launchTitleWalletFragment() {

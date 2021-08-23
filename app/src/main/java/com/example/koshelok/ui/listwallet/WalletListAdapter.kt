@@ -8,14 +8,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.koshelok.R
 import com.example.koshelok.ui.listwallet.entity.WalletEntity
 
-class WalletListAdapter : RecyclerView.Adapter<WalletHolder>() {
+class WalletListAdapter(private val transitionToDetailWallet: (walletId: Long) -> Unit) :
+    RecyclerView.Adapter<WalletHolder>() {
 
     private val diffUtil = AsyncListDiffer(this, WalletCallback())
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WalletHolder {
-        return WalletHolder(
+        val viewHolder = WalletHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_wallet, parent, false)
         )
+        viewHolder.itemView.setOnClickListener {
+            if (viewHolder.adapterPosition != RecyclerView.NO_POSITION) {
+                transitionToDetailWallet(diffUtil.currentList[viewHolder.adapterPosition].id)
+            }
+        }
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: WalletHolder, position: Int) {

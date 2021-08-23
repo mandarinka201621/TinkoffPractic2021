@@ -9,6 +9,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
@@ -25,7 +26,8 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
 
     private val binding by viewBinding(FragmentDetailWalletBinding::bind)
     private val viewModel: DetailWalletViewModel by viewModels { viewModelFactory }
-    private val walletId = 0L
+    private val args by navArgs<DetailWalletFragmentArgs>()
+    private val walletId by lazy { args.walletId }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -81,7 +83,7 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
     private fun launchTypeFragment() {
         findNavController().navigate(
             DetailWalletFragmentDirections.actionDetailWalletFragmentToSumOperationFragment(
-                Transaction(null, 0, null, null, null, null)
+                Transaction(null, walletId, null, null, null, null)
             )
         )
     }

@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -20,9 +21,10 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
+            setOnBackPressedListener()
             toolbar.inflateMenu(R.menu.menu_detail_wallet)
             toolbar.setNavigationOnClickListener {
-                requireActivity().onBackPressed()
+                findNavController().popBackStack(R.id.walletListFragment, false)
             }
             val detailWalletAdapter = DetailWalletAdapter(this@DetailWalletFragment)
             addOperation.setOnClickListener {
@@ -39,6 +41,13 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
                 }
             }
         }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().popBackStack(R.id.walletListFragment, false)
+                }
+            })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -56,6 +65,12 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
                 Transaction(0, null, null, null, null)
             )
         )
+    }
+
+    private fun setOnBackPressedListener() {
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack(R.id.walletListFragment, false)
+        }
     }
 
     override fun deleteTransaction(data: DetailWalletItem.Transaction) {

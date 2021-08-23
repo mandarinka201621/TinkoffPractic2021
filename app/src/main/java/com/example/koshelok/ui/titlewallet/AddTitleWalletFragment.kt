@@ -11,12 +11,11 @@ import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentAddTitleWalletBinding
 import com.example.koshelok.extentions.hideKeyboard
 import com.example.koshelok.extentions.showKeyboard
+import com.example.koshelok.ui.model.CreateWalletEntity
 
 class AddTitleWalletFragment : Fragment(R.layout.fragment_add_title_wallet) {
 
     private val binding by viewBinding(FragmentAddTitleWalletBinding::bind)
-
-    //private val viewModel: SumOperationViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,7 +25,6 @@ class AddTitleWalletFragment : Fragment(R.layout.fragment_add_title_wallet) {
         binding.fartherButton.setOnClickListener {
             launchEditWalletFragment()
         }
-       TODO("Сохранение wallet в viewModel")
     }
 
     override fun onStop() {
@@ -41,8 +39,12 @@ class AddTitleWalletFragment : Fragment(R.layout.fragment_add_title_wallet) {
     }
 
     private fun launchEditWalletFragment() {
-        binding.titleWalletEditText.hideKeyboard()
-            TODO("Сделать переход и засесить изменения wallet")
+        val title = binding.titleWalletEditText.text.toString().trim()
+        findNavController().navigate(
+            AddTitleWalletFragmentDirections.actionAddTitleWalletFragmentToEditWalletFragment(
+                CreateWalletEntity(null, getString(R.string.limit_not_install), title, getString(R.string.russian_rub))
+            )
+        )
     }
 
     private fun setAddTextChangedListener() {
@@ -54,7 +56,7 @@ class AddTitleWalletFragment : Fragment(R.layout.fragment_add_title_wallet) {
                 Unit
 
             override fun afterTextChanged(str: Editable) {
-                if (str.toString().trim().isNotEmpty() && str.toString().toInt() > 0) {
+                if (str.toString().trim() > "") {
                     with(binding.fartherButton) {
                         isEnabled = true
                     }

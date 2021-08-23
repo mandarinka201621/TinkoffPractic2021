@@ -9,7 +9,8 @@ data class WalletApi(
     val amountMoney: String,
     val income: String,
     val expense: String,
-    val limit: String,
+    val limit: String?,
     val currency: String,
+    val personId: Long,
     val isHide: Boolean
 )

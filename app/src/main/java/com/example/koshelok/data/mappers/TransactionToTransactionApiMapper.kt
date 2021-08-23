@@ -9,6 +9,7 @@ class TransactionToTransactionApiMapper @Inject constructor() {
 
     operator fun invoke(transaction: Transaction) =
         CreateTransactionApi(
+            id = transaction.id,
             idWallet = transaction.idWallet,
             money = transaction.sum ?: "0",
             idCategory = transaction.categoryModel?.id ?: 0,

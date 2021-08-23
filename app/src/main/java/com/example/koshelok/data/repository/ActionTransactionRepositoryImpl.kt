@@ -17,7 +17,7 @@ class ActionTransactionRepositoryImpl @Inject constructor(
         return Single.just(transaction)
             .map { mapper(it) }
             .flatMap {
-                appService.editTransaction(it)
+                appService.editTransaction(transaction.id?:0,it)
             }
     }
 }

@@ -8,39 +8,45 @@ import com.example.koshelok.data.service.api.ResponseApi
 import com.example.koshelok.data.service.api.TransactionApi
 import com.example.koshelok.data.service.api.WalletApi
 import io.reactivex.rxjava3.core.Single
+import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Path
 
 interface AppService {
 
-    @GET("getWallets")
-    fun getWallets(): Single<List<WalletApi>>
+    @GET("getWallets/{personId}")
+    fun getWallets(@Path("personId") idUser: Long): Single<List<WalletApi>>
 
-    @GET("getTransactions")
-    fun getTransactions(walletId: Long): Single<List<TransactionApi>>
+    @GET("transactions/wallet/{walletId}")
+    fun getTransactions(@Path("walletId") walletId: Long): Single<List<TransactionApi>>
 
-    @GET("getCategories")
-    fun getCategories(): Single<List<CategoryApi>>
+    @GET("categories/person/{personId}")
+    fun getCategories(@Path("personId") personId: Long): Single<List<CategoryApi>>
 
-    @GET("getWallet")
-    fun getWallet(walletId: Long): Single<WalletApi>
+    @GET("wallets/{walletId}")
+    fun getWallet(@Path("walletId") walletId: Long): Single<WalletApi>
 
-    @POST("addTransaction")
-    fun addTransaction(transactionApi: CreateTransactionApi): Single<ResponseApi>
+    @POST("transactions")
+    fun addTransaction(@Body transactionApi: CreateTransactionApi): Single<ResponseApi>
 
-    @POST("addWallet")
-    fun addWallet(walletApi: WalletApi): Single<ResponseApi>
+    @POST("wallets")
+    fun addWallet(@Body walletApi: WalletApi): Single<ResponseApi>
 
-    @PUT("editTransaction")
-    fun editTransaction(transactionApi: CreateTransactionApi): Single<ResponseApi>
+    @PUT("transactions/{transactionId}")
+    fun editTransaction(
+        @Path("transactionId")
+        id: Long,
+        @Body transactionApi: CreateTransactionApi
+    ): Single<ResponseApi>
 
-    @DELETE("deleteTransaction")
-    fun deleteTransaction(id: Long): Single<ResponseApi>
+    @DELETE("transactions/{transactionId}")
+    fun deleteTransaction(@Path("transactionId") id: Long): Single<ResponseApi>
 
-    @GET("getBalance")
-    fun getBalance(): Single<BalanceApi>
+    @GET("balance/{personId}")
+    fun getBalance(@Path("personId") personId: Long): Single<BalanceApi>
 
     @GET("getExchangeRates")
     fun getExchangeRates(): Single<ExchangeRatesApi>

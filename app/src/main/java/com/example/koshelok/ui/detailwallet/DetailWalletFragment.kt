@@ -56,7 +56,7 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
                 }
             }
 
-            viewModel.responseData.observe(viewLifecycleOwner){
+            viewModel.responseData.observe(viewLifecycleOwner) {
                 viewModel.uploadData(walletId)
             }
         }
@@ -81,7 +81,7 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
     private fun launchTypeFragment() {
         findNavController().navigate(
             DetailWalletFragmentDirections.actionDetailWalletFragmentToSumOperationFragment(
-                Transaction(0, null, null, null, null)
+                Transaction(null, 0, null, null, null, null)
             )
         )
     }

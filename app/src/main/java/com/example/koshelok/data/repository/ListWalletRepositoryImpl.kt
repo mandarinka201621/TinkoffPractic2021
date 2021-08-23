@@ -23,14 +23,14 @@ class ListWalletRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getBalance(): Single<BalanceEntity> {
-        return appService.getBalance().map {
+    override fun getBalance(personId: Long): Single<BalanceEntity> {
+        return appService.getBalance(personId).map {
             mapperBalance(it)
         }
     }
 
-    override fun getListWallet(): Single<List<WalletEntity>> {
-        return appService.getWallets()
+    override fun getListWallet(personId: Long): Single<List<WalletEntity>> {
+        return appService.getWallets(personId)
             .map { wallets ->
                 wallets.map { walletApi -> mapperWallet(walletApi) }
             }

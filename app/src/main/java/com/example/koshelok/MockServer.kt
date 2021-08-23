@@ -1,6 +1,6 @@
 package com.example.koshelok
 
-import com.example.koshelok.data.service.AppApi
+import com.example.koshelok.data.service.AppService
 import com.example.koshelok.data.service.api.BalanceApi
 import com.example.koshelok.data.service.api.CategoryApi
 import com.example.koshelok.data.service.api.CreateTransactionApi
@@ -12,8 +12,8 @@ import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 @Suppress("MagicNumber")
-class MockServer @Inject constructor(): AppApi {
-    override fun getWallets(): Single<List<WalletApi>> {
+class MockServer @Inject constructor() : AppService {
+    override fun getWallets(idUser: Long): Single<List<WalletApi>> {
         TODO("Not yet implemented")
     }
 
@@ -21,7 +21,7 @@ class MockServer @Inject constructor(): AppApi {
         TODO("Not yet implemented")
     }
 
-    override fun getCategories(): Single<List<CategoryApi>> {
+    override fun getCategories(personId: Long): Single<List<CategoryApi>> {
         TODO("Not yet implemented")
     }
 
@@ -37,7 +37,10 @@ class MockServer @Inject constructor(): AppApi {
         TODO("Not yet implemented")
     }
 
-    override fun editTransaction(transactionApi: CreateTransactionApi): Single<ResponseApi> {
+    override fun editTransaction(
+        id: Long,
+        transactionApi: CreateTransactionApi
+    ): Single<ResponseApi> {
         TODO("Not yet implemented")
     }
 
@@ -45,7 +48,7 @@ class MockServer @Inject constructor(): AppApi {
         TODO("Not yet implemented")
     }
 
-    override fun getBalance(): Single<BalanceApi> {
+    override fun getBalance(personId: Long): Single<BalanceApi> {
         TODO("Not yet implemented")
     }
 

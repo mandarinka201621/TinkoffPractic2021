@@ -1,7 +1,7 @@
 package com.example.koshelok.di.module
 
-import com.example.koshelok.data.service.AppService
 import com.example.koshelok.MockServer
+import com.example.koshelok.data.service.AppService
 import com.example.koshelok.di.AppScope
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
@@ -42,7 +42,7 @@ class NetworkModule {
 
     @AppScope
     @Provides
-    fun providesMockServer(mockServer: MockServer): AppApi {
+    fun providesMockServer(mockServer: MockServer): AppService {
         return mockServer
     }
 }

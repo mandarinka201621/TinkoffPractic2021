@@ -5,13 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.koshelok.domain.Response
 import com.example.koshelok.domain.repository.DeleteTransactionRepository
-import com.example.koshelok.domain.usecase.DetailWalletUseCase
+import com.example.koshelok.domain.usecase.HeaderWalletUseCase
+import com.example.koshelok.domain.usecase.TransactionsUseCase
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 class DetailWalletViewModel @Inject constructor(
-    private val detailWalletUseCase: DetailWalletUseCase,
+    private val transactionsUseCase: TransactionsUseCase,
+    private val headerWalletUseCase: HeaderWalletUseCase,
     private val deleteTransactionRepository: DeleteTransactionRepository
 ) : ViewModel() {
 
@@ -24,7 +27,11 @@ class DetailWalletViewModel @Inject constructor(
     private val _responseData = MutableLiveData<Response>()
 
     fun uploadData(walletId: Long) {
-        detailWalletUseCase(walletId).subscribeOn(Schedulers.io())
+        Single.zip(headerWalletUseCase(walletId), transactionsUseCase(walletId)) { wallet, transactions ->
+            return@zip mutableListOf<DetailWalletItem>(wallet).apply {
+                addAll(transactions.reversed())
+            }.toList()
+        }.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { detailWalletsItems ->
                 _detailWalletData.value = detailWalletsItems

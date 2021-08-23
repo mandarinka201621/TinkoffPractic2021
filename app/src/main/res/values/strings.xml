@@ -74,4 +74,6 @@
     <string name="currency">Валюта</string>
     <string name="create_wallet">Создать кошелек</string>
     <string name="title">Название</string>
+    <string name="add_wallet">Создать кошелек</string>
+    <string name="currency">Валюта</string>
 </resources>

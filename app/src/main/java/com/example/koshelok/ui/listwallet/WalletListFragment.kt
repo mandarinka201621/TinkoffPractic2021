@@ -9,14 +9,14 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
-import com.example.koshelok.databinding.FragmentWalletListBinding
+import com.example.koshelok.databinding.FragmentListWalletBinding
 import com.example.koshelok.ui.listwallet.entity.BalanceEntity
 import com.example.koshelok.ui.listwallet.entity.ExchangeRatesEntity
 import com.example.koshelok.ui.listwallet.entity.WalletEntity
 
 class WalletListFragment : Fragment() {
 
-    private val binding by viewBinding(FragmentWalletListBinding::bind)
+    private val binding by viewBinding(FragmentListWalletBinding::bind)
     private val viewModel: WalletListViewModel by viewModels()
 
     override fun onCreateView(
@@ -24,7 +24,7 @@ class WalletListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_wallet_list, container, false)
+        return inflater.inflate(R.layout.fragment_list_wallet, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

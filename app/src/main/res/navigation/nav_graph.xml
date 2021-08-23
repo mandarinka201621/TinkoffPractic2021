@@ -10,14 +10,8 @@
         android:label="OnboardScreenFragment"
         tools:layout="@layout/fragment_onboarding_screen">
         <action
-            android:id="@+id/action_onboardScreenFragment_to_detailWalletFragment"
-            app:destination="@id/detailWalletFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/navHost"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_onboardScreenFragment_to_walletListFragment"
+            app:destination="@id/walletListFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailWalletFragment"
@@ -96,5 +90,32 @@
         android:id="@+id/walletListFragment"
         android:name="com.example.koshelok.ui.listwallet.WalletListFragment"
         android:label="WalletListFragment"
-        tools:layout="@layout/fragment_list_wallet"/>
+        tools:layout="@layout/fragment_list_wallet">
+        <action
+            android:id="@+id/action_walletListFragment_to_addTitleWalletFragment"
+            app:destination="@id/addTitleWalletFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTitleWalletFragment"
+        android:name="com.example.koshelok.ui.titlewallet.AddTitleWalletFragment"
+        android:label="AddTitleWalletFragment"
+        tools:layout="@layout/fragment_add_title_wallet">
+        <action
+            android:id="@+id/action_addTitleWalletFragment_to_editWalletFragment"
+            app:destination="@id/editWalletFragment"
+            app:popUpTo="@id/addTitleWalletFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editWalletFragment"
+        android:name="com.example.koshelok.ui.editwallet.EditWalletFragment"
+        android:label="EditWalletFragment"
+        tools:layout="@layout/fragment_edit_wallet">
+        <action
+            android:id="@+id/action_editWalletFragment_to_detailWalletFragment"
+            app:destination="@id/detailWalletFragment"
+            app:popUpTo="@layout/fragment_edit_wallet" />
+        <argument
+            android:name="createWallet"
+            app:argType="com.example.koshelok.ui.model.CreateWalletEntity" />
+    </fragment>
 </navigation>

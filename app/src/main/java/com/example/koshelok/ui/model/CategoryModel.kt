@@ -9,5 +9,5 @@ data class CategoryModel(
     val typeOperation: String,
     val color: Int,
     var isEnable: Boolean,
-    val id: Int
-) : Parcelable
+    val id: Long
+):Parcelable

@@ -1,4 +1,4 @@
-package com.example.koshelok.extentions
+package com.example.koshelok.data.extentions
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -53,5 +53,12 @@ fun Calendar.getDayOfMonth(): String = this.get(Calendar.DAY_OF_MONTH).toString(
 fun Long.getTime(): String {
     val calendar = this.getCalendar()
     val formatter = SimpleDateFormat("HH:mm")
+    return formatter.format(calendar.time)
+}
+
+@SuppressLint("SimpleDateFormat")
+fun Long.getFormattedDate(): String {
+    val calendar = this.getCalendar()
+    val formatter = SimpleDateFormat("dd.MM.yyyy")
     return formatter.format(calendar.time)
 }

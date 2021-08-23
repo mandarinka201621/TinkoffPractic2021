@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.koshelok.AccountSharedPreferences
 import com.example.koshelok.R
+import com.example.koshelok.data.AccountSharedPreferences
 import com.example.koshelok.databinding.FragmentOnboardingScreenBinding
 import com.example.koshelok.ui.appComponent
 import com.google.android.gms.auth.api.signin.GoogleSignIn

@@ -67,9 +67,9 @@ class CategoryViewModel @Inject constructor() : ViewModel() {
     }
 
     companion object{
-        const val NUMBER2 = 2
-        const val NUMBER3 = 3
-        const val NUMBER4 = 4
-        const val NUMBER5 = 5
+        const val NUMBER2 = 2L
+        const val NUMBER3 = 3L
+        const val NUMBER4 = 4L
+        const val NUMBER5 = 5L
     }
 }

@@ -9,15 +9,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
-import com.example.koshelok.data.ViewModelFactory
 import com.example.koshelok.databinding.FragmentListWalletBinding
 import com.example.koshelok.ui.appComponent
+import com.example.koshelok.ui.factory.ViewModelFactory
 import com.example.koshelok.ui.listwallet.entity.BalanceEntity
 import com.example.koshelok.ui.listwallet.entity.ExchangeRatesEntity
 import com.example.koshelok.ui.listwallet.entity.WalletEntity
 import javax.inject.Inject
 
-class WalletListFragment : Fragment(R.layout.fragment_list_wallet) {
+class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
 
 
     @Inject
@@ -58,10 +58,13 @@ class WalletListFragment : Fragment(R.layout.fragment_list_wallet) {
             viewModel.exchangeRatesData.observe(viewLifecycleOwner) { exchangeRatesEntity: ExchangeRatesEntity? ->
                 if (exchangeRatesEntity != null) {
                     with(exchangeRates) {
+                        firstCurrency.text = exchangeRatesEntity.firstCurrency.name
                         firstCourse.text = exchangeRatesEntity.firstCourse
                         firstCheck.isActivated = exchangeRatesEntity.firstIsUp
+                        secondCurrency.text = exchangeRatesEntity.secondCurrency.name
                         secondCourse.text = exchangeRatesEntity.secondCourse
                         secondCheck.isActivated = exchangeRatesEntity.secondIsUp
+                        thirdCurrency.text = exchangeRatesEntity.thirdCurrency.name
                         thirdCourse.text = exchangeRatesEntity.thirdCourse
                         thirdCheck.isActivated = exchangeRatesEntity.thirdIsUp
                     }

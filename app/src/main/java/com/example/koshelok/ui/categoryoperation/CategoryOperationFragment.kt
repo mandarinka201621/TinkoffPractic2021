@@ -5,14 +5,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
-import com.example.koshelok.data.ViewModelFactory
 import com.example.koshelok.databinding.FragmentCategoryOperationTransactionBinding
 import com.example.koshelok.ui.appComponent
+import com.example.koshelok.ui.factory.ViewModelFactory
 import com.example.koshelok.ui.model.CategoryModel
 import com.example.koshelok.ui.sumoperation.SumOperationFragmentArgs
 import javax.inject.Inject
@@ -24,7 +23,7 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
     lateinit var viewModelFactory: ViewModelFactory
 
     private val binding by viewBinding(FragmentCategoryOperationTransactionBinding::bind)
-    private val viewModel: CategoryViewModel by viewModels {viewModelFactory}
+    private val viewModel: CategoryViewModel by viewModels { viewModelFactory }
 
     private val args by navArgs<SumOperationFragmentArgs>()
     private val transaction by lazy { args.transaction }
@@ -50,13 +49,11 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
     private fun setupRecycler() {
         adapterCategory = AdapterCategory(this@CategoryOperationFragment)
         binding.categoryRecyclerView.adapter = adapterCategory
-        viewModel.listCategoryModel.observe(
-            viewLifecycleOwner,
-            Observer { data: List<CategoryModel>? ->
-                if (data != null) {
-                    adapterCategory.submitList(data)
-                }
-            })
+        viewModel.listCategoryModel.observe(viewLifecycleOwner) { data: List<CategoryModel>? ->
+            if (data != null) {
+                adapterCategory.submitList(data)
+            }
+        }
     }
 
     private fun isSelectedCategory() {

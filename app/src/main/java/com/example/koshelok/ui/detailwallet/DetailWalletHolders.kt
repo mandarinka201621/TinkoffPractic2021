@@ -9,7 +9,7 @@ import com.example.koshelok.R
 import com.example.koshelok.databinding.ItemDayBinding
 import com.example.koshelok.databinding.ItemHeaderDetailWalletBinding
 import com.example.koshelok.databinding.ItemTransactionBinding
-import com.example.koshelok.domain.Category
+import com.example.koshelok.domain.TypeOperation
 
 class HeaderHolder(view: View) : DetailWalletHolder(view) {
 
@@ -39,24 +39,28 @@ class DayHolder(view: View) : DetailWalletHolder(view) {
     }
 }
 
-class TransactionHolder(view: View, private val swipeCallback: SwipeOptionsCallback) : DetailWalletHolder(view) {
+class TransactionHolder(view: View, private val swipeCallback: SwipeOptionsCallback) :
+    DetailWalletHolder(view) {
 
     private val binding by viewBinding(ItemTransactionBinding::bind)
 
     override fun onBind(data: DetailWalletItem) {
         if (data is DetailWalletItem.Transaction) {
             with(binding) {
-                icon.setImageDrawable(ContextCompat.getDrawable(root.context, data.category.icon))
+                icon.setImageDrawable(ContextCompat.getDrawable(root.context, data.category.iconId))
                 icon.backgroundTintList = ColorStateList.valueOf(data.category.color)
-                typeOperation.text = data.category.typeOperation
+                typeOperation.text = data.category.operation
                 val moneyText: String
                 val category: String
-                if (data.category is Category.Income) {
-                    moneyText = data.money
-                    category = root.context.getString(R.string.replenishment)
-                } else {
-                    moneyText = data.money
-                    category = root.context.getString(R.string.spending)
+                when (data.category.type) {
+                    TypeOperation.SELECT_INCOME -> {
+                        moneyText = data.money
+                        category = root.context.getString(R.string.replenishment)
+                    }
+                    TypeOperation.SELECT_EXPENSE -> {
+                        moneyText = data.money
+                        category = root.context.getString(R.string.spending)
+                    }
                 }
                 money.text = moneyText
                 categoryText.text = category
@@ -71,7 +75,7 @@ class TransactionHolder(view: View, private val swipeCallback: SwipeOptionsCallb
         }
     }
 
-    fun resetSwipe(){
+    fun resetSwipe() {
         binding.swipeLayout.reset()
     }
 }

@@ -9,13 +9,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
-import com.example.koshelok.data.ViewModelFactory
+import com.example.koshelok.data.extentions.getCalendar
+import com.example.koshelok.data.extentions.getDayWithMonth
 import com.example.koshelok.databinding.FragmentAddOperationTransactionBinding
-import com.example.koshelok.extentions.getCalendar
-import com.example.koshelok.extentions.getDayWithMonth
+import com.example.koshelok.domain.TypeOperation
 import com.example.koshelok.ui.appComponent
+import com.example.koshelok.ui.factory.ViewModelFactory
 import com.example.koshelok.ui.sumoperation.SumOperationFragmentArgs
-import com.example.koshelok.ui.typeoperation.TypeOperationViewModel
 import javax.inject.Inject
 
 class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transaction) {
@@ -52,8 +52,8 @@ class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transactio
     }
 
     private fun getTypeToString() = when (viewModel.transaction.value?.type) {
-        TypeOperationViewModel.Select.SELECT_EXPENSE -> requireContext().getString(R.string.income_text)
-        TypeOperationViewModel.Select.SELECT_INCOME -> requireContext().getString(R.string.text_expense)
+        TypeOperation.SELECT_EXPENSE -> requireContext().getString(R.string.income_text)
+        TypeOperation.SELECT_INCOME -> requireContext().getString(R.string.text_expense)
         else -> throw NullPointerException("Error type")
     }
 

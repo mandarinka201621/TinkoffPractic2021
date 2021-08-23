@@ -11,11 +11,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
-import com.example.koshelok.data.ViewModelFactory
+import com.example.koshelok.data.extentions.hideKeyboard
+import com.example.koshelok.data.extentions.showKeyboard
 import com.example.koshelok.databinding.FragmentSumOperationTransactionBinding
-import com.example.koshelok.extentions.hideKeyboard
-import com.example.koshelok.extentions.showKeyboard
 import com.example.koshelok.ui.appComponent
+import com.example.koshelok.ui.factory.ViewModelFactory
 import javax.inject.Inject
 
 class SumOperationFragment : Fragment(R.layout.fragment_sum_operation_transaction) {

@@ -1,6 +1,6 @@
 package com.example.koshelok.data.repository
 
-import com.example.koshelok.data.mapper.ResponseApiToResponseMapper
+import com.example.koshelok.data.mappers.ResponseApiToResponseMapper
 import com.example.koshelok.data.service.AppService
 import com.example.koshelok.domain.Response
 import com.example.koshelok.domain.repository.DeleteTransactionRepository

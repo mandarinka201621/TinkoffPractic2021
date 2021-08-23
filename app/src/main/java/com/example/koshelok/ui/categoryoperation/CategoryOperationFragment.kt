@@ -9,9 +9,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
-import com.example.koshelok.data.factory.ViewModelFactory
 import com.example.koshelok.databinding.FragmentCategoryOperationTransactionBinding
 import com.example.koshelok.ui.appComponent
+import com.example.koshelok.ui.factory.ViewModelFactory
 import com.example.koshelok.ui.model.CategoryModel
 import com.example.koshelok.ui.sumoperation.SumOperationFragmentArgs
 import javax.inject.Inject

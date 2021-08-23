@@ -2,7 +2,6 @@ package com.example.koshelok.ui.typeoperation
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -10,10 +9,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
-import com.example.koshelok.data.factory.ViewModelFactory
 import com.example.koshelok.databinding.FragmentTypeOperationTransactionBinding
 import com.example.koshelok.domain.TypeOperation
 import com.example.koshelok.ui.appComponent
+import com.example.koshelok.ui.factory.ViewModelFactory
 import com.example.koshelok.ui.sumoperation.SumOperationFragmentArgs
 import javax.inject.Inject
 

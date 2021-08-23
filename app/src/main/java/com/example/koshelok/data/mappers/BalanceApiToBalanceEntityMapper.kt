@@ -1,4 +1,4 @@
-package com.example.koshelok.data.mapper
+package com.example.koshelok.data.mappers
 
 import com.example.koshelok.data.service.api.BalanceApi
 import com.example.koshelok.ui.listwallet.entity.BalanceEntity

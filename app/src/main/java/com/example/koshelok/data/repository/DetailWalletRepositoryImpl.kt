@@ -3,8 +3,8 @@ package com.example.koshelok.data.repository
 import android.content.Context
 import com.example.koshelok.data.extentions.checkDate
 import com.example.koshelok.data.extentions.getFormattedDate
-import com.example.koshelok.data.mapper.TransactionApiToDetailWalletTransactionMapper
-import com.example.koshelok.data.mapper.WalletApiToHeaderWalletMapper
+import com.example.koshelok.data.mappers.TransactionApiToDetailWalletTransactionMapper
+import com.example.koshelok.data.mappers.WalletApiToHeaderWalletMapper
 import com.example.koshelok.data.service.AppService
 import com.example.koshelok.domain.repository.DetailWalletRepository
 import com.example.koshelok.ui.detailwallet.DetailWalletItem

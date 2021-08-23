@@ -1,8 +1,8 @@
 package com.example.koshelok.data.repository
 
-import com.example.koshelok.data.mapper.BalanceApiToBalanceEntityMapper
-import com.example.koshelok.data.mapper.ExchangeRatesApiToExchangeRatesEntityMapper
-import com.example.koshelok.data.mapper.WalletApiToWalletEntityMapper
+import com.example.koshelok.data.mappers.BalanceApiToBalanceEntityMapper
+import com.example.koshelok.data.mappers.ExchangeRatesApiToExchangeRatesEntityMapper
+import com.example.koshelok.data.mappers.WalletApiToWalletEntityMapper
 import com.example.koshelok.data.service.AppService
 import com.example.koshelok.domain.repository.ListWalletRepository
 import com.example.koshelok.ui.listwallet.entity.BalanceEntity

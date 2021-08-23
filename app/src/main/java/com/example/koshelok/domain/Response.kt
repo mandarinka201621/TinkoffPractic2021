@@ -1,3 +1,5 @@
 package com.example.koshelok.domain
 
-data class Response(val code: Int)
+enum class Response{
+    OK, ERROR
+}

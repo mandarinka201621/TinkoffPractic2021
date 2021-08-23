@@ -1,20 +1,35 @@
 package com.example.koshelok.ui.editwallet
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentEditWalletBinding
+import com.example.koshelok.domain.Currency
+import com.example.koshelok.domain.Response
+import com.example.koshelok.ui.appComponent
+import com.example.koshelok.ui.factory.ViewModelFactory
+import javax.inject.Inject
 
 class EditWalletFragment : Fragment(R.layout.fragment_edit_wallet) {
 
-    private val binding by viewBinding(FragmentEditWalletBinding::bind)
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
+    private val binding by viewBinding(FragmentEditWalletBinding::bind)
     private val args by navArgs<EditWalletFragmentArgs>()
     private val wallet by lazy { args.createWallet }
+    private val viewModel: EditWalletViewModel by viewModels { viewModelFactory }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        context.appComponent.inject(this)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -24,24 +39,35 @@ class EditWalletFragment : Fragment(R.layout.fragment_edit_wallet) {
             titleTextView.text = wallet.name
             currencyTextView.text = getCurrency()
             limitTextView.text = wallet.limit
-        }
+            createWalletButton.setOnClickListener {
+                viewModel.createWallet(wallet)
+            }
 
-        binding.createWalletButton.setOnClickListener {
-            launchDetailWalletFragment()
+            viewModel.responseServerData.observe(viewLifecycleOwner) { response: ResponseWithWalletEntity? ->
+                when (response?.response) {
+                    Response.OK -> launchDetailWalletFragment(response.walletId)
+                    Response.ERROR -> showErrorServerMessage()
+                }
+            }
         }
+    }
+
+    private fun showErrorServerMessage() {
+        //TODO вывести сообщение об ошибки на серваке
     }
 
     private fun getCurrency(): String =
         when (wallet.currency) {
-            getString(R.string.russian_rub) -> getString(R.string.RUB)
+            Currency.RUB -> getString(R.string.RUB)
             else -> {
                 getString(R.string.limit_not_install)
             }
         }
 
-    private fun launchDetailWalletFragment() {
-        //TODO тут надо принять id после создания
-        findNavController().navigate(EditWalletFragmentDirections.actionEditWalletFragmentToDetailWalletFragment(0))
+    private fun launchDetailWalletFragment(walletId: Long) {
+        findNavController().navigate(
+            EditWalletFragmentDirections.actionEditWalletFragmentToDetailWalletFragment(walletId)
+        )
     }
 
     private fun setOnCLickEditWalletListener() {

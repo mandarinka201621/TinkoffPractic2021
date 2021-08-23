@@ -9,7 +9,7 @@ class WalletApiToWalletEntityMapper @Inject constructor() {
 
     operator fun invoke(walletApi: WalletApi) =
         WalletEntity(
-            id = walletApi.id,
+            id = walletApi.id ?: 0,
             name = walletApi.name,
             amountMoney = walletApi.amountMoney,
             currency = Currency.valueOf(walletApi.currency),

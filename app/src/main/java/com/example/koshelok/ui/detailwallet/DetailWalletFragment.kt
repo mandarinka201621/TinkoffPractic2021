@@ -15,8 +15,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentDetailWalletBinding
 import com.example.koshelok.ui.appComponent
+import com.example.koshelok.ui.entity.TransactionEntity
 import com.example.koshelok.ui.factory.ViewModelFactory
-import com.example.koshelok.ui.model.Transaction
 import javax.inject.Inject
 
 class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOptionsCallback {
@@ -83,7 +83,7 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
     private fun launchTypeFragment() {
         findNavController().navigate(
             DetailWalletFragmentDirections.actionDetailWalletFragmentToSumOperationFragment(
-                Transaction(null, walletId, null, null, null, null)
+                TransactionEntity(null, walletId, null, null, null, null)
             )
         )
     }

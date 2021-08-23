@@ -5,6 +5,7 @@ import com.example.koshelok.di.ViewModelKey
 import com.example.koshelok.ui.addoperation.AddOperationViewModel
 import com.example.koshelok.ui.categoryoperation.CategoryViewModel
 import com.example.koshelok.ui.detailwallet.DetailWalletViewModel
+import com.example.koshelok.ui.editwallet.EditWalletViewModel
 import com.example.koshelok.ui.listwallet.WalletListViewModel
 import com.example.koshelok.ui.sumoperation.SumOperationViewModel
 import com.example.koshelok.ui.typeoperation.TypeOperationViewModel
@@ -38,4 +39,8 @@ interface ViewModelModule {
     @Binds
     @[IntoMap ViewModelKey(TypeOperationViewModel::class)]
     fun bindTypeOperationViewModel(typeOperationViewModel: TypeOperationViewModel): ViewModel
+
+    @Binds
+    @[IntoMap ViewModelKey(EditWalletViewModel::class)]
+    fun bindEditWalletViewModel(editWalletViewModel: EditWalletViewModel): ViewModel
 }

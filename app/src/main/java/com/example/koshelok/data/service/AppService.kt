@@ -5,6 +5,7 @@ import com.example.koshelok.data.service.api.CategoryApi
 import com.example.koshelok.data.service.api.CreateTransactionApi
 import com.example.koshelok.data.service.api.ExchangeRatesApi
 import com.example.koshelok.data.service.api.ResponseApi
+import com.example.koshelok.data.service.api.ResponseWithWalletIdApi
 import com.example.koshelok.data.service.api.TransactionApi
 import com.example.koshelok.data.service.api.WalletApi
 import io.reactivex.rxjava3.core.Single
@@ -30,10 +31,10 @@ interface AppService {
     fun getWallet(@Path("walletId") walletId: Long): Single<WalletApi>
 
     @POST("transactions")
-    fun addTransaction(@Body transactionApi: CreateTransactionApi): Single<ResponseApi>
+    fun createTransaction(@Body transactionApi: CreateTransactionApi): Single<ResponseApi>
 
     @POST("wallets")
-    fun addWallet(@Body walletApi: WalletApi): Single<ResponseApi>
+    fun createWallet(@Body walletApi: WalletApi): Single<ResponseWithWalletIdApi>
 
     @PUT("transactions/{transactionId}")
     fun editTransaction(

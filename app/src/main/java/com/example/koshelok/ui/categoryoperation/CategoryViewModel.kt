@@ -4,40 +4,40 @@ import android.graphics.Color
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.koshelok.R
-import com.example.koshelok.ui.model.CategoryModel
-import com.example.koshelok.ui.model.Transaction
+import com.example.koshelok.ui.entity.CategoryEntity
+import com.example.koshelok.ui.entity.TransactionEntity
 import javax.inject.Inject
 
 class CategoryViewModel @Inject constructor() : ViewModel() {
 
-    val listCategoryModel = MutableLiveData<List<CategoryModel>>()
+    val listCategoryModel = MutableLiveData<List<CategoryEntity>>()
 
-    private val transactionLiveData = MutableLiveData<Transaction>()
+    private val transactionLiveData = MutableLiveData<TransactionEntity>()
 
-    private val categoryListValue: List<CategoryModel>
+    private val categoryListValue: List<CategoryEntity>
         get() = requireNotNull(listCategoryModel.value)
 
     init {
         listCategoryModel.value = listOf(
-            CategoryModel(
+            CategoryEntity(
                 R.drawable.salary,
                 "Собака",
                 Color.parseColor("#00B92D"),
                 false, NUMBER2
             ),
-            CategoryModel(
+            CategoryEntity(
                 R.drawable.settings_icon,
                 "На себя",
                 Color.parseColor("#00B92D"),
                 false, NUMBER3
             ),
-            CategoryModel(
+            CategoryEntity(
                 R.drawable.salary,
                 "Собака",
                 Color.parseColor("#00B92D"),
                 false, NUMBER4
             ),
-            CategoryModel(
+            CategoryEntity(
                 R.drawable.settings_icon,
                 "На себя",
                 Color.parseColor("#00B92D"),
@@ -46,16 +46,16 @@ class CategoryViewModel @Inject constructor() : ViewModel() {
         )
     }
 
-    fun setSelectCategory(transaction: Transaction) {
-        transactionLiveData.value = transaction
+    fun setSelectCategory(transactionEntity: TransactionEntity) {
+        transactionLiveData.value = transactionEntity
     }
 
     fun isSelect(): Boolean = categoryListValue.any { it.isEnable }
 
     fun getEnableCategory() = categoryListValue.find { it.isEnable }
 
-    fun changeEnableState(position: Int, categoryModelModule: CategoryModel) {
-        if (!categoryModelModule.isEnable) {
+    fun changeEnableState(position: Int, categoryEntityModule: CategoryEntity) {
+        if (!categoryEntityModule.isEnable) {
             getEnableCategory()?.isEnable = false
             categoryListValue[position].isEnable = true
             updateLD()

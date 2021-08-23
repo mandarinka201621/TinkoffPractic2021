@@ -34,7 +34,7 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.uploadData(walletId = walletId)
+        viewModel.loadWalletData(walletId = walletId)
         with(binding) {
             setOnBackPressedListener()
             toolbar.inflateMenu(R.menu.menu_detail_wallet)
@@ -56,8 +56,8 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
                 }
             }
 
-            viewModel.responseData.observe(viewLifecycleOwner) {
-                viewModel.uploadData(walletId)
+            viewModel.responseServerData.observe(viewLifecycleOwner) {
+                viewModel.loadWalletData(walletId)
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(

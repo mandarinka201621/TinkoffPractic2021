@@ -3,6 +3,7 @@ package com.example.koshelok.di.module
 import com.example.koshelok.MockServer
 import com.example.koshelok.data.service.AppService
 import com.example.koshelok.di.AppScope
+import com.example.koshelok.di.Prod
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -11,7 +12,6 @@ import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Converter
 import retrofit2.Retrofit
-import javax.inject.Named
 
 private const val BASE_URL = "https://api.github.com/"
 
@@ -33,7 +33,7 @@ class NetworkModule {
             .baseUrl(BASE_URL).build()
     }
 
-    @Named("prod")
+    @Prod
     @AppScope
     @Provides
     fun providesGithubApi(retrofit: Retrofit): AppService {

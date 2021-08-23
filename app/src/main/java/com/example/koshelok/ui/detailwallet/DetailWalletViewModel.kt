@@ -20,13 +20,13 @@ class DetailWalletViewModel @Inject constructor(
 
     val detailWalletData: LiveData<List<DetailWalletItem>>
         get() = _detailWalletData
-    val responseData: LiveData<Response>
-        get() = _responseData
+    val responseServerData: LiveData<Response>
+        get() = _serverResponseData
 
     private val _detailWalletData = MutableLiveData<List<DetailWalletItem>>()
-    private val _responseData = MutableLiveData<Response>()
+    private val _serverResponseData = MutableLiveData<Response>()
 
-    fun uploadData(walletId: Long) {
+    fun loadWalletData(walletId: Long) {
         Single.zip(headerWalletUseCase(walletId), transactionsUseCase(walletId)) { wallet, transactions ->
             return@zip mutableListOf<DetailWalletItem>(wallet).apply {
                 addAll(transactions.reversed())
@@ -43,7 +43,7 @@ class DetailWalletViewModel @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { response ->
-                _responseData.value = response
+                _serverResponseData.value = response
             }
     }
 }

@@ -28,7 +28,7 @@ class WalletListFragment : Fragment(R.layout.fragment_list_wallet) {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         context.appComponent
-            .injectWalletsList(this)
+            .inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

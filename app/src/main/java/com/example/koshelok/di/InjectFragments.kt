@@ -10,17 +10,17 @@ import com.example.koshelok.ui.typeoperation.TypeOperationFragment
 
 interface InjectFragments {
 
-    fun injectOnBoardFragment(onBoardingScreenFragment: OnBoardingScreenFragment)
+    fun inject(onBoardingScreenFragment: OnBoardingScreenFragment)
 
-    fun injectAddOperationFragment(addOperationFragment: AddOperationFragment)
+    fun inject(addOperationFragment: AddOperationFragment)
 
-    fun injectDetailWalletFragment(detailWalletFragment: DetailWalletFragment)
+    fun inject(detailWalletFragment: DetailWalletFragment)
 
-    fun injectSumOperationFragment(sumOperationFragment: SumOperationFragment)
+    fun inject(sumOperationFragment: SumOperationFragment)
 
-    fun injectCategoryOperationFragment(categoryOperationFragment: CategoryOperationFragment)
+    fun inject(categoryOperationFragment: CategoryOperationFragment)
 
-    fun injectTypeOperationFragment(typeOperationFragment: TypeOperationFragment)
+    fun inject(typeOperationFragment: TypeOperationFragment)
 
-    fun injectWalletsList(walletListFragment: WalletListFragment)
+    fun inject(walletListFragment: WalletListFragment)
 }

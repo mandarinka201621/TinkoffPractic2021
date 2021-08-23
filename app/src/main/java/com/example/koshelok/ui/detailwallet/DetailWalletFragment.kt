@@ -28,7 +28,7 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        context.appComponent.injectDetailWalletFragment(this)
+        context.appComponent.inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

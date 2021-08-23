@@ -2,6 +2,7 @@ package com.example.koshelok.ui.typeoperation
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -29,12 +30,12 @@ class TypeOperationFragment : Fragment(R.layout.fragment_type_operation_transact
     override fun onAttach(context: Context) {
         super.onAttach(context)
         context.appComponent
-            .injectTypeOperationFragment(this)
+            .inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.typeOperation.observe(viewLifecycleOwner){
+        viewModel.typeOperation.observe(viewLifecycleOwner) {
             checkChoose(it)
         }
         setClickListener()

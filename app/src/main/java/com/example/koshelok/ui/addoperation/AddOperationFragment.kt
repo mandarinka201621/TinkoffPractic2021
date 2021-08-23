@@ -30,7 +30,7 @@ class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transactio
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        context.appComponent.injectAddOperationFragment(this)
+        context.appComponent.inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

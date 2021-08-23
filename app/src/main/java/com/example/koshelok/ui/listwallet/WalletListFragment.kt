@@ -16,19 +16,19 @@ import com.example.koshelok.ui.listwallet.entity.ExchangeRatesEntity
 import com.example.koshelok.ui.listwallet.entity.WalletEntity
 import javax.inject.Inject
 
-class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
+class WalletListFragment : Fragment(R.layout.fragment_list_wallet) {
 
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private val binding by viewBinding(FragmentWalletListBinding::bind)
+    private val binding by viewBinding(FragmentListWalletBinding::bind)
     private val viewModel: WalletListViewModel by viewModels { viewModelFactory }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         context.appComponent
-            .injectWalletsList(this)
+            .inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

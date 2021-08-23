@@ -28,7 +28,7 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        context.appComponent.injectDetailWalletFragment(this)
+        context.appComponent.inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -81,8 +81,13 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
             .setNegativeButton(requireContext().getString(R.string.cancel)) { dialog, _ ->
                 dialog.cancel()
             }
-            .create()
-            .show()
+            .create().apply {
+                show()
+                getButton(AlertDialog.BUTTON_POSITIVE)
+                    .setTextColor(requireContext().getColor(R.color.red))
+                getButton(AlertDialog.BUTTON_NEGATIVE)
+                    .setTextColor(requireContext().getColor(R.color.light_blue))
+            }
     }
 
     override fun editTransaction(data: DetailWalletItem.Transaction) {

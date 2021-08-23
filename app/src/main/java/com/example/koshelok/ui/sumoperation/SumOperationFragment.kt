@@ -31,7 +31,7 @@ class SumOperationFragment : Fragment(R.layout.fragment_sum_operation_transactio
     override fun onAttach(context: Context) {
         super.onAttach(context)
         context.appComponent
-            .injectSumOperationFragment(this)
+            .inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

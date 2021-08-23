@@ -32,7 +32,7 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        context.appComponent.injectCategoryOperationFragment(this)
+        context.appComponent.inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

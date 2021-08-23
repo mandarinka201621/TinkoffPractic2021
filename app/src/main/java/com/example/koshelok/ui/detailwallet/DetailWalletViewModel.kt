@@ -27,7 +27,11 @@ class DetailWalletViewModel @Inject constructor(
     private val _serverResponseData = MutableLiveData<Response>()
 
     fun loadWalletData(walletId: Long) {
-        Single.zip(headerWalletUseCase(walletId), transactionsUseCase(walletId)) { wallet, transactions ->
+        Single.zip(
+            headerWalletUseCase(walletId).subscribeOn(Schedulers.io()),
+            transactionsUseCase(walletId).subscribeOn(Schedulers.io())
+        )
+        { wallet, transactions ->
             return@zip mutableListOf<DetailWalletItem>(wallet).apply {
                 addAll(transactions.reversed())
             }.toList()

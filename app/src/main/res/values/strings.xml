@@ -73,4 +73,5 @@
     <string name="new_wallet">Новый кошелек</string>
     <string name="currency">Валюта</string>
     <string name="create_wallet">Создать кошелек</string>
+    <string name="title">Название</string>
 </resources>

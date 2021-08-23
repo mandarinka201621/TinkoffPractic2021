@@ -39,7 +39,8 @@ class DayHolder(view: View) : DetailWalletHolder(view) {
     }
 }
 
-class TransactionHolder(view: View, private val swipeCallback: SwipeOptionsCallback) : DetailWalletHolder(view) {
+class TransactionHolder(view: View, private val swipeCallback: SwipeOptionsCallback) :
+    DetailWalletHolder(view) {
 
     private val binding by viewBinding(ItemTransactionBinding::bind)
 
@@ -51,12 +52,12 @@ class TransactionHolder(view: View, private val swipeCallback: SwipeOptionsCallb
                 typeOperation.text = data.category.operation
                 val moneyText: String
                 val category: String
-                when(data.category.type){
-                    TypeOperation.SELECT_INCOME ->{
+                when (data.category.type) {
+                    TypeOperation.SELECT_INCOME -> {
                         moneyText = data.money
                         category = root.context.getString(R.string.replenishment)
                     }
-                    TypeOperation.SELECT_EXPENSE ->{
+                    TypeOperation.SELECT_EXPENSE -> {
                         moneyText = data.money
                         category = root.context.getString(R.string.spending)
                     }
@@ -74,7 +75,7 @@ class TransactionHolder(view: View, private val swipeCallback: SwipeOptionsCallb
         }
     }
 
-    fun resetSwipe(){
+    fun resetSwipe() {
         binding.swipeLayout.reset()
     }
 }

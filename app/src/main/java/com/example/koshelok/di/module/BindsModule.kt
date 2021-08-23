@@ -1,15 +1,17 @@
 package com.example.koshelok.di.module
 
-import com.example.koshelok.data.service.repimpl.ActionTransactionRepositoryImp
-import com.example.koshelok.data.service.repimpl.DeleteTransactionRepositoryImpl
-import com.example.koshelok.data.service.repimpl.DetailWalletRepositoryImpl
-import com.example.koshelok.data.service.repimpl.ListWalletRepositoryImpl
+import com.example.koshelok.data.repository.ActionTransactionRepositoryImpl
+import com.example.koshelok.data.repository.DeleteTransactionRepositoryImpl
+import com.example.koshelok.data.repository.DetailWalletRepositoryImpl
+import com.example.koshelok.data.repository.ListWalletRepositoryImpl
 import com.example.koshelok.domain.repository.ActionTransactionRepository
 import com.example.koshelok.domain.repository.DeleteTransactionRepository
 import com.example.koshelok.domain.repository.DetailWalletRepository
 import com.example.koshelok.domain.repository.ListWalletRepository
-import com.example.koshelok.domain.usecase.DetailWalletUseCase
-import com.example.koshelok.domain.usecase.DetailWalletUseCaseImpl
+import com.example.koshelok.domain.usecase.TransactionsUseCase
+import com.example.koshelok.domain.usecase.TransactionsUseCaseImpl
+import com.example.koshelok.domain.usecase.WalletUseCase
+import com.example.koshelok.domain.usecase.WalletUseCaseImpl
 import dagger.Binds
 import dagger.Module
 
@@ -21,7 +23,7 @@ interface BindsModule {
             : DetailWalletRepository
 
     @Binds
-    fun bindDetailUseCase(detailWalletUseCaseImpl: DetailWalletUseCaseImpl): DetailWalletUseCase
+    fun bindTransactionUseCase(transactionsUseCaseImpl: TransactionsUseCaseImpl): TransactionsUseCase
 
     @Binds
     fun bindListWalletRepository(listWalletRepositoryImpl: ListWalletRepositoryImpl)
@@ -32,6 +34,9 @@ interface BindsModule {
             : DeleteTransactionRepository
 
     @Binds
-    fun bindActionTransactionRepository(actionTransactionRepositoryImp: ActionTransactionRepositoryImp)
+    fun bindActionTransactionRepository(actionTransactionRepositoryImpl: ActionTransactionRepositoryImpl)
             : ActionTransactionRepository
+
+    @Binds
+    fun bindWalletUseCase(walletUseCaseImpl: WalletUseCaseImpl): WalletUseCase
 }

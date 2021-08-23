@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
+import com.example.koshelok.data.extentions.hideKeyboard
+import com.example.koshelok.data.extentions.showKeyboard
 import com.example.koshelok.databinding.FragmentAddTitleWalletBinding
-import com.example.koshelok.extentions.hideKeyboard
-import com.example.koshelok.extentions.showKeyboard
 import com.example.koshelok.ui.model.CreateWalletEntity
 
 class AddTitleWalletFragment : Fragment(R.layout.fragment_add_title_wallet) {

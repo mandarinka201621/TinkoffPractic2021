@@ -1,9 +1,9 @@
-package com.example.koshelok.data.factory
+package com.example.koshelok.data
 
 import com.example.koshelok.R
 import javax.inject.Inject
 
-class IconFactory @Inject constructor() {
+class IconConverter @Inject constructor() {
 
     fun convertNumberToDrawableId(number: Int): Int{
         return when(number){

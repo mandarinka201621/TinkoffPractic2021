@@ -1,8 +1,9 @@
 package com.example.koshelok
 
 import android.content.SharedPreferences
+import javax.inject.Inject
 
-class AccountSharedPreferences(private val sharedPreferences: SharedPreferences) {
+class AccountSharedPreferences @Inject constructor(private val sharedPreferences: SharedPreferences) {
 
     var email: String
         get() = sharedPreferences.getString(EMAIL_KEY, "").orEmpty()

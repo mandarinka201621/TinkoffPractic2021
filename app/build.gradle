@@ -57,6 +57,10 @@ dependencies {
     implementation 'androidx.security:security-crypto:1.1.0-alpha03'
     //swipe
     implementation 'ru.rambler.android:swipe-layout:1.1.0'
+    //di
+    implementation 'com.google.dagger:dagger:2.37'
+    kapt 'com.google.dagger:dagger-compiler:2.37'
+
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'

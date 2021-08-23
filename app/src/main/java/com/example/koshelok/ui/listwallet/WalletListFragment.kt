@@ -1,30 +1,34 @@
 package com.example.koshelok.ui.listwallet
 
+import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
+import com.example.koshelok.data.ViewModelFactory
 import com.example.koshelok.databinding.FragmentListWalletBinding
+import com.example.koshelok.ui.appComponent
 import com.example.koshelok.ui.listwallet.entity.BalanceEntity
 import com.example.koshelok.ui.listwallet.entity.ExchangeRatesEntity
 import com.example.koshelok.ui.listwallet.entity.WalletEntity
+import javax.inject.Inject
 
-class WalletListFragment : Fragment() {
+class WalletListFragment : Fragment(R.layout.fragment_list_wallet) {
+
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
     private val binding by viewBinding(FragmentListWalletBinding::bind)
-    private val viewModel: WalletListViewModel by viewModels()
+    private val viewModel: WalletListViewModel by viewModels { viewModelFactory }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_list_wallet, container, false)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        context.appComponent
+            .inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

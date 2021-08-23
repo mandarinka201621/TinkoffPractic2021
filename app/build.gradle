@@ -60,7 +60,6 @@ dependencies {
     //di
     implementation 'com.google.dagger:dagger:2.37'
     kapt 'com.google.dagger:dagger-compiler:2.37'
-    kapt 'com.google.dagger:dagger-android-processor:2.37'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

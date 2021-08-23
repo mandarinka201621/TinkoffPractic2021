@@ -5,15 +5,16 @@ import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
-import com.example.koshelok.data.factory.ViewModelFactory
 import com.example.koshelok.databinding.FragmentDetailWalletBinding
 import com.example.koshelok.ui.appComponent
+import com.example.koshelok.ui.factory.ViewModelFactory
 import com.example.koshelok.ui.model.Transaction
 import javax.inject.Inject
 
@@ -28,16 +29,17 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        context.appComponent.injectDetailWalletFragment(this)
+        context.appComponent.inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.uploadData(walletId = walletId)
         with(binding) {
+            setOnBackPressedListener()
             toolbar.inflateMenu(R.menu.menu_detail_wallet)
             toolbar.setNavigationOnClickListener {
-                requireActivity().onBackPressed()
+                findNavController().popBackStack(R.id.walletListFragment, false)
             }
             val detailWalletAdapter = DetailWalletAdapter(this@DetailWalletFragment)
             addOperation.setOnClickListener {
@@ -58,6 +60,13 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
                 viewModel.uploadData(walletId)
             }
         }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().popBackStack(R.id.walletListFragment, false)
+                }
+            })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -77,6 +86,12 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
         )
     }
 
+    private fun setOnBackPressedListener() {
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack(R.id.walletListFragment, false)
+        }
+    }
+
     override fun deleteTransaction(data: DetailWalletItem.Transaction) {
         AlertDialog.Builder(requireContext())
             .setMessage(requireContext().getString(R.string.you_really_delete_transaction))
@@ -86,8 +101,13 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
             .setNegativeButton(requireContext().getString(R.string.cancel)) { dialog, _ ->
                 dialog.cancel()
             }
-            .create()
-            .show()
+            .create().apply {
+                show()
+                getButton(AlertDialog.BUTTON_POSITIVE)
+                    .setTextColor(requireContext().getColor(R.color.red))
+                getButton(AlertDialog.BUTTON_NEGATIVE)
+                    .setTextColor(requireContext().getColor(R.color.light_blue))
+            }
     }
 
     override fun editTransaction(data: DetailWalletItem.Transaction) {

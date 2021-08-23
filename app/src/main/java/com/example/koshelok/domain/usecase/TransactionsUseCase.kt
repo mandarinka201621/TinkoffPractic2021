@@ -5,23 +5,16 @@ import com.example.koshelok.ui.detailwallet.DetailWalletItem
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
-interface DetailWalletUseCase {
+interface TransactionsUseCase {
 
     operator fun invoke(walletId: Long): Single<List<DetailWalletItem>>
 }
 
-class DetailWalletUseCaseImpl @Inject constructor(
+class TransactionsUseCaseImpl @Inject constructor(
     private val detailWalletRepository: DetailWalletRepository
-) : DetailWalletUseCase {
+) : TransactionsUseCase {
 
     override fun invoke(walletId: Long): Single<List<DetailWalletItem>> {
-        return Single.zip(
-            detailWalletRepository.getTransactions(walletId),
-            detailWalletRepository.getDataWallet(walletId)
-        ) { transactions, wallet ->
-            return@zip mutableListOf<DetailWalletItem>(wallet).apply {
-                addAll(transactions.reversed())
-            }.toList()
-        }
+        return detailWalletRepository.getTransactions(walletId)
     }
 }

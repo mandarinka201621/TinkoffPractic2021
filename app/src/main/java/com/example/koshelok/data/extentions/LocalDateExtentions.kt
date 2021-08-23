@@ -57,8 +57,8 @@ fun Long.getTime(): String {
 }
 
 @SuppressLint("SimpleDateFormat")
-fun Long.getDate():String{
+fun Long.getFormattedDate(): String {
     val calendar = this.getCalendar()
-    val formatter = SimpleDateFormat("yyyy-MM-dd")
+    val formatter = SimpleDateFormat("dd.MM.yyyy")
     return formatter.format(calendar.time)
 }

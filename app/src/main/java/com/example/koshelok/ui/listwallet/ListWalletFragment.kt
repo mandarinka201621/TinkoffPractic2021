@@ -5,30 +5,31 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
-import com.example.koshelok.data.factory.ViewModelFactory
-import com.example.koshelok.databinding.FragmentWalletListBinding
+import com.example.koshelok.databinding.FragmentListWalletBinding
 import com.example.koshelok.ui.appComponent
+import com.example.koshelok.ui.factory.ViewModelFactory
 import com.example.koshelok.ui.listwallet.entity.BalanceEntity
 import com.example.koshelok.ui.listwallet.entity.ExchangeRatesEntity
 import com.example.koshelok.ui.listwallet.entity.WalletEntity
 import javax.inject.Inject
 
-class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
+class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
 
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private val binding by viewBinding(FragmentWalletListBinding::bind)
+    private val binding by viewBinding(FragmentListWalletBinding::bind)
     private val viewModel: WalletListViewModel by viewModels { viewModelFactory }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         context.appComponent
-            .injectWalletsList(this)
+            .inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,6 +39,10 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
             walletList.run {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = walletsAdapter
+            }
+
+            binding.addWallet.setOnClickListener {
+                launchTitleWalletFragment()
             }
 
             viewModel.balanceData.observe(viewLifecycleOwner) { balanceModel: BalanceEntity? ->
@@ -74,5 +79,9 @@ class WalletListFragment : Fragment(R.layout.fragment_wallet_list) {
             }
 
         }
+    }
+
+    private fun launchTitleWalletFragment() {
+        findNavController().navigate(R.id.action_walletListFragment_to_addTitleWalletFragment)
     }
 }

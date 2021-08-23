@@ -1,27 +1,29 @@
-package com.example.koshelok.data.service.repimpl
+package com.example.koshelok.data.repository
 
 import android.content.Context
 import com.example.koshelok.data.extentions.checkDate
-import com.example.koshelok.data.extentions.getDate
-import com.example.koshelok.data.service.AppApi
-import com.example.koshelok.data.service.Mapper
+import com.example.koshelok.data.extentions.getFormattedDate
+import com.example.koshelok.data.mappers.TransactionApiToDetailWalletTransactionMapper
+import com.example.koshelok.data.mappers.WalletApiToHeaderWalletMapper
+import com.example.koshelok.data.service.AppService
 import com.example.koshelok.domain.repository.DetailWalletRepository
 import com.example.koshelok.ui.detailwallet.DetailWalletItem
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 class DetailWalletRepositoryImpl @Inject constructor(
-    private val appApi: AppApi,
-    private val mapper: Mapper,
+    private val appService: AppService,
+    private val mapperTransaction: TransactionApiToDetailWalletTransactionMapper,
+    private val mapWallet: WalletApiToHeaderWalletMapper,
     private val context: Context
 ) :
     DetailWalletRepository {
 
     override fun getTransactions(walletId: Long): Single<List<DetailWalletItem>> {
-        return appApi.getTransactions(walletId)
+        return appService.getTransactions(walletId)
             .map {
                 it.sortedByDescending { api -> api.time }
-                    .groupBy { transactionApi -> transactionApi.time.getDate() }
+                    .groupBy { transactionApi -> transactionApi.time.getFormattedDate() }
             }
             .map { groupMap ->
                 mutableListOf<DetailWalletItem>().apply {
@@ -32,7 +34,7 @@ class DetailWalletRepositoryImpl @Inject constructor(
                             )
                         )
                         this.addAll(transactions.map { api ->
-                            mapper.mapTransactionApiToDetailWalletTransaction(api)
+                            mapperTransaction(api)
                         })
                     }
                 }.toList().reversed()
@@ -40,9 +42,9 @@ class DetailWalletRepositoryImpl @Inject constructor(
     }
 
     override fun getDataWallet(walletId: Long): Single<DetailWalletItem.HeaderDetailWallet> {
-        return appApi.getWallet(walletId)
+        return appService.getWallet(walletId)
             .map {
-                mapper.mapWalletApiToHeaderWallet(it)
+                mapWallet(it)
             }
     }
 }

@@ -45,7 +45,7 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
         val account = GoogleSignIn.getLastSignedInAccount(requireContext())
         if (account != null) {
             findNavController().navigate(
-                R.id.detailWalletFragment, null, NavOptions.Builder()
+                R.id.walletListFragment, null, NavOptions.Builder()
                     .setPopUpTo(R.id.onboardScreenFragment, true)
                     .build()
             )
@@ -68,6 +68,6 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
 
     private fun startDetailWalletFragment(account: GoogleSignInAccount) {
         accountSharedPreferences.email = account.email.orEmpty()
-        findNavController().navigate(R.id.action_onboardScreenFragment_to_detailWalletFragment)
+        findNavController().navigate(R.id.action_onboardScreenFragment_to_walletListFragment)
     }
 }

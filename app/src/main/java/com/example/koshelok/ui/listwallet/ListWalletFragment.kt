@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
@@ -38,6 +39,10 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
             walletList.run {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = walletsAdapter
+            }
+
+            binding.addWallet.setOnClickListener {
+                launchTitleWalletFragment()
             }
 
             viewModel.balanceData.observe(viewLifecycleOwner) { balanceModel: BalanceEntity? ->
@@ -74,5 +79,9 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
             }
 
         }
+    }
+
+    private fun launchTitleWalletFragment() {
+        findNavController().navigate(R.id.action_walletListFragment_to_addTitleWalletFragment)
     }
 }

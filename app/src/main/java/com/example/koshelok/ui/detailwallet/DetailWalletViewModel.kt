@@ -2,11 +2,11 @@ package com.example.koshelok.ui.detailwallet
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.koshelok.domain.Response
 import com.example.koshelok.domain.repository.DeleteTransactionRepository
 import com.example.koshelok.domain.usecase.HeaderWalletUseCase
 import com.example.koshelok.domain.usecase.TransactionsUseCase
+import com.example.koshelok.ui.RxViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -16,7 +16,7 @@ class DetailWalletViewModel @Inject constructor(
     private val transactionsUseCase: TransactionsUseCase,
     private val headerWalletUseCase: HeaderWalletUseCase,
     private val deleteTransactionRepository: DeleteTransactionRepository
-) : ViewModel() {
+) : RxViewModel() {
 
     val detailWalletData: LiveData<List<DetailWalletItem>>
         get() = _detailWalletData
@@ -40,6 +40,7 @@ class DetailWalletViewModel @Inject constructor(
             .subscribe { detailWalletsItems ->
                 _detailWalletData.value = detailWalletsItems
             }
+            .disposeOnFinish()
     }
 
     fun deleteTransaction(transaction: DetailWalletItem.Transaction) {
@@ -49,5 +50,6 @@ class DetailWalletViewModel @Inject constructor(
             .subscribe { response ->
                 _serverResponseData.value = response
             }
+            .disposeOnFinish()
     }
 }

@@ -17,6 +17,7 @@ import com.example.koshelok.ui.factory.ViewModelFactory
 import com.example.koshelok.ui.listwallet.entity.BalanceEntity
 import com.example.koshelok.ui.listwallet.entity.ExchangeRatesEntity
 import com.example.koshelok.ui.listwallet.entity.WalletEntity
+import com.google.android.material.appbar.AppBarLayout
 import javax.inject.Inject
 
 class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
@@ -77,11 +78,33 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
             viewModel.walletsData.observe(viewLifecycleOwner) { wallets: List<WalletEntity>? ->
                 if (wallets != null) {
                     walletsAdapter.setData(wallets)
-                    emptyWallets.visibility = if (wallets.isEmpty()) View.VISIBLE else View.GONE
+                    if (wallets.isEmpty()){
+                        emptyWallets.visibility = View.VISIBLE
+                        disableScroll()
+                    }
+                    else{
+                        emptyWallets.visibility = View.GONE
+                        enableScroll()
+                    }
                 }
             }
 
         }
+    }
+
+    private fun enableScroll() {
+        val params = binding.collapsedToolbar.layoutParams as AppBarLayout.LayoutParams
+        params.scrollFlags = (
+                AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
+                        or AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED
+                )
+        binding.collapsedToolbar.layoutParams = params
+    }
+
+    private fun disableScroll() {
+        val params = binding.collapsedToolbar.layoutParams as AppBarLayout.LayoutParams
+        params.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL
+        binding.collapsedToolbar.layoutParams = params
     }
 
     private fun transitionToDetailWallet(walletId: Long) {

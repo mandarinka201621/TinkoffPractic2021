@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.koshelok.DataList
+import javax.inject.Inject
 
-class DetailWalletViewModel : ViewModel() {
+class DetailWalletViewModel @Inject constructor() : ViewModel() {
     private val data = mutableListOf<DetailWalletItem.Transaction>()
     private val detailWalletData = MutableLiveData<List<DetailWalletItem>>()
 

@@ -1,5 +1,6 @@
 package com.example.koshelok.ui.sumoperation
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,17 +11,28 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
+import com.example.koshelok.data.ViewModelFactory
 import com.example.koshelok.databinding.FragmentSumOperationTransactionBinding
 import com.example.koshelok.extentions.hideKeyboard
 import com.example.koshelok.extentions.showKeyboard
+import com.example.koshelok.ui.appComponent
+import javax.inject.Inject
 
 class SumOperationFragment : Fragment(R.layout.fragment_sum_operation_transaction) {
 
-    private val binding by viewBinding(FragmentSumOperationTransactionBinding::bind)
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
+    private val binding by viewBinding(FragmentSumOperationTransactionBinding::bind)
     private val args by navArgs<SumOperationFragmentArgs>()
     private val transaction by lazy { args.transaction }
-    private val viewModel: SumOperationViewModel by viewModels()
+    private val viewModel: SumOperationViewModel by viewModels { viewModelFactory }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        context.appComponent
+            .inject(this)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

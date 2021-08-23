@@ -6,8 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.example.koshelok.ui.listwallet.entity.BalanceEntity
 import com.example.koshelok.ui.listwallet.entity.ExchangeRatesEntity
 import com.example.koshelok.ui.listwallet.entity.WalletEntity
+import javax.inject.Inject
 
-class WalletListViewModel : ViewModel() {
+class WalletListViewModel @Inject constructor() : ViewModel() {
 
     val balanceData: LiveData<BalanceEntity>
         get() = _balanceData

@@ -11,7 +11,7 @@ import dagger.Provides
 class SharedPreferencesModule {
 
     @Provides
-    fun createEncryptedSharedPreferences(context:Context):SharedPreferences =
+    fun createEncryptedSharedPreferences(context: Context): SharedPreferences =
         EncryptedSharedPreferences.create(
             context,
             NAME_SHARED_PREF,

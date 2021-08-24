@@ -39,7 +39,6 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
         super.onViewCreated(view, savedInstanceState)
         setupRecycler()
         clickBackButton()
-        isSelectedCategory()
         binding.addSumOperationButton.setOnClickListener {
             launchAddTransactionFragment()
         }
@@ -52,6 +51,7 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
         viewModel.listCategoryModel.observe(viewLifecycleOwner) { data: List<CategoryEntity>? ->
             if (data != null) {
                 adapterCategory.submitList(data)
+                isSelectedCategory()
             }
         }
     }

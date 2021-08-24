@@ -1,14 +1,19 @@
 package com.example.koshelok.ui.categoryoperation
 
-import android.graphics.Color
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.koshelok.R
+import com.example.koshelok.data.mappers.CategoryToCategoryEntityMapper
+import com.example.koshelok.domain.usecase.LoadCategoriesUseCase
+import com.example.koshelok.ui.RxViewModel
 import com.example.koshelok.ui.entity.CategoryEntity
 import com.example.koshelok.ui.entity.TransactionEntity
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
-class CategoryViewModel @Inject constructor() : ViewModel() {
+class CategoryViewModel @Inject constructor(
+    private val loadCategoriesUseCase: LoadCategoriesUseCase,
+    private val categoryMapper: CategoryToCategoryEntityMapper
+) : RxViewModel() {
 
     val listCategoryModel = MutableLiveData<List<CategoryEntity>>()
 
@@ -18,32 +23,25 @@ class CategoryViewModel @Inject constructor() : ViewModel() {
         get() = requireNotNull(listCategoryModel.value)
 
     init {
-        listCategoryModel.value = listOf(
-            CategoryEntity(
-                R.drawable.salary,
-                "Собака",
-                Color.parseColor("#00B92D"),
-                false, NUMBER2
-            ),
-            CategoryEntity(
-                R.drawable.settings_icon,
-                "На себя",
-                Color.parseColor("#00B92D"),
-                false, NUMBER3
-            ),
-            CategoryEntity(
-                R.drawable.salary,
-                "Собака",
-                Color.parseColor("#00B92D"),
-                false, NUMBER4
-            ),
-            CategoryEntity(
-                R.drawable.settings_icon,
-                "На себя",
-                Color.parseColor("#00B92D"),
-                false, NUMBER5
+        loadCategories()
+    }
+
+    private fun loadCategories() {
+        loadCategoriesUseCase(0)
+            .map { categories ->
+                categories.map(categoryMapper)
+            }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { categories ->
+                    listCategoryModel.value = categories
+                },
+                {
+                    //TODO сделать обработчик ошибок
+                }
             )
-        )
+            .disposeOnFinish()
     }
 
     fun setSelectCategory(transactionEntity: TransactionEntity) {
@@ -64,12 +62,5 @@ class CategoryViewModel @Inject constructor() : ViewModel() {
 
     private fun updateLD() {
         listCategoryModel.value = listCategoryModel.value
-    }
-
-    companion object{
-        const val NUMBER2 = 2L
-        const val NUMBER3 = 3L
-        const val NUMBER4 = 4L
-        const val NUMBER5 = 5L
     }
 }

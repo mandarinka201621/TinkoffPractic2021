@@ -12,9 +12,9 @@ import javax.inject.Inject
 class TransactionApiToDetailWalletTransactionMapper @Inject constructor(
     private val intToTypeCategoryMapper: IntToTypeCategoryMapper,
     private val iconConverter: IconConverter
-) {
+) : (TransactionApi) -> DetailWalletItem.Transaction {
 
-    operator fun invoke(transaction: TransactionApi) =
+    override operator fun invoke(transaction: TransactionApi) =
         DetailWalletItem.Transaction(
             id = transaction.id,
             category = Category(

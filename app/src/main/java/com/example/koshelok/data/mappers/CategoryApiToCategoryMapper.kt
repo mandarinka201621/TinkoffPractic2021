@@ -8,8 +8,8 @@ import javax.inject.Inject
 class CategoryApiToCategoryMapper @Inject constructor(
     private val intToTypeCategoryMapper: IntToTypeCategoryMapper,
     private val iconConverter: IconConverter
-) {
-    operator fun invoke(categoryApi: CategoryApi) =
+) : (CategoryApi) -> Category {
+    override operator fun invoke(categoryApi: CategoryApi) =
         Category(
             id = categoryApi.id,
             type = intToTypeCategoryMapper(categoryApi.type),

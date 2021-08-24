@@ -1,10 +1,10 @@
-package com.example.koshelok.ui.model
+package com.example.koshelok.ui.entity
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class CategoryModel(
+data class CategoryEntity(
     val icon: Int,
     val typeOperation: String,
     val color: Int,

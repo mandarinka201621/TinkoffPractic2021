@@ -11,7 +11,8 @@ import com.example.koshelok.R
 import com.example.koshelok.data.extentions.hideKeyboard
 import com.example.koshelok.data.extentions.showKeyboard
 import com.example.koshelok.databinding.FragmentAddTitleWalletBinding
-import com.example.koshelok.ui.model.CreateWalletEntity
+import com.example.koshelok.domain.Currency
+import com.example.koshelok.ui.entity.CreateWalletEntity
 
 class AddTitleWalletFragment : Fragment(R.layout.fragment_add_title_wallet) {
 
@@ -42,7 +43,7 @@ class AddTitleWalletFragment : Fragment(R.layout.fragment_add_title_wallet) {
         val title = binding.titleWalletEditText.text.toString().trim()
         findNavController().navigate(
             AddTitleWalletFragmentDirections.actionAddTitleWalletFragmentToEditWalletFragment(
-                CreateWalletEntity(null, getString(R.string.limit_not_install), title, getString(R.string.russian_rub))
+                CreateWalletEntity(null, getString(R.string.limit_not_install), title, Currency.RUB)
             )
         )
     }

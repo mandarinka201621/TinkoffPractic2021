@@ -11,8 +11,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentCategoryOperationTransactionBinding
 import com.example.koshelok.ui.appComponent
+import com.example.koshelok.ui.entity.CategoryEntity
 import com.example.koshelok.ui.factory.ViewModelFactory
-import com.example.koshelok.ui.model.CategoryModel
 import com.example.koshelok.ui.sumoperation.SumOperationFragmentArgs
 import javax.inject.Inject
 
@@ -49,7 +49,7 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
     private fun setupRecycler() {
         adapterCategory = AdapterCategory(this@CategoryOperationFragment)
         binding.categoryRecyclerView.adapter = adapterCategory
-        viewModel.listCategoryModel.observe(viewLifecycleOwner) { data: List<CategoryModel>? ->
+        viewModel.listCategoryModel.observe(viewLifecycleOwner) { data: List<CategoryEntity>? ->
             if (data != null) {
                 adapterCategory.submitList(data)
             }
@@ -63,7 +63,7 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
     }
 
     private fun launchAddTransactionFragment() {
-        transaction.categoryModel = viewModel.getEnableCategory()
+        transaction.categoryEntity = viewModel.getEnableCategory()
         transaction.date = System.currentTimeMillis()
         findNavController().navigate(
             CategoryOperationFragmentDirections.actionCategoryOperationFragmentToAddOperationFragment(
@@ -78,7 +78,7 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
         }
     }
 
-    override fun onClickItem(position: Int, item: CategoryModel) {
+    override fun onClickItem(position: Int, item: CategoryEntity) {
         viewModel.changeEnableState(position, item)
         adapterCategory.notifyDataSetChanged()
         isSelectedCategory()

@@ -33,9 +33,7 @@ class DetailWalletRepositoryImpl @Inject constructor(
                                 transactions.firstOrNull()?.time?.checkDate(context) ?: key
                             )
                         )
-                        this.addAll(transactions.map { api ->
-                            mapperTransaction(api)
-                        })
+                        this.addAll(transactions.map(mapperTransaction))
                     }
                 }
                     .toList()
@@ -45,8 +43,6 @@ class DetailWalletRepositoryImpl @Inject constructor(
 
     override fun getDataWallet(walletId: Long): Single<DetailWalletItem.HeaderDetailWallet> {
         return appService.getWallet(walletId)
-            .map {
-                mapWallet(it)
-            }
+            .map(mapWallet)
     }
 }

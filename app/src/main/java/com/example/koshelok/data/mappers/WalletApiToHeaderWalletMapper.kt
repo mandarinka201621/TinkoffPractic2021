@@ -5,9 +5,10 @@ import com.example.koshelok.domain.Currency
 import com.example.koshelok.ui.detailwallet.DetailWalletItem
 import javax.inject.Inject
 
-class WalletApiToHeaderWalletMapper @Inject constructor() {
+class WalletApiToHeaderWalletMapper @Inject constructor() :
+        (WalletApi) -> DetailWalletItem.HeaderDetailWallet {
 
-    operator fun invoke(walletApi: WalletApi) =
+    override operator fun invoke(walletApi: WalletApi) =
         DetailWalletItem.HeaderDetailWallet(
             nameWallet = walletApi.name,
             amountMoney = walletApi.amountMoney,

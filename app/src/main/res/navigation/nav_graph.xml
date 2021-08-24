@@ -45,7 +45,7 @@
             app:popUpTo="@id/sumOperationFragment" />
         <argument
             android:name="transaction"
-            app:argType="com.example.koshelok.ui.model.Transaction" />
+            app:argType="com.example.koshelok.ui.entity.TransactionEntity" />
     </fragment>
     <fragment
         android:id="@+id/typeOperationFragment"
@@ -62,7 +62,7 @@
             app:popUpTo="@id/typeOperationFragment" />
         <argument
             android:name="transaction"
-            app:argType="com.example.koshelok.ui.model.Transaction" />
+            app:argType="com.example.koshelok.ui.entity.TransactionEntity" />
     </fragment>
     <fragment
         android:id="@+id/categoryOperationFragment"
@@ -79,7 +79,7 @@
             app:popUpTo="@id/categoryOperationFragment" />
         <argument
             android:name="transaction"
-            app:argType="com.example.koshelok.ui.model.Transaction" />
+            app:argType="com.example.koshelok.ui.entity.TransactionEntity" />
     </fragment>
     <fragment
         android:id="@+id/addOperationFragment"
@@ -88,7 +88,7 @@
         tools:layout="@layout/fragment_add_operation_transaction">
         <argument
             android:name="transaction"
-            app:argType="com.example.koshelok.ui.model.Transaction" />
+            app:argType="com.example.koshelok.ui.entity.TransactionEntity" />
     </fragment>
     <fragment
         android:id="@+id/walletListFragment"
@@ -124,6 +124,6 @@
             app:popUpTo="@layout/fragment_edit_wallet" />
         <argument
             android:name="createWallet"
-            app:argType="com.example.koshelok.ui.model.CreateWalletEntity" />
+            app:argType="com.example.koshelok.ui.entity.CreateWalletEntity" />
     </fragment>
 </navigation>

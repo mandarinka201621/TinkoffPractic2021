@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class WalletApi(
-    val id: Long,
+    val id: Long? = null,
     val name: String,
     val amountMoney: String,
     val income: String,

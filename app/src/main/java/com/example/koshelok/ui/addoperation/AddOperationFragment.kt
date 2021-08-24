@@ -12,6 +12,7 @@ import com.example.koshelok.R
 import com.example.koshelok.data.extentions.getCalendar
 import com.example.koshelok.data.extentions.getDayWithMonth
 import com.example.koshelok.databinding.FragmentAddOperationTransactionBinding
+import com.example.koshelok.domain.Response
 import com.example.koshelok.domain.TypeOperation
 import com.example.koshelok.ui.appComponent
 import com.example.koshelok.ui.factory.ViewModelFactory
@@ -39,19 +40,36 @@ class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transactio
         setupTransaction()
         setOnBackPressedListener()
         binding.addOperationButton.setOnClickListener {
-            findNavController().popBackStack(R.id.detailWalletFragment, false)
+            if (transaction.id != null) {
+                viewModel.editTransaction(transaction)
+            } else {
+                viewModel.createTransaction(transaction)
+            }
+        }
+
+        viewModel.responseServerData.observe(viewLifecycleOwner) { response:Response? ->
+            when (response) {
+                Response.OK -> findNavController().popBackStack(R.id.detailWalletFragment, false)
+                Response.ERROR -> showErrorServerMessage()
+            }
         }
     }
 
-    private fun setupTransaction() {
-        binding.sumTextView.text = transaction.sum
-        binding.typeTextView.text = getTypeToString()
-        binding.categoryTextView.text = transaction.categoryModel?.typeOperation
-        binding.dateTextView.text =
-            transaction.date?.getCalendar()?.getDayWithMonth(requireContext())
+    private fun showErrorServerMessage(){
+        //TODO вывести сообщение об ошибки на серваке
     }
 
-    private fun getTypeToString() = when (viewModel.transaction.value?.type) {
+    private fun setupTransaction() {
+        with(binding) {
+            sumTextView.text = transaction.sum
+            typeTextView.text = getTypeToString()
+            categoryTextView.text = transaction.categoryEntity?.typeOperation
+            dateTextView.text =
+                transaction.date?.getCalendar()?.getDayWithMonth(root.context)
+        }
+    }
+
+    private fun getTypeToString() = when (viewModel.transactionEntity.value?.type) {
         TypeOperation.SELECT_EXPENSE -> requireContext().getString(R.string.income_text)
         TypeOperation.SELECT_INCOME -> requireContext().getString(R.string.text_expense)
         else -> throw NullPointerException("Error type")

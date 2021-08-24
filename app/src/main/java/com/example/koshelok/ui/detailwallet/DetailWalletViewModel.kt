@@ -37,9 +37,11 @@ class DetailWalletViewModel @Inject constructor(
             }.toList()
         }.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { detailWalletsItems ->
+            .subscribe({ detailWalletsItems ->
                 _detailWalletData.value = detailWalletsItems
-            }
+            }, {
+                //TODO сделать обработку ошибок
+            })
             .disposeOnFinish()
     }
 

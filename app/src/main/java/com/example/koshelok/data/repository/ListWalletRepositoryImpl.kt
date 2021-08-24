@@ -18,21 +18,19 @@ class ListWalletRepositoryImpl @Inject constructor(
     private val appService: AppService
 ) : ListWalletRepository {
     override fun getExchangeRates(): Single<ExchangeRatesEntity> {
-        return appService.getExchangeRates().map {
-            mapperExchangeRates(it)
-        }
+        return appService.getExchangeRates()
+            .map(mapperExchangeRates)
     }
 
     override fun getBalance(personId: Long): Single<BalanceEntity> {
-        return appService.getBalance(personId).map {
-            mapperBalance(it)
-        }
+        return appService.getBalance(personId)
+            .map(mapperBalance)
     }
 
     override fun getListWallet(personId: Long): Single<List<WalletEntity>> {
         return appService.getWallets(personId)
             .map { wallets ->
-                wallets.map { walletApi -> mapperWallet(walletApi) }
+                wallets.map(mapperWallet)
             }
     }
 }

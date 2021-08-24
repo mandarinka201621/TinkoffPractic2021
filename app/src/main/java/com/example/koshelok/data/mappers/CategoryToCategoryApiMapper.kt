@@ -7,9 +7,9 @@ import javax.inject.Inject
 
 class CategoryToCategoryApiMapper @Inject constructor(
     private val iconConverter: IconConverter
-) {
+) : (Category) -> CategoryApi {
 
-    operator fun invoke(category: Category) =
+    override operator fun invoke(category: Category) =
         CategoryApi(
             id = category.id,
             type = category.type.code,

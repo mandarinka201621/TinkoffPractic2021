@@ -10,6 +10,8 @@ import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentCategoryOperationTransactionBinding
+import com.example.koshelok.domain.Category
+import com.example.koshelok.domain.TypeOperation
 import com.example.koshelok.ui.appComponent
 import com.example.koshelok.ui.entity.CategoryEntity
 import com.example.koshelok.ui.factory.ViewModelFactory
@@ -39,8 +41,13 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
         super.onViewCreated(view, savedInstanceState)
         setupRecycler()
         clickBackButton()
+        isSelectedCategory()
+
         binding.addSumOperationButton.setOnClickListener {
             launchAddTransactionFragment()
+        }
+        binding.createCategoryButton.setOnClickListener {
+            launchCreateCategoryFragment()
         }
         transaction.let { viewModel.setSelectCategory(it) }
     }
@@ -69,6 +76,21 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
             CategoryOperationFragmentDirections.actionCategoryOperationFragmentToAddOperationFragment(
                 transaction
             )
+        )
+    }
+
+    private fun launchCreateCategoryFragment() {
+        findNavController().navigate(
+            CategoryOperationFragmentDirections
+                .actionCategoryOperationFragmentToCreateCategoryFragment(
+                    Category(
+                        id = 0,
+                        type = TypeOperation.SELECT_INCOME,
+                        operation = getString(R.string.category1),
+                        iconId = 0,
+                        color = 0
+                    )
+                )
         )
     }
 

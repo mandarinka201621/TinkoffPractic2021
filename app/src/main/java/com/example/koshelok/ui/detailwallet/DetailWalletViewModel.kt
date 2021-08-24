@@ -20,11 +20,8 @@ class DetailWalletViewModel @Inject constructor(
 
     val resultData: LiveData<Result>
         get() = _resultData
-    val detailWalletData: LiveData<List<DetailWalletItem>>
-        get() = _detailWalletData
 
     private val _resultData = MutableLiveData<Result>()
-    private val _detailWalletData = MutableLiveData<List<DetailWalletItem>>()
 
     fun loadWalletData(walletId: Long) {
         Single.zip(
@@ -38,9 +35,9 @@ class DetailWalletViewModel @Inject constructor(
         }.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ detailWalletsItems ->
-                _detailWalletData.value = detailWalletsItems
+                _resultData.value = Result.Success<List<DetailWalletItem>>(detailWalletsItems)
             }, {
-                //TODO сделать обработку ошибок
+                _resultData.value = Result.Error(it)
             })
             .disposeOnFinish()
     }

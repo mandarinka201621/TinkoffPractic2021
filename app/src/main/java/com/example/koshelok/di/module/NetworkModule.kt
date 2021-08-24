@@ -24,9 +24,13 @@ class NetworkModule {
 
     private val contentType = "application/json".toMediaType()
 
+    private val json = Json {
+        ignoreUnknownKeys = true
+    }
+
     @Provides
     fun provideConverterFactory(): Converter.Factory {
-        return Json.asConverterFactory(contentType)
+        return json.asConverterFactory(contentType)
     }
 
     @Provides
@@ -66,3 +70,4 @@ class NetworkModule {
         return mockServer
     }
 }
+

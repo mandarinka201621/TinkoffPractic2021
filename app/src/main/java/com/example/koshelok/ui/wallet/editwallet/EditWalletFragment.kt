@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
+import com.example.koshelok.data.AccountSharedPreferences
 import com.example.koshelok.databinding.FragmentEditWalletBinding
 import com.example.koshelok.domain.Currency
 import com.example.koshelok.domain.Result
@@ -24,6 +25,9 @@ class EditWalletFragment : Fragment(R.layout.fragment_edit_wallet) {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
+    @Inject
+    lateinit var accountSharedPreferences: AccountSharedPreferences
 
     private val binding by viewBinding(FragmentEditWalletBinding::bind)
     private val args by navArgs<EditWalletFragmentArgs>()
@@ -42,9 +46,14 @@ class EditWalletFragment : Fragment(R.layout.fragment_edit_wallet) {
         with(binding) {
             titleTextView.text = wallet.name
             currencyTextView.text = getCurrency()
-            limitTextView.text = wallet.limit
+            val limit =
+                if (wallet.limit == null) getString(R.string.limit_not_install) else wallet.limit
+            limitTextView.text = limit
             createWalletButton.setOnClickListener {
-                viewModel.createWallet(wallet)
+                viewModel.createWallet(
+                    accountSharedPreferences.personId,
+                    wallet
+                )
             }
 
             viewModel.responseServerData.observe(viewLifecycleOwner) { result: Result? ->

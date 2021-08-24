@@ -56,18 +56,20 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
                 adapter = detailWalletAdapter
                 layoutManager = LinearLayoutManager(requireContext())
             }
-            viewModel.detailWalletData.observe(viewLifecycleOwner) { data: List<DetailWalletItem>? ->
-                if (data != null) {
-                    detailWalletAdapter.setData(data)
-                    emptyNotes.visibility = if (data.size <= 1) View.VISIBLE else View.GONE
-                }
-            }
 
             viewModel.resultData.observe(viewLifecycleOwner) { result: Result ->
                 when (result) {
-                    is Result.Success<*> -> viewModel.loadWalletData(walletId)
+                    is Result.Success<*> -> {
+                        if (result.data is List<*>) {
+                            result.data as List<DetailWalletItem>
+                            detailWalletAdapter.setData(result.data)
+                            emptyNotes.visibility =
+                                if (result.data.size <= 1) View.VISIBLE else View.GONE
+                        } else {
+                            viewModel.loadWalletData(walletId)
+                        }
+                    }
                     is Result.Error -> errorHandler.createErrorShackBar(result.throwable, root)
-
                 }
             }
         }

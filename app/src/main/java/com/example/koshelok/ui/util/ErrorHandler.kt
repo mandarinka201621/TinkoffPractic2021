@@ -13,9 +13,6 @@ class ErrorHandler @Inject constructor() {
             is HttpException -> {
                 createSnackBar(view.context.getString(R.string.server_error), view)
             }
-            is RuntimeException -> {
-                createSnackBar(view.context.getString(R.string.registration_error), view)
-            }
             else -> {
                 createSnackBar(view.context.getString(R.string.internet_error), view)
             }

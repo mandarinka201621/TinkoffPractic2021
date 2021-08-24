@@ -29,7 +29,7 @@ interface AppService {
     @POST("transactions")
     fun createTransaction(@Body transactionApi: CreateTransactionApi): Completable
 
-    @GET("transactions/category/wallet/{walletId}")
+    @GET("transactions/withCategory/{walletId}")
     fun getTransactions(@Path("walletId") walletId: Long): Single<List<TransactionApi>>
 
     @PUT("transactions/{transactionId}")

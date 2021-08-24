@@ -19,8 +19,8 @@ class EditWalletViewModel @Inject constructor(
 
     private val _responseServerData = MutableLiveData<Result>()
 
-    fun createWallet(createWalletEntity: CreateWalletEntity) {
-        createWalletUseCase(0, createWalletEntity)
+    fun createWallet(personId: Long, createWalletEntity: CreateWalletEntity) {
+        createWalletUseCase(personId, createWalletEntity)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

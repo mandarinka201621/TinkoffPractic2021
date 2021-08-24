@@ -7,6 +7,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Transaction(
+    val id: Long? = null,
     val idWallet: Long,
     var sum: String?,
     var type: TypeOperation?,

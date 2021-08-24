@@ -9,7 +9,7 @@ sealed class DetailWalletItem {
         val amountMoney: String,
         val income: String,
         val consumption: String,
-        val limit: String,
+        val limit: String?,
         val currency: String
     ) : DetailWalletItem()
 

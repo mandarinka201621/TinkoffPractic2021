@@ -9,7 +9,7 @@ interface ListWalletRepository {
 
     fun getExchangeRates(): Single<ExchangeRatesEntity>
 
-    fun getBalance(): Single<BalanceEntity>
+    fun getBalance(personId: Long): Single<BalanceEntity>
 
-    fun getListWallet(): Single<List<WalletEntity>>
+    fun getListWallet(personId: Long): Single<List<WalletEntity>>
 }

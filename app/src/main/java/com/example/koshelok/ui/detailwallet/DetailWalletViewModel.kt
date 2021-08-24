@@ -2,53 +2,54 @@ package com.example.koshelok.ui.detailwallet
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.koshelok.DataList
+import com.example.koshelok.domain.Response
+import com.example.koshelok.domain.repository.DeleteTransactionRepository
+import com.example.koshelok.domain.usecase.HeaderWalletUseCase
+import com.example.koshelok.domain.usecase.TransactionsUseCase
+import com.example.koshelok.ui.RxViewModel
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
-class DetailWalletViewModel @Inject constructor() : ViewModel() {
-    private val data = mutableListOf<DetailWalletItem.Transaction>()
-    private val detailWalletData = MutableLiveData<List<DetailWalletItem>>()
+class DetailWalletViewModel @Inject constructor(
+    private val transactionsUseCase: TransactionsUseCase,
+    private val headerWalletUseCase: HeaderWalletUseCase,
+    private val deleteTransactionRepository: DeleteTransactionRepository
+) : RxViewModel() {
 
-    init {
-        data.addAll(uploadData())
-        detailWalletData.value = changeData()
-    }
+    val detailWalletData: LiveData<List<DetailWalletItem>>
+        get() = _detailWalletData
+    val responseServerData: LiveData<Response>
+        get() = _serverResponseData
 
-    private fun uploadData(): List<DetailWalletItem.Transaction> {
-        //TODO потом заменить на получение данных из сервака
-        return DataList.data
-    }
+    private val _detailWalletData = MutableLiveData<List<DetailWalletItem>>()
+    private val _serverResponseData = MutableLiveData<Response>()
 
-    fun getData(): LiveData<List<DetailWalletItem>> {
-        return detailWalletData
-    }
-
-    fun addTransaction(transaction: DetailWalletItem.Transaction) {
-        data.add(transaction)
-        detailWalletData.value = changeData()
+    fun loadWalletData(walletId: Long) {
+        Single.zip(
+            headerWalletUseCase(walletId).subscribeOn(Schedulers.io()),
+            transactionsUseCase(walletId).subscribeOn(Schedulers.io())
+        )
+        { wallet, transactions ->
+            return@zip mutableListOf<DetailWalletItem>(wallet).apply {
+                addAll(transactions.reversed())
+            }.toList()
+        }.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { detailWalletsItems ->
+                _detailWalletData.value = detailWalletsItems
+            }
+            .disposeOnFinish()
     }
 
     fun deleteTransaction(transaction: DetailWalletItem.Transaction) {
-        data.remove(transaction)
-        detailWalletData.value = changeData()
-    }
-
-    private fun changeData(): List<DetailWalletItem> {
-        val headerDetailWallet = DetailWalletItem.HeaderDetailWallet(
-            amountMoney = "9000 ₽",
-            nameWallet = "Кошелек 1",
-            income = "7000 ₽",
-            consumption = "2000 ₽",
-            limit = "/10000 ₽",
-            currency = "рубль"
-        )
-        return mutableListOf<DetailWalletItem>().apply {
-            add(headerDetailWallet)
-            data.groupBy { it.day }.forEach { (key, list) ->
-                add(DetailWalletItem.Day(key))
-                addAll(list.sortedBy { it.time }.reversed())
+        deleteTransactionRepository.deleteTransaction(transaction.id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { response ->
+                _serverResponseData.value = response
             }
-        }
+            .disposeOnFinish()
     }
 }

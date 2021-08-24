@@ -1,7 +1,9 @@
 package com.example.koshelok.di.module
 
+import com.example.koshelok.MockServer
 import com.example.koshelok.data.service.AppService
 import com.example.koshelok.di.AppScope
+import com.example.koshelok.di.Prod
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -31,9 +33,16 @@ class NetworkModule {
             .baseUrl(BASE_URL).build()
     }
 
+    @Prod
     @AppScope
     @Provides
     fun providesGithubApi(retrofit: Retrofit): AppService {
         return retrofit.create(AppService::class.java)
+    }
+
+    @AppScope
+    @Provides
+    fun providesMockServer(mockServer: MockServer): AppService {
+        return mockServer
     }
 }

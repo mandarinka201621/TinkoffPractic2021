@@ -8,10 +8,16 @@ import com.example.koshelok.domain.repository.ActionTransactionRepository
 import com.example.koshelok.domain.repository.DeleteTransactionRepository
 import com.example.koshelok.domain.repository.DetailWalletRepository
 import com.example.koshelok.domain.repository.ListWalletRepository
+import com.example.koshelok.domain.usecase.BalanceUseCase
+import com.example.koshelok.domain.usecase.BalanceUseCaseImpl
+import com.example.koshelok.domain.usecase.ExchangeRatesUseCase
+import com.example.koshelok.domain.usecase.ExchangeRatesUseCaseImpl
+import com.example.koshelok.domain.usecase.HeaderHeaderWalletUseCaseImpl
+import com.example.koshelok.domain.usecase.HeaderWalletUseCase
 import com.example.koshelok.domain.usecase.TransactionsUseCase
 import com.example.koshelok.domain.usecase.TransactionsUseCaseImpl
-import com.example.koshelok.domain.usecase.WalletUseCase
-import com.example.koshelok.domain.usecase.WalletUseCaseImpl
+import com.example.koshelok.domain.usecase.WalletsUseCase
+import com.example.koshelok.domain.usecase.WalletsUseCaseImpl
 import dagger.Binds
 import dagger.Module
 
@@ -38,5 +44,14 @@ interface BindsModule {
             : ActionTransactionRepository
 
     @Binds
-    fun bindWalletUseCase(walletUseCaseImpl: WalletUseCaseImpl): WalletUseCase
+    fun bindHeaderWalletUseCase(headerHeaderWalletUseCaseImpl: HeaderHeaderWalletUseCaseImpl): HeaderWalletUseCase
+
+    @Binds
+    fun bindWalletsUseCase(walletsUseCaseImpl: WalletsUseCaseImpl): WalletsUseCase
+
+    @Binds
+    fun bindExchangeRatesUseCase(exchangeRatesUseCaseImpl: ExchangeRatesUseCaseImpl): ExchangeRatesUseCase
+
+    @Binds
+    fun bindBalanceUseCase(balanceUseCaseImpl: BalanceUseCaseImpl): BalanceUseCase
 }

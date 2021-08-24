@@ -36,6 +36,7 @@ class ListWalletViewModel @Inject constructor(
                     _loadStateData.value = Result.Error(error)
                 }
             )
+            .disposeOnFinish()
     }
 
 }

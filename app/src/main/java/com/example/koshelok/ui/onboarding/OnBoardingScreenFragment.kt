@@ -66,7 +66,7 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
                 is Result.Success<*> -> findNavController()
                     .navigate(R.id.action_onboardScreenFragment_to_walletListFragment)
                 is Result.Error -> {
-
+                    //TODO обработать ошибку
                 }
             }
         }

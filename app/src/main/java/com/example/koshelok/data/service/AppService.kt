@@ -4,6 +4,7 @@ import com.example.koshelok.data.service.api.CategoryApi
 import com.example.koshelok.data.service.api.CreateTransactionApi
 import com.example.koshelok.data.service.api.MainScreenDataApi
 import com.example.koshelok.data.service.api.TransactionApi
+import com.example.koshelok.data.service.api.UserApi
 import com.example.koshelok.data.service.api.WalletApi
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
@@ -50,6 +51,6 @@ interface AppService {
     @POST("categories")
     fun createCategory(@Body categoryApi: CategoryApi): Completable
 
-    @GET("registration")
-    fun registrationUser(email: String): Single<Long>
+    @GET("person")
+    fun registrationUser(@Body userApi: UserApi): Single<Long>
 }

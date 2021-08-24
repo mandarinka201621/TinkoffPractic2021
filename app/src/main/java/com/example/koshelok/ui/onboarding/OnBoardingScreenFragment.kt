@@ -92,8 +92,8 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
     }
 
     private fun startDetailWalletFragment(account: GoogleSignInAccount) {
-        val email = account.email.orEmpty()
-        accountSharedPreferences.email = email
-        viewModel.registrationUser(email = email)
+        val user = UserEntity(email = account.email.orEmpty())
+        accountSharedPreferences.email = user.email
+        viewModel.registrationUser(user)
     }
 }

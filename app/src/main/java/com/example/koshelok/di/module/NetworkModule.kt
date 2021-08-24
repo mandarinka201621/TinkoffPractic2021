@@ -33,13 +33,13 @@ class NetworkModule {
             .baseUrl(BASE_URL).build()
     }
 
-    @Prod
     @AppScope
     @Provides
     fun providesGithubApi(retrofit: Retrofit): AppService {
         return retrofit.create(AppService::class.java)
     }
 
+    @Prod
     @AppScope
     @Provides
     fun providesMockServer(mockServer: MockServer): AppService {

@@ -18,8 +18,8 @@ class OnBoardScreenViewModel @Inject constructor(
 
     private val _loadStateData = MutableLiveData<Result>()
 
-    fun registrationUser(email: String) {
-        registrationUserUseCase(email)
+    fun registrationUser(userEntity: UserEntity) {
+        registrationUserUseCase(userEntity)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

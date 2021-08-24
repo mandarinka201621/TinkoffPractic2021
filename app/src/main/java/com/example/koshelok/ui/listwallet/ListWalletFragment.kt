@@ -12,11 +12,10 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentListWalletBinding
 import com.example.koshelok.domain.Currency
+import com.example.koshelok.domain.Result
+import com.example.koshelok.ui.MainScreenDataEntity
 import com.example.koshelok.ui.appComponent
 import com.example.koshelok.ui.factory.ViewModelFactory
-import com.example.koshelok.ui.listwallet.entity.BalanceEntity
-import com.example.koshelok.ui.listwallet.entity.ExchangeRatesEntity
-import com.example.koshelok.ui.listwallet.entity.WalletEntity
 import com.google.android.material.appbar.AppBarLayout
 import javax.inject.Inject
 
@@ -27,7 +26,7 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
     lateinit var viewModelFactory: ViewModelFactory
 
     private val binding by viewBinding(FragmentListWalletBinding::bind)
-    private val viewModel: WalletListViewModel by viewModels { viewModelFactory }
+    private val walletViewModel: ListWalletViewModel by viewModels { viewModelFactory }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -49,46 +48,54 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
                 launchTitleWalletFragment()
             }
 
-            viewModel.balanceData.observe(viewLifecycleOwner) { balanceModel: BalanceEntity? ->
-                if (balanceModel != null) {
-                    with(balance) {
-                        amountMoney.text = balanceModel.amountMoney + Currency.RUB.icon
-                        incomeMoney.text = balanceModel.incomeMoney + Currency.RUB.icon
-                        consumptionMoney.text = balanceModel.consumptionMoney + Currency.RUB.icon
+            walletViewModel.resultData.observe(viewLifecycleOwner) { result: Result ->
+                when (result) {
+                    is Result.Success<*> -> {
+                        result.data as MainScreenDataEntity
+                        setupMainScreen(result.data, walletsAdapter)
+                    }
+                    is Result.Error -> {
+
                     }
                 }
             }
+        }
+    }
 
-            viewModel.exchangeRatesData.observe(viewLifecycleOwner) { exchangeRatesEntity: ExchangeRatesEntity? ->
-                if (exchangeRatesEntity != null) {
-                    with(exchangeRates) {
-                        firstCurrency.text = exchangeRatesEntity.firstCurrency.name
-                        firstCourse.text = exchangeRatesEntity.firstCourse
-                        firstCheck.isActivated = exchangeRatesEntity.firstIsUp
-                        secondCurrency.text = exchangeRatesEntity.secondCurrency.name
-                        secondCourse.text = exchangeRatesEntity.secondCourse
-                        secondCheck.isActivated = exchangeRatesEntity.secondIsUp
-                        thirdCurrency.text = exchangeRatesEntity.thirdCurrency.name
-                        thirdCourse.text = exchangeRatesEntity.thirdCourse
-                        thirdCheck.isActivated = exchangeRatesEntity.thirdIsUp
-                    }
-                }
+    @SuppressLint("SetTextI18n")
+    private fun setupMainScreen(
+        data: MainScreenDataEntity,
+        walletsAdapter: WalletListAdapter
+    ) {
+        with(binding) {
+            with(exchangeRates) {
+                firstCurrency.text = data.exchangeRatesEntity.firstCurrency.name
+                firstCourse.text = data.exchangeRatesEntity.firstCourse
+                firstCheck.isActivated = data.exchangeRatesEntity.firstIsUp
+                secondCurrency.text =
+                    data.exchangeRatesEntity.secondCurrency.name
+                secondCourse.text = data.exchangeRatesEntity.secondCourse
+                secondCheck.isActivated = data.exchangeRatesEntity.secondIsUp
+                thirdCurrency.text = data.exchangeRatesEntity.thirdCurrency.name
+                thirdCourse.text = data.exchangeRatesEntity.thirdCourse
+                thirdCheck.isActivated = data.exchangeRatesEntity.thirdIsUp
             }
-
-            viewModel.walletsData.observe(viewLifecycleOwner) { wallets: List<WalletEntity>? ->
-                if (wallets != null) {
-                    walletsAdapter.setData(wallets)
-                    if (wallets.isEmpty()){
-                        emptyWallets.visibility = View.VISIBLE
-                        disableScroll()
-                    }
-                    else{
-                        emptyWallets.visibility = View.GONE
-                        enableScroll()
-                    }
-                }
+            walletsAdapter.setData(data.wallets)
+            if (data.wallets.isEmpty()) {
+                emptyWallets.visibility = View.VISIBLE
+                disableScroll()
+            } else {
+                emptyWallets.visibility = View.GONE
+                enableScroll()
             }
-
+            with(balance) {
+                amountMoney.text =
+                    data.balanceEntity.amountMoney + Currency.RUB.icon
+                incomeMoney.text =
+                    data.balanceEntity.incomeMoney + Currency.RUB.icon
+                consumptionMoney.text =
+                    data.balanceEntity.consumptionMoney + Currency.RUB.icon
+            }
         }
     }
 

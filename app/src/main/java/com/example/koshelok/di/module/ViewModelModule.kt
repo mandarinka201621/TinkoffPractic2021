@@ -6,7 +6,8 @@ import com.example.koshelok.ui.addoperation.AddOperationViewModel
 import com.example.koshelok.ui.categoryoperation.CategoryViewModel
 import com.example.koshelok.ui.detailwallet.DetailWalletViewModel
 import com.example.koshelok.ui.editwallet.EditWalletViewModel
-import com.example.koshelok.ui.listwallet.WalletListViewModel
+import com.example.koshelok.ui.listwallet.ListWalletViewModel
+import com.example.koshelok.ui.onboarding.OnBoardScreenViewModel
 import com.example.koshelok.ui.sumoperation.SumOperationViewModel
 import com.example.koshelok.ui.typeoperation.TypeOperationViewModel
 import dagger.Binds
@@ -29,8 +30,8 @@ interface ViewModelModule {
     fun bindDetailWalletViewModel(detailWalletViewModel: DetailWalletViewModel): ViewModel
 
     @Binds
-    @[IntoMap ViewModelKey(WalletListViewModel::class)]
-    fun bindWalletListViewModel(walletListViewModel: WalletListViewModel): ViewModel
+    @[IntoMap ViewModelKey(ListWalletViewModel::class)]
+    fun bindWalletListViewModel(listWalletViewModel: ListWalletViewModel): ViewModel
 
     @Binds
     @[IntoMap ViewModelKey(SumOperationViewModel::class)]
@@ -43,4 +44,8 @@ interface ViewModelModule {
     @Binds
     @[IntoMap ViewModelKey(EditWalletViewModel::class)]
     fun bindEditWalletViewModel(editWalletViewModel: EditWalletViewModel): ViewModel
+
+    @Binds
+    @[IntoMap ViewModelKey(OnBoardScreenViewModel::class)]
+    fun bindOnBoardScreenViewMode(onBoardScreenViewModel: OnBoardScreenViewModel): ViewModel
 }

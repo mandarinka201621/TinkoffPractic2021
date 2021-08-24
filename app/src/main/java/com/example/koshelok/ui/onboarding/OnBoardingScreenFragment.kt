@@ -72,9 +72,10 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
                     findNavController()
                         .navigate(R.id.action_onboardScreenFragment_to_walletListFragment)
                 }
-                is Result.Error -> {
-                    errorHandler.createErrorShackBar(result.throwable, viewBinding.root)
-                }
+                is Result.Error -> errorHandler.createErrorShackBar(
+                    result.throwable,
+                    viewBinding.root
+                )
             }
         }
     }

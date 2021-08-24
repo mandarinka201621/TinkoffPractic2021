@@ -11,7 +11,9 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentCategoryOperationTransactionBinding
 import com.example.koshelok.domain.Category
+import com.example.koshelok.domain.Result
 import com.example.koshelok.domain.TypeOperation
+import com.example.koshelok.ui.ErrorHandler
 import com.example.koshelok.ui.appComponent
 import com.example.koshelok.ui.entity.CategoryEntity
 import com.example.koshelok.ui.factory.ViewModelFactory
@@ -20,6 +22,9 @@ import javax.inject.Inject
 
 class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_transaction),
     CategoryItemClickListener {
+
+    @Inject
+    lateinit var errorHandler: ErrorHandler
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -41,8 +46,6 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
         super.onViewCreated(view, savedInstanceState)
         setupRecycler()
         clickBackButton()
-        isSelectedCategory()
-
         binding.addSumOperationButton.setOnClickListener {
             launchAddTransactionFragment()
         }
@@ -61,8 +64,10 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
                 isSelectedCategory()
             }
         }
-        viewModel.listCategoryModel.observe(viewLifecycleOwner) { result ->
-
+        viewModel.resultData.observe(viewLifecycleOwner) { result: Result ->
+            when (result) {
+                is Result.Error -> errorHandler.createErrorShackBar(result.throwable, binding.root)
+            }
         }
     }
 

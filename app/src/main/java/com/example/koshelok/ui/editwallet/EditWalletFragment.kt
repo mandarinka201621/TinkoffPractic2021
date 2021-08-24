@@ -50,9 +50,7 @@ class EditWalletFragment : Fragment(R.layout.fragment_edit_wallet) {
             viewModel.responseServerData.observe(viewLifecycleOwner) { result: Result? ->
                 when (result) {
                     is Result.Success<*> -> launchDetailWalletFragment(result.data as Long)
-                    is Result.Error -> {
-                        errorHandler.createErrorShackBar(result.throwable, root)
-                    }
+                    is Result.Error -> errorHandler.createErrorShackBar(result.throwable, root)
                 }
             }
         }

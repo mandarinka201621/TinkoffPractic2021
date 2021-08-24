@@ -14,12 +14,16 @@ import com.example.koshelok.data.extentions.getDayWithMonth
 import com.example.koshelok.databinding.FragmentAddOperationTransactionBinding
 import com.example.koshelok.domain.Result
 import com.example.koshelok.domain.TypeOperation
+import com.example.koshelok.ui.ErrorHandler
 import com.example.koshelok.ui.appComponent
 import com.example.koshelok.ui.factory.ViewModelFactory
 import com.example.koshelok.ui.sumoperation.SumOperationFragmentArgs
 import javax.inject.Inject
 
 class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transaction) {
+
+    @Inject
+    lateinit var errorHandler: ErrorHandler
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -53,9 +57,7 @@ class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transactio
                     R.id.detailWalletFragment,
                     false
                 )
-                is Result.Error -> {
-                    //TODO вывести сообщение об ошибки на серваке
-                }
+                is Result.Error -> errorHandler.createErrorShackBar(result.throwable, binding.root)
             }
         }
     }

@@ -57,9 +57,7 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
                         result.data as MainScreenDataEntity
                         setupMainScreen(result.data, walletsAdapter)
                     }
-                    is Result.Error -> {
-                        errorHandler.createErrorShackBar(result.throwable, root)
-                    }
+                    is Result.Error -> errorHandler.createErrorShackBar(result.throwable, root)
                 }
             }
         }

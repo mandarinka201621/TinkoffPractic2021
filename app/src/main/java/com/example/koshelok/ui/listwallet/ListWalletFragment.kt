@@ -13,6 +13,7 @@ import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentListWalletBinding
 import com.example.koshelok.domain.Currency
 import com.example.koshelok.domain.Result
+import com.example.koshelok.ui.ErrorHandler
 import com.example.koshelok.ui.MainScreenDataEntity
 import com.example.koshelok.ui.appComponent
 import com.example.koshelok.ui.factory.ViewModelFactory
@@ -21,6 +22,8 @@ import javax.inject.Inject
 
 class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
 
+    @Inject
+    lateinit var errorHandler: ErrorHandler
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -55,7 +58,7 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
                         setupMainScreen(result.data, walletsAdapter)
                     }
                     is Result.Error -> {
-                        //TODO сделать обработку ошибки
+                        errorHandler.createErrorShackBar(result.throwable, root)
                     }
                 }
             }

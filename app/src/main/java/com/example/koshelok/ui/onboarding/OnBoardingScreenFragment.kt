@@ -15,6 +15,7 @@ import com.example.koshelok.R
 import com.example.koshelok.data.AccountSharedPreferences
 import com.example.koshelok.databinding.FragmentOnboardingScreenBinding
 import com.example.koshelok.domain.Result
+import com.example.koshelok.ui.ErrorHandler
 import com.example.koshelok.ui.appComponent
 import com.example.koshelok.ui.factory.ViewModelFactory
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -23,6 +24,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import javax.inject.Inject
 
 class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
+
+    @Inject
+    lateinit var errorHandler: ErrorHandler
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -69,7 +73,7 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
                         .navigate(R.id.action_onboardScreenFragment_to_walletListFragment)
                 }
                 is Result.Error -> {
-                    //TODO обработать ошибку
+                    errorHandler.createErrorShackBar(result.throwable, viewBinding.root)
                 }
             }
         }

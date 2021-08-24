@@ -12,11 +12,15 @@ import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentEditWalletBinding
 import com.example.koshelok.domain.Currency
 import com.example.koshelok.domain.Result
+import com.example.koshelok.ui.ErrorHandler
 import com.example.koshelok.ui.appComponent
 import com.example.koshelok.ui.factory.ViewModelFactory
 import javax.inject.Inject
 
 class EditWalletFragment : Fragment(R.layout.fragment_edit_wallet) {
+
+    @Inject
+    lateinit var errorHandler: ErrorHandler
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -47,10 +51,9 @@ class EditWalletFragment : Fragment(R.layout.fragment_edit_wallet) {
                 when (result) {
                     is Result.Success<*> -> launchDetailWalletFragment(result.data as Long)
                     is Result.Error -> {
-                        //TODO показать ошибку
+                        errorHandler.createErrorShackBar(result.throwable, root)
                     }
                 }
-
             }
         }
     }

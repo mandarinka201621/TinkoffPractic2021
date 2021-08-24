@@ -21,6 +21,8 @@ import com.example.koshelok.ui.util.factory.ViewModelFactory
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.kotlin.subscribeBy
 import javax.inject.Inject
 
 class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
@@ -40,10 +42,11 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result: ActivityResult? ->
             val task = GoogleSignIn.getSignedInAccountFromIntent(result?.data)
-            val account = task.result
-            if (account != null) {
-                startDetailWalletFragment(account)
-            }
+            Completable.fromCallable {
+                startDetailWalletFragment(task.result)
+            }.subscribeBy(
+                onError = ::errorOnRegistration
+            )
         }
 
     override fun onAttach(context: Context) {
@@ -54,7 +57,7 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val account = GoogleSignIn.getLastSignedInAccount(requireContext())
-        if (account != null) {
+        if (account != null && accountSharedPreferences.email == account.email) {
             findNavController().navigate(
                 R.id.walletListFragment, null, NavOptions.Builder()
                     .setPopUpTo(R.id.onboardScreenFragment, true)
@@ -78,6 +81,10 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
                 )
             }
         }
+    }
+
+    private fun errorOnRegistration(throwable: Throwable) {
+        errorHandler.createErrorShackBar(throwable, viewBinding.root)
     }
 
     private fun getSignInIntent(): Intent {

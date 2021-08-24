@@ -7,5 +7,6 @@ import kotlinx.serialization.Serializable
 data class UserApi(
     @SerialName("personId")
     val id: Int? = null,
+    @SerialName("mail")
     val email: String
 )

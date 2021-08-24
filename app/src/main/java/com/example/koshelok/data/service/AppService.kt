@@ -23,7 +23,7 @@ interface AppService {
     @POST("wallets")
     fun createWallet(@Body walletApi: WalletApi): Single<Long>
 
-    @GET("getMainScreen/{personId}")
+    @GET("wallets/person/{personId}/all")
     fun getDataForMainScreen(@Path("personId") personId: Long): Single<MainScreenDataApi>
 
     @POST("transactions")
@@ -51,6 +51,6 @@ interface AppService {
     @POST("categories")
     fun createCategory(@Body categoryApi: CategoryApi): Completable
 
-    @GET("person")
+    @POST("person")
     fun registrationUser(@Body userApi: UserApi): Single<Long>
 }

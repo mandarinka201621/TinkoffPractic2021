@@ -12,6 +12,8 @@ import com.example.koshelok.domain.usecase.ExchangeRatesUseCase
 import com.example.koshelok.domain.usecase.ExchangeRatesUseCaseImpl
 import com.example.koshelok.domain.usecase.HeaderHeaderWalletUseCaseImpl
 import com.example.koshelok.domain.usecase.HeaderWalletUseCase
+import com.example.koshelok.domain.usecase.LoadCategoriesUseCase
+import com.example.koshelok.domain.usecase.LoadCategoriesUseCaseImpl
 import com.example.koshelok.domain.usecase.TransactionsUseCase
 import com.example.koshelok.domain.usecase.TransactionsUseCaseImpl
 import com.example.koshelok.domain.usecase.WalletsUseCase
@@ -45,4 +47,7 @@ interface BindsUseCaseModule {
 
     @Binds
     fun bindCreateWalletUseCase(createWalletUseCaseImpl: CreateWalletUseCaseImpl): CreateWalletUseCase
+
+    @Binds
+    fun bindLoadCategoriesUseCase(loadCategoriesUseCaseImpl: LoadCategoriesUseCaseImpl): LoadCategoriesUseCase
 }

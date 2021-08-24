@@ -15,8 +15,6 @@ class DeleteTransactionRepositoryImpl @Inject constructor(
 
     override fun deleteTransaction(transactionId: Long): Single<Response> {
         return appService.deleteTransaction(transactionId)
-            .map {
-                mapper(it)
-            }
+            .map(mapper)
     }
 }

@@ -35,7 +35,7 @@ class AddOperationViewModel @Inject constructor(
             .subscribe({ response ->
                 _responseServerData.value = response
             }, {
-
+                //TODO сделать обработку ошибок
             })
             .disposeOnFinish()
     }

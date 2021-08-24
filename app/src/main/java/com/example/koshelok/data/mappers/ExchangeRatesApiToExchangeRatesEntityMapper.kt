@@ -5,9 +5,10 @@ import com.example.koshelok.domain.Currency
 import com.example.koshelok.ui.listwallet.entity.ExchangeRatesEntity
 import javax.inject.Inject
 
-class ExchangeRatesApiToExchangeRatesEntityMapper @Inject constructor() {
+class ExchangeRatesApiToExchangeRatesEntityMapper @Inject constructor() :
+        (ExchangeRatesApi) -> ExchangeRatesEntity {
 
-    operator fun invoke(exchangeRatesApi: ExchangeRatesApi) =
+    override operator fun invoke(exchangeRatesApi: ExchangeRatesApi) =
         ExchangeRatesEntity(
             firstCurrency = Currency.valueOf(exchangeRatesApi.firstCurrency),
             firstCourse = exchangeRatesApi.firstCourse,

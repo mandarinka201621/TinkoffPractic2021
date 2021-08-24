@@ -20,9 +20,9 @@ class CreateWalletRepositoryImpl @Inject constructor(
     ): Single<ResponseWithWalletEntity> {
         return appService.createWallet(
             mapperWallet(personId, createWallet)
-        ).map {
-            responseMapper(it)
-        }
+        )
+            .map(responseMapper)
+
     }
 
 }

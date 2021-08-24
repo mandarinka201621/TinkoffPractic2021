@@ -4,9 +4,9 @@ import com.example.koshelok.data.service.api.BalanceApi
 import com.example.koshelok.ui.listwallet.entity.BalanceEntity
 import javax.inject.Inject
 
-class BalanceApiToBalanceEntityMapper @Inject constructor() {
+class BalanceApiToBalanceEntityMapper @Inject constructor() : (BalanceApi) -> BalanceEntity {
 
-    operator fun invoke(balanceApi: BalanceApi) =
+    override operator fun invoke(balanceApi: BalanceApi) =
         BalanceEntity(
             amountMoney = balanceApi.amountMoney,
             incomeMoney = balanceApi.incomeMoney,

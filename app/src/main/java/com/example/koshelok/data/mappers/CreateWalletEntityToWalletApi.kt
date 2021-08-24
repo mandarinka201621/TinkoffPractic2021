@@ -4,9 +4,10 @@ import com.example.koshelok.data.service.api.WalletApi
 import com.example.koshelok.ui.entity.CreateWalletEntity
 import javax.inject.Inject
 
-class CreateWalletEntityToWalletApi @Inject constructor() {
+class CreateWalletEntityToWalletApi @Inject constructor() :
+        (Long, CreateWalletEntity) -> WalletApi {
 
-    operator fun invoke(personId: Long, createWalletEntity: CreateWalletEntity) =
+    override operator fun invoke(personId: Long, createWalletEntity: CreateWalletEntity) =
         WalletApi(
             name = createWalletEntity.name,
             amountMoney = "0",

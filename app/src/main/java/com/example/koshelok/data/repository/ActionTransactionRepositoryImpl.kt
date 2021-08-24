@@ -17,15 +17,11 @@ class ActionTransactionRepositoryImpl @Inject constructor(
 
     override fun editTransaction(transactionEntity: TransactionEntity): Single<Response> {
         return appService.editTransaction(transactionEntity.id ?: 0, mapper(transactionEntity))
-            .map {
-                responseMapper(it)
-            }
+            .map(responseMapper)
     }
 
     override fun createTransaction(transactionEntity: TransactionEntity): Single<Response> {
         return appService.createTransaction(mapper(transactionEntity))
-            .map {
-                responseMapper(it)
-            }
+            .map(responseMapper)
     }
 }

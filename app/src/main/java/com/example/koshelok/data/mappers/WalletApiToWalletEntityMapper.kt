@@ -5,9 +5,9 @@ import com.example.koshelok.domain.Currency
 import com.example.koshelok.ui.listwallet.entity.WalletEntity
 import javax.inject.Inject
 
-class WalletApiToWalletEntityMapper @Inject constructor() {
+class WalletApiToWalletEntityMapper @Inject constructor() : (WalletApi) -> WalletEntity {
 
-    operator fun invoke(walletApi: WalletApi) =
+    override operator fun invoke(walletApi: WalletApi) =
         WalletEntity(
             id = walletApi.id ?: 0,
             name = walletApi.name,

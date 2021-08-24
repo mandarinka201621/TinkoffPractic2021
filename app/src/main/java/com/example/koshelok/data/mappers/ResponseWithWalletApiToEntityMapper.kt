@@ -6,9 +6,9 @@ import javax.inject.Inject
 
 class ResponseWithWalletApiToEntityMapper @Inject constructor(
     private val serverCodeMapper: ServerCodeToResponseMapper
-) {
+) : (ResponseWithWalletIdApi) -> ResponseWithWalletEntity {
 
-    operator fun invoke(responseWithWalletIdApi: ResponseWithWalletIdApi) =
+    override operator fun invoke(responseWithWalletIdApi: ResponseWithWalletIdApi) =
         ResponseWithWalletEntity(
             responseWithWalletIdApi.walletId,
             serverCodeMapper(responseWithWalletIdApi.code)

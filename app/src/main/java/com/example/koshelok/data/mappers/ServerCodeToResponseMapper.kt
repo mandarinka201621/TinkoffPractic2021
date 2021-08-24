@@ -5,9 +5,9 @@ import javax.inject.Inject
 
 private const val OK_CODE = 200
 
-class ServerCodeToResponseMapper @Inject constructor() {
+class ServerCodeToResponseMapper @Inject constructor() : (Int) -> Response {
 
-    operator fun invoke(code: Int) =
+    override operator fun invoke(code: Int) =
         when (code) {
             OK_CODE -> Response.OK
             else -> Response.ERROR

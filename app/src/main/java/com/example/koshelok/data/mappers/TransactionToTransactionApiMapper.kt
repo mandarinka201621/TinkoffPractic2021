@@ -5,9 +5,10 @@ import com.example.koshelok.ui.entity.TransactionEntity
 import java.util.*
 import javax.inject.Inject
 
-class TransactionToTransactionApiMapper @Inject constructor() {
+class TransactionToTransactionApiMapper @Inject constructor() :
+        (TransactionEntity) -> CreateTransactionApi {
 
-    operator fun invoke(transactionEntity: TransactionEntity) =
+    override operator fun invoke(transactionEntity: TransactionEntity) =
         CreateTransactionApi(
             id = transactionEntity.id,
             idWallet = transactionEntity.idWallet,

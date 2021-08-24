@@ -78,7 +78,4 @@
     <string name="limit_not_install">Лимит не установлен</string>
     <string name="RUB">Руссийский рубль (RUB)</string>
     <string name="russian_rub">Российский рубль</string>
-    <string name="icon_rub">₽</string>
-    <string name="icon_eur">€</string>
-    <string name="icon_usd">$</string>
 </resources>

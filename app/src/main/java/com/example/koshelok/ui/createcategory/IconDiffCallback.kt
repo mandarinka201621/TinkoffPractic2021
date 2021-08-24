@@ -6,7 +6,7 @@ import com.example.koshelok.ui.entity.IconEntity
 class IconDiffCallback : DiffUtil.ItemCallback<IconEntity>() {
 
     override fun areItemsTheSame(oldItem: IconEntity, newItem: IconEntity): Boolean {
-        return oldItem.isEnable == newItem.isEnable
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: IconEntity, newItem: IconEntity): Boolean {

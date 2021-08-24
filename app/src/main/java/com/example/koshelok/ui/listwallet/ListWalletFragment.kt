@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
+import com.example.koshelok.data.AccountSharedPreferences
 import com.example.koshelok.databinding.FragmentListWalletBinding
 import com.example.koshelok.domain.Currency
 import com.example.koshelok.domain.Result
@@ -28,6 +29,9 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
+    @Inject
+    lateinit var accountSharedPreferences: AccountSharedPreferences
+
     private val binding by viewBinding(FragmentListWalletBinding::bind)
     private val walletViewModel: ListWalletViewModel by viewModels { viewModelFactory }
 
@@ -40,6 +44,7 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        walletViewModel.loadMainScreenData(accountSharedPreferences.personId)
         with(binding) {
             val walletsAdapter = WalletListAdapter(::transitionToDetailWallet)
             walletList.run {
@@ -57,7 +62,10 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
                         result.data as MainScreenDataEntity
                         setupMainScreen(result.data, walletsAdapter)
                     }
-                    is Result.Error -> errorHandler.createErrorShackBar(result.throwable, root)
+                    is Result.Error -> {
+                        disableScroll()
+                        errorHandler.createErrorShackBar(result.throwable, root)
+                    }
                 }
             }
         }

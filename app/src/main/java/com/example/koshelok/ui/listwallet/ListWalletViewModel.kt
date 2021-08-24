@@ -2,7 +2,6 @@ package com.example.koshelok.ui.listwallet
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.koshelok.data.AccountSharedPreferences
 import com.example.koshelok.domain.Result
 import com.example.koshelok.domain.usecase.MainScreenUseCase
 import com.example.koshelok.ui.listwallet.entity.MainScreenDataEntity
@@ -13,19 +12,14 @@ import javax.inject.Inject
 
 class ListWalletViewModel @Inject constructor(
     private val mainScreenUseCase: MainScreenUseCase,
-    private val accountSharedPreferences: AccountSharedPreferences
 ) : RxViewModel() {
 
     val resultData: LiveData<Result>
         get() = _loadStateData
     private val _loadStateData = MutableLiveData<Result>()
 
-    init {
-        loadMainScreenData()
-    }
-
-    private fun loadMainScreenData() {
-        mainScreenUseCase(accountSharedPreferences.personId)
+    fun loadMainScreenData(personId: Long) {
+        mainScreenUseCase(personId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

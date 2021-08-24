@@ -26,12 +26,8 @@ class CategoryViewModel @Inject constructor(
     private val categoryListValue: List<CategoryEntity>
         get() = requireNotNull(listCategoryModel.value)
 
-    init {
-        loadCategories()
-    }
-
-    private fun loadCategories() {
-        loadCategoriesUseCase(0)
+    fun loadCategories(personId: Long, type: Int) {
+        loadCategoriesUseCase(personId, type)
             .map { categories ->
                 categories.map(categoryMapper)
             }

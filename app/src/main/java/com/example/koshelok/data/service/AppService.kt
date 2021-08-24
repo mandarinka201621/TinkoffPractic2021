@@ -41,8 +41,14 @@ interface AppService {
     @DELETE("transactions/{transactionId}")
     fun deleteTransaction(@Path("transactionId") id: Long): Completable
 
-    @GET("categories/person/{personId}")
-    fun getCategories(@Path("personId") personId: Long): Single<List<CategoryApi>>
+    @GET("categories/person/{personId}/{value}")
+    fun getCategories(
+        @Path("personId") personId: Long,
+        @Path("value") type: Int
+    ): Single<List<CategoryApi>>
+
+    @POST("categories")
+    fun createCategory(@Body categoryApi: CategoryApi): Completable
 
     @GET("registration")
     fun registrationUser(email: String): Single<Long>

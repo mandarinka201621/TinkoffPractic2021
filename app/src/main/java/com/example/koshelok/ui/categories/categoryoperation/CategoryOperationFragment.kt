@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
+import com.example.koshelok.data.AccountSharedPreferences
 import com.example.koshelok.databinding.FragmentCategoryOperationTransactionBinding
 import com.example.koshelok.domain.Category
 import com.example.koshelok.domain.Result
@@ -29,6 +30,9 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
+    @Inject
+    lateinit var accountSharedPreferences: AccountSharedPreferences
+
     private val binding by viewBinding(FragmentCategoryOperationTransactionBinding::bind)
     private val viewModel: CategoryViewModel by viewModels { viewModelFactory }
 
@@ -44,6 +48,10 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.loadCategories(
+            accountSharedPreferences.personId,
+            transaction.type?.code ?: 0
+        )
         setupRecycler()
         clickBackButton()
         binding.addSumOperationButton.setOnClickListener {

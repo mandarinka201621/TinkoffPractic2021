@@ -1,5 +1,7 @@
 package com.example.koshelok.di.module
 
+import com.example.koshelok.domain.usecase.CreateCategoryUseCase
+import com.example.koshelok.domain.usecase.CreateCategoryUseCaseImpl
 import com.example.koshelok.domain.usecase.CreateTransactionUseCase
 import com.example.koshelok.domain.usecase.CreateTransactionUseCaseImpl
 import com.example.koshelok.domain.usecase.CreateWalletUseCase
@@ -51,4 +53,8 @@ interface BindsUseCaseModule {
     @Binds
     fun bindRegistrationUserUseCase(registrationUserUseCaseImpl: RegistrationUserUseCaseImpl)
             : RegistrationUserUseCase
+
+    @Binds
+    fun bindCreateCategoryUseCase(createCategoryUseCaseImpl: CreateCategoryUseCaseImpl)
+            : CreateCategoryUseCase
 }

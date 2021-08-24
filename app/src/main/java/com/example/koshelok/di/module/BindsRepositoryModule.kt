@@ -1,6 +1,7 @@
 package com.example.koshelok.di.module
 
 import com.example.koshelok.data.repository.ActionTransactionRepositoryImpl
+import com.example.koshelok.data.repository.CreateCategoryRepositoryImpl
 import com.example.koshelok.data.repository.CreateWalletRepositoryImpl
 import com.example.koshelok.data.repository.DeleteTransactionRepositoryImpl
 import com.example.koshelok.data.repository.DetailWalletRepositoryImpl
@@ -8,6 +9,7 @@ import com.example.koshelok.data.repository.LoadCategoriesRepositoryImpl
 import com.example.koshelok.data.repository.MainScreenRepositoryImpl
 import com.example.koshelok.data.repository.RegistrationRepositoryImpl
 import com.example.koshelok.domain.repository.ActionTransactionRepository
+import com.example.koshelok.domain.repository.CreateCategoryRepository
 import com.example.koshelok.domain.repository.CreateWalletRepository
 import com.example.koshelok.domain.repository.DeleteTransactionRepository
 import com.example.koshelok.domain.repository.DetailWalletRepository
@@ -47,4 +49,8 @@ interface BindsRepositoryModule {
     @Binds
     fun bindRegistrationRepository(registrationRepositoryImpl: RegistrationRepositoryImpl)
             : RegistrationRepository
+
+    @Binds
+    fun bindCreateCategoryRepository(createCategoryRepositoryImpl: CreateCategoryRepositoryImpl)
+            : CreateCategoryRepository
 }

@@ -3,7 +3,7 @@ package com.example.koshelok.di.module
 import androidx.lifecycle.ViewModel
 import com.example.koshelok.di.ViewModelKey
 import com.example.koshelok.ui.categories.categoryoperation.CategoryViewModel
-import com.example.koshelok.ui.categories.createcategory.CreateCategoryFragmentViewModel
+import com.example.koshelok.ui.categories.createcategory.CreateCategoryViewModel
 import com.example.koshelok.ui.detailwallet.DetailWalletViewModel
 import com.example.koshelok.ui.listwallet.ListWalletViewModel
 import com.example.koshelok.ui.onboarding.OnBoardScreenViewModel
@@ -48,9 +48,9 @@ interface ViewModelModule {
     fun bindEditWalletViewModel(editWalletViewModel: EditWalletViewModel): ViewModel
 
     @Binds
-    @[IntoMap ViewModelKey(CreateCategoryFragmentViewModel::class)]
+    @[IntoMap ViewModelKey(CreateCategoryViewModel::class)]
     fun bindCreateCategoryFragmentViewModel(
-        createCategoryFragmentViewModel: CreateCategoryFragmentViewModel
+        createCategoryViewModel: CreateCategoryViewModel
     ): ViewModel
 
     @Binds

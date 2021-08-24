@@ -85,4 +85,6 @@
     <string name="title_category">Название категории</string>
     <string name="category1">Категория1</string>
 
+    <string name="server_error">Что-то пошло не так</string>
+    <string name="internet_error">Нет соединения с интернетом</string>
 </resources>

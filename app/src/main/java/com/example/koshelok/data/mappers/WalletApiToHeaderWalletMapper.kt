@@ -13,7 +13,7 @@ class WalletApiToHeaderWalletMapper @Inject constructor() :
             nameWallet = walletApi.name,
             amountMoney = walletApi.amountMoney,
             income = walletApi.income,
-            consumption = walletApi.expense,
+            consumption = walletApi.consumption,
             limit = walletApi.limit,
             currency = Currency.valueOf(walletApi.currency)
         )

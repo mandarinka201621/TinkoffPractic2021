@@ -44,7 +44,7 @@ class CategoryViewModel @Inject constructor(
                     listCategoryModel.value = categories
                 },
                 {
-
+                    //TODO сделать обработчик ошибок
                 }
             )
             .disposeOnFinish()

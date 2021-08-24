@@ -15,7 +15,7 @@ class LoadCategoriesRepositoryImpl @Inject constructor(
     override fun getCategories(personId: Long): Single<List<Category>> {
         return appService.getCategories(personId)
             .map { categories ->
-                categories.map { categoryMapper(it) }
+                categories.map(categoryMapper)
             }
     }
 }

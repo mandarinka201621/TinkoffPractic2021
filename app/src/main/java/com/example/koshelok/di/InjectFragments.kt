@@ -4,6 +4,7 @@ import com.example.koshelok.ui.addoperation.AddOperationFragment
 import com.example.koshelok.ui.categoryoperation.CategoryOperationFragment
 import com.example.koshelok.ui.detailwallet.DetailWalletFragment
 import com.example.koshelok.ui.editwallet.EditWalletFragment
+import com.example.koshelok.ui.limitwallet.LimitWalletFragment
 import com.example.koshelok.ui.listwallet.ListWalletFragment
 import com.example.koshelok.ui.onboarding.OnBoardingScreenFragment
 import com.example.koshelok.ui.sumoperation.SumOperationFragment
@@ -26,4 +27,6 @@ interface InjectFragments {
     fun inject(listWalletFragment: ListWalletFragment)
 
     fun inject(editWalletFragment: EditWalletFragment)
+
+    fun inject(limitWalletFragment: LimitWalletFragment)
 }

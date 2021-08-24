@@ -3,7 +3,6 @@ package com.example.koshelok.data.service
 import com.example.koshelok.data.service.api.CategoryApi
 import com.example.koshelok.data.service.api.CreateTransactionApi
 import com.example.koshelok.data.service.api.MainScreenDataApi
-import com.example.koshelok.data.service.api.ResponseApi
 import com.example.koshelok.data.service.api.TransactionApi
 import com.example.koshelok.data.service.api.WalletApi
 import io.reactivex.rxjava3.core.Completable
@@ -40,7 +39,7 @@ interface AppService {
     ): Completable
 
     @DELETE("transactions/{transactionId}")
-    fun deleteTransaction(@Path("transactionId") id: Long): Single<ResponseApi>
+    fun deleteTransaction(@Path("transactionId") id: Long): Completable
 
     @GET("categories/person/{personId}")
     fun getCategories(@Path("personId") personId: Long): Single<List<CategoryApi>>

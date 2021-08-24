@@ -11,7 +11,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentEditWalletBinding
 import com.example.koshelok.domain.Currency
-import com.example.koshelok.domain.Response
+import com.example.koshelok.domain.Result
 import com.example.koshelok.ui.appComponent
 import com.example.koshelok.ui.factory.ViewModelFactory
 import javax.inject.Inject
@@ -43,17 +43,16 @@ class EditWalletFragment : Fragment(R.layout.fragment_edit_wallet) {
                 viewModel.createWallet(wallet)
             }
 
-            viewModel.responseServerData.observe(viewLifecycleOwner) { response: ResponseWithWalletEntity? ->
-                when (response?.response) {
-                    Response.OK -> launchDetailWalletFragment(response.walletId)
-                    Response.ERROR -> showErrorServerMessage()
+            viewModel.responseServerData.observe(viewLifecycleOwner) { result: Result? ->
+                when (result) {
+                    is Result.Success<*> -> launchDetailWalletFragment(result.data as Long)
+                    is Result.Error -> {
+                        //TODO показать ошибку
+                    }
                 }
+
             }
         }
-    }
-
-    private fun showErrorServerMessage() {
-        //TODO вывести сообщение об ошибки на серваке
     }
 
     private fun getCurrency(): String =

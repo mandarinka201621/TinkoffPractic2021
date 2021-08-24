@@ -12,7 +12,7 @@ class CreateWalletEntityToWalletApi @Inject constructor() :
             name = createWalletEntity.name,
             amountMoney = "0",
             income = "0",
-            expense = "0",
+            consumption = "0",
             limit = createWalletEntity.limit,
             currency = createWalletEntity.currency.name,
             personId = personId,

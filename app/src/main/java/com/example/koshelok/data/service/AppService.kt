@@ -1,9 +1,8 @@
 package com.example.koshelok.data.service
 
-import com.example.koshelok.data.service.api.BalanceApi
 import com.example.koshelok.data.service.api.CategoryApi
 import com.example.koshelok.data.service.api.CreateTransactionApi
-import com.example.koshelok.data.service.api.ExchangeRatesApi
+import com.example.koshelok.data.service.api.MainScreenDataApi
 import com.example.koshelok.data.service.api.ResponseApi
 import com.example.koshelok.data.service.api.ResponseWithWalletIdApi
 import com.example.koshelok.data.service.api.TransactionApi
@@ -17,9 +16,6 @@ import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface AppService {
-
-    @GET("getWallets/{personId}")
-    fun getWallets(@Path("personId") idUser: Long): Single<List<WalletApi>>
 
     @GET("transactions/wallet/{walletId}")
     fun getTransactions(@Path("walletId") walletId: Long): Single<List<TransactionApi>>
@@ -46,9 +42,9 @@ interface AppService {
     @DELETE("transactions/{transactionId}")
     fun deleteTransaction(@Path("transactionId") id: Long): Single<ResponseApi>
 
-    @GET("balance/{personId}")
-    fun getBalance(@Path("personId") personId: Long): Single<BalanceApi>
+    @GET("getMainScreen/{personId}")
+    fun getDataForMainScreen(@Path("personId") personId: Long): Single<MainScreenDataApi>
 
-    @GET("getExchangeRates")
-    fun getExchangeRates(): Single<ExchangeRatesApi>
+    @GET("registration")
+    fun registrationUser(email: String): Single<Long>
 }

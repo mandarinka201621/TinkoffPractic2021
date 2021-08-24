@@ -25,6 +25,10 @@
             app:enterAnim="@anim/slide_in_top"
             app:popEnterAnim="@anim/slide_out_top"
             app:popExitAnim="@anim/slide_in_bottom" />
+
+        <argument
+            android:name="walletId"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/sumOperationFragment"
@@ -94,6 +98,10 @@
         <action
             android:id="@+id/action_walletListFragment_to_addTitleWalletFragment"
             app:destination="@id/addTitleWalletFragment" />
+
+        <action
+            android:id="@+id/action_walletListFragment_to_detailWalletFragment"
+            app:destination="@id/detailWalletFragment" />
     </fragment>
     <fragment
         android:id="@+id/addTitleWalletFragment"

@@ -1,5 +1,6 @@
 package com.example.koshelok.ui.listwallet
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.View
@@ -10,11 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentListWalletBinding
+import com.example.koshelok.domain.Currency
 import com.example.koshelok.ui.appComponent
 import com.example.koshelok.ui.factory.ViewModelFactory
 import com.example.koshelok.ui.listwallet.entity.BalanceEntity
 import com.example.koshelok.ui.listwallet.entity.ExchangeRatesEntity
 import com.example.koshelok.ui.listwallet.entity.WalletEntity
+import com.google.android.material.appbar.AppBarLayout
 import javax.inject.Inject
 
 class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
@@ -32,10 +35,11 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
             .inject(this)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
-            val walletsAdapter = WalletListAdapter()
+            val walletsAdapter = WalletListAdapter(::transitionToDetailWallet)
             walletList.run {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = walletsAdapter
@@ -48,9 +52,9 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
             viewModel.balanceData.observe(viewLifecycleOwner) { balanceModel: BalanceEntity? ->
                 if (balanceModel != null) {
                     with(balance) {
-                        amountMoney.text = balanceModel.amountMoney
-                        incomeMoney.text = balanceModel.incomeMoney
-                        consumptionMoney.text = balanceModel.consumptionMoney
+                        amountMoney.text = balanceModel.amountMoney + Currency.RUB.icon
+                        incomeMoney.text = balanceModel.incomeMoney + Currency.RUB.icon
+                        consumptionMoney.text = balanceModel.consumptionMoney + Currency.RUB.icon
                     }
                 }
             }
@@ -74,11 +78,39 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
             viewModel.walletsData.observe(viewLifecycleOwner) { wallets: List<WalletEntity>? ->
                 if (wallets != null) {
                     walletsAdapter.setData(wallets)
-                    emptyWallets.visibility = if (wallets.isEmpty()) View.VISIBLE else View.GONE
+                    if (wallets.isEmpty()){
+                        emptyWallets.visibility = View.VISIBLE
+                        disableScroll()
+                    }
+                    else{
+                        emptyWallets.visibility = View.GONE
+                        enableScroll()
+                    }
                 }
             }
 
         }
+    }
+
+    private fun enableScroll() {
+        val params = binding.collapsedToolbar.layoutParams as AppBarLayout.LayoutParams
+        params.scrollFlags = (
+                AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
+                        or AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED
+                )
+        binding.collapsedToolbar.layoutParams = params
+    }
+
+    private fun disableScroll() {
+        val params = binding.collapsedToolbar.layoutParams as AppBarLayout.LayoutParams
+        params.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL
+        binding.collapsedToolbar.layoutParams = params
+    }
+
+    private fun transitionToDetailWallet(walletId: Long) {
+        findNavController().navigate(
+            ListWalletFragmentDirections.actionWalletListFragmentToDetailWalletFragment(walletId)
+        )
     }
 
     private fun launchTitleWalletFragment() {

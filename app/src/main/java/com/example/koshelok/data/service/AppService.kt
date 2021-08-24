@@ -17,20 +17,20 @@ import retrofit2.http.Path
 
 interface AppService {
 
-    @GET("transactions/wallet/{walletId}")
-    fun getTransactions(@Path("walletId") walletId: Long): Single<List<TransactionApi>>
-
-    @GET("categories/person/{personId}")
-    fun getCategories(@Path("personId") personId: Long): Single<List<CategoryApi>>
-
     @GET("wallets/{walletId}")
     fun getWallet(@Path("walletId") walletId: Long): Single<WalletApi>
+
+    @POST("wallets")
+    fun createWallet(@Body walletApi: WalletApi): Single<ResponseWithWalletIdApi>
+
+    @GET("getMainScreen/{personId}")
+    fun getDataForMainScreen(@Path("personId") personId: Long): Single<MainScreenDataApi>
 
     @POST("transactions")
     fun createTransaction(@Body transactionApi: CreateTransactionApi): Single<ResponseApi>
 
-    @POST("wallets")
-    fun createWallet(@Body walletApi: WalletApi): Single<ResponseWithWalletIdApi>
+    @GET("transactions/category/wallet/{walletId}")
+    fun getTransactions(@Path("walletId") walletId: Long): Single<List<TransactionApi>>
 
     @PUT("transactions/{transactionId}")
     fun editTransaction(
@@ -42,8 +42,8 @@ interface AppService {
     @DELETE("transactions/{transactionId}")
     fun deleteTransaction(@Path("transactionId") id: Long): Single<ResponseApi>
 
-    @GET("getMainScreen/{personId}")
-    fun getDataForMainScreen(@Path("personId") personId: Long): Single<MainScreenDataApi>
+    @GET("categories/person/{personId}")
+    fun getCategories(@Path("personId") personId: Long): Single<List<CategoryApi>>
 
     @GET("registration")
     fun registrationUser(email: String): Single<Long>

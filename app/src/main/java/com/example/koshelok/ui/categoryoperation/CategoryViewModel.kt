@@ -1,6 +1,7 @@
 package com.example.koshelok.ui.categoryoperation
 
 import androidx.lifecycle.MutableLiveData
+import com.example.koshelok.data.mappers.CategoryToCategoryEntityMapper
 import com.example.koshelok.domain.usecase.LoadCategoriesUseCase
 import com.example.koshelok.ui.RxViewModel
 import com.example.koshelok.ui.entity.CategoryEntity
@@ -10,7 +11,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 class CategoryViewModel @Inject constructor(
-    private val loadCategoriesUseCase: LoadCategoriesUseCase
+    private val loadCategoriesUseCase: LoadCategoriesUseCase,
+    private val categoryMapper: CategoryToCategoryEntityMapper
 ) : RxViewModel() {
 
     val listCategoryModel = MutableLiveData<List<CategoryEntity>>()
@@ -27,15 +29,7 @@ class CategoryViewModel @Inject constructor(
     private fun loadCategories() {
         loadCategoriesUseCase(0)
             .map { categories ->
-                categories.map {
-                    CategoryEntity(
-                        id = it.id,
-                        icon = it.iconId,
-                        typeOperation = it.operation,
-                        color = it.color,
-                        isEnable = false,
-                    )
-                }
+                categories.map(categoryMapper)
             }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

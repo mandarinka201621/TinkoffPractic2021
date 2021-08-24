@@ -1,12 +1,12 @@
 package com.example.koshelok.data.mappers
 
-import com.example.koshelok.data.IconConverter
 import com.example.koshelok.data.extentions.getFormattedDate
 import com.example.koshelok.data.extentions.getTime
 import com.example.koshelok.data.service.api.TransactionApi
 import com.example.koshelok.domain.Category
 import com.example.koshelok.domain.Currency
 import com.example.koshelok.ui.detailwallet.DetailWalletItem
+import com.example.koshelok.ui.util.IconConverter
 import javax.inject.Inject
 
 class TransactionApiToDetailWalletTransactionMapper @Inject constructor(

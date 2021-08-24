@@ -1,7 +1,7 @@
 package com.example.koshelok.data.mappers
 
 import com.example.koshelok.data.service.api.MainScreenDataApi
-import com.example.koshelok.ui.MainScreenDataEntity
+import com.example.koshelok.ui.listwallet.entity.MainScreenDataEntity
 import javax.inject.Inject
 
 class MainScreenDataApiToEntityMapper @Inject constructor(

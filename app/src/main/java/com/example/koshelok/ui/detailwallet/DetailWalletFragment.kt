@@ -15,10 +15,10 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentDetailWalletBinding
 import com.example.koshelok.domain.Result
-import com.example.koshelok.ui.ErrorHandler
-import com.example.koshelok.ui.appComponent
-import com.example.koshelok.ui.entity.TransactionEntity
-import com.example.koshelok.ui.factory.ViewModelFactory
+import com.example.koshelok.ui.main.appComponent
+import com.example.koshelok.ui.util.ErrorHandler
+import com.example.koshelok.ui.util.entity.TransactionEntity
+import com.example.koshelok.ui.util.factory.ViewModelFactory
 import javax.inject.Inject
 
 class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOptionsCallback {

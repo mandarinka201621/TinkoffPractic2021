@@ -1,6 +1,6 @@
 package com.example.koshelok.domain.repository
 
-import com.example.koshelok.ui.entity.CreateWalletEntity
+import com.example.koshelok.ui.util.entity.CreateWalletEntity
 import io.reactivex.rxjava3.core.Single
 
 interface CreateWalletRepository {

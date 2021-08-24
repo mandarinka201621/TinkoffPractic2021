@@ -1,15 +1,15 @@
 package com.example.koshelok.di
 
-import com.example.koshelok.ui.addoperation.AddOperationFragment
-import com.example.koshelok.ui.categoryoperation.CategoryOperationFragment
-import com.example.koshelok.ui.createcategory.CreateCategoryFragment
+import com.example.koshelok.ui.categories.categoryoperation.CategoryOperationFragment
+import com.example.koshelok.ui.categories.createcategory.CreateCategoryFragment
 import com.example.koshelok.ui.detailwallet.DetailWalletFragment
-import com.example.koshelok.ui.editwallet.EditWalletFragment
 import com.example.koshelok.ui.listwallet.ListWalletFragment
 import com.example.koshelok.ui.onboarding.OnBoardingScreenFragment
-import com.example.koshelok.ui.sumoperation.SumOperationFragment
-import com.example.koshelok.ui.typecategory.CreateTypeCategoryFragment
-import com.example.koshelok.ui.typeoperation.TypeOperationFragment
+import com.example.koshelok.ui.transactions.addoperation.AddOperationFragment
+import com.example.koshelok.ui.transactions.sumoperation.SumOperationFragment
+import com.example.koshelok.ui.transactions.typecategory.CreateTypeCategoryFragment
+import com.example.koshelok.ui.transactions.typeoperation.TypeOperationFragment
+import com.example.koshelok.ui.wallet.editwallet.EditWalletFragment
 
 interface InjectFragments {
 

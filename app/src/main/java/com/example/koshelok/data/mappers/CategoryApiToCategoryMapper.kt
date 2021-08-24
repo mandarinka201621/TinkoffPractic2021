@@ -1,8 +1,8 @@
 package com.example.koshelok.data.mappers
 
-import com.example.koshelok.data.IconConverter
 import com.example.koshelok.data.service.api.CategoryApi
 import com.example.koshelok.domain.Category
+import com.example.koshelok.ui.util.IconConverter
 import javax.inject.Inject
 
 class CategoryApiToCategoryMapper @Inject constructor(

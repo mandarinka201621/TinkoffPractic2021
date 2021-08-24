@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import com.example.koshelok.data.AccountSharedPreferences
 import com.example.koshelok.domain.Result
 import com.example.koshelok.domain.usecase.MainScreenUseCase
-import com.example.koshelok.ui.MainScreenDataEntity
-import com.example.koshelok.ui.RxViewModel
+import com.example.koshelok.ui.listwallet.entity.MainScreenDataEntity
+import com.example.koshelok.ui.main.RxViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject

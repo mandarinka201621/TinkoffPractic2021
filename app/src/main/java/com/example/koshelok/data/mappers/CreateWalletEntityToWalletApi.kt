@@ -1,7 +1,7 @@
 package com.example.koshelok.data.mappers
 
 import com.example.koshelok.data.service.api.WalletApi
-import com.example.koshelok.ui.entity.CreateWalletEntity
+import com.example.koshelok.ui.util.entity.CreateWalletEntity
 import javax.inject.Inject
 
 class CreateWalletEntityToWalletApi @Inject constructor() :

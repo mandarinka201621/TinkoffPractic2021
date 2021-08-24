@@ -13,10 +13,10 @@ import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentListWalletBinding
 import com.example.koshelok.domain.Currency
 import com.example.koshelok.domain.Result
-import com.example.koshelok.ui.ErrorHandler
-import com.example.koshelok.ui.MainScreenDataEntity
-import com.example.koshelok.ui.appComponent
-import com.example.koshelok.ui.factory.ViewModelFactory
+import com.example.koshelok.ui.listwallet.entity.MainScreenDataEntity
+import com.example.koshelok.ui.main.appComponent
+import com.example.koshelok.ui.util.ErrorHandler
+import com.example.koshelok.ui.util.factory.ViewModelFactory
 import com.google.android.material.appbar.AppBarLayout
 import javax.inject.Inject
 

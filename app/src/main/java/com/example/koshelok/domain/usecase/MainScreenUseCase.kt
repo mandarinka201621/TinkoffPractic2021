@@ -1,7 +1,7 @@
 package com.example.koshelok.domain.usecase
 
 import com.example.koshelok.domain.repository.MainScreenRepository
-import com.example.koshelok.ui.MainScreenDataEntity
+import com.example.koshelok.ui.listwallet.entity.MainScreenDataEntity
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 

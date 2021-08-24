@@ -1,7 +1,7 @@
 package com.example.koshelok.data.mappers
 
 import com.example.koshelok.data.service.api.CreateTransactionApi
-import com.example.koshelok.ui.entity.TransactionEntity
+import com.example.koshelok.ui.util.entity.TransactionEntity
 import java.util.*
 import javax.inject.Inject
 

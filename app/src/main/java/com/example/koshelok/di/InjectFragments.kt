@@ -2,11 +2,13 @@ package com.example.koshelok.di
 
 import com.example.koshelok.ui.addoperation.AddOperationFragment
 import com.example.koshelok.ui.categoryoperation.CategoryOperationFragment
+import com.example.koshelok.ui.createcategory.CreateCategoryFragment
 import com.example.koshelok.ui.detailwallet.DetailWalletFragment
 import com.example.koshelok.ui.editwallet.EditWalletFragment
 import com.example.koshelok.ui.listwallet.ListWalletFragment
 import com.example.koshelok.ui.onboarding.OnBoardingScreenFragment
 import com.example.koshelok.ui.sumoperation.SumOperationFragment
+import com.example.koshelok.ui.typecategory.CreateTypeCategoryFragment
 import com.example.koshelok.ui.typeoperation.TypeOperationFragment
 
 interface InjectFragments {
@@ -26,4 +28,8 @@ interface InjectFragments {
     fun inject(listWalletFragment: ListWalletFragment)
 
     fun inject(editWalletFragment: EditWalletFragment)
+
+    fun inject(createCategoryFragment: CreateCategoryFragment)
+
+    fun inject(createTypeCategoryFragment: CreateTypeCategoryFragment)
 }

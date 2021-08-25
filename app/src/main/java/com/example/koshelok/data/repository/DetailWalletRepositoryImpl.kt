@@ -1,7 +1,6 @@
 package com.example.koshelok.data.repository
 
 import android.content.Context
-import android.util.Log
 import com.example.koshelok.data.extentions.checkDate
 import com.example.koshelok.data.extentions.getFormattedDate
 import com.example.koshelok.data.mappers.TransactionApiToDetailWalletTransactionMapper
@@ -23,7 +22,6 @@ class DetailWalletRepositoryImpl @Inject constructor(
     override fun getTransactions(walletId: Long): Single<List<DetailWalletItem>> {
         return appService.getTransactions(walletId)
             .map {
-                Log.d("tut_transactions", it.toString())
                 it.sortedByDescending { api -> api.time }
                     .groupBy { transactionApi -> transactionApi.time.getFormattedDate() }
             }

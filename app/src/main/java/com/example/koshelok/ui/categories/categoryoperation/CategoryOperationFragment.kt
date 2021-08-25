@@ -9,10 +9,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
-import com.example.koshelok.data.AccountSharedPreferences
 import com.example.koshelok.databinding.FragmentCategoryOperationTransactionBinding
 import com.example.koshelok.domain.Category
-import com.example.koshelok.domain.Result
 import com.example.koshelok.domain.TypeOperation
 import com.example.koshelok.ui.main.appComponent
 import com.example.koshelok.ui.transactions.sumoperation.SumOperationFragmentArgs
@@ -30,9 +28,6 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    @Inject
-    lateinit var accountSharedPreferences: AccountSharedPreferences
-
     private val binding by viewBinding(FragmentCategoryOperationTransactionBinding::bind)
     private val viewModel: CategoryViewModel by viewModels { viewModelFactory }
 
@@ -48,10 +43,7 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.loadCategories(
-            accountSharedPreferences.personId,
-            transaction.type?.code ?: 0
-        )
+        viewModel.loadCategories(requireNotNull(transaction.type).code)
         setupRecycler()
         clickBackButton()
         binding.addSumOperationButton.setOnClickListener {
@@ -72,10 +64,9 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
                 isSelectedCategory()
             }
         }
-        viewModel.resultData.observe(viewLifecycleOwner) { result: Result ->
-            when (result) {
-                is Result.Error -> errorHandler.createErrorShackBar(result.throwable, binding.root)
-            }
+
+        viewModel.errorData.observe(viewLifecycleOwner) { throwable ->
+            errorHandler.createErrorShackBar(throwable, binding.root)
         }
     }
 

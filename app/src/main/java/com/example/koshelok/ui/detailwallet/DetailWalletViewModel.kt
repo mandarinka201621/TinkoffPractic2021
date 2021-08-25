@@ -2,7 +2,7 @@ package com.example.koshelok.ui.detailwallet
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.koshelok.domain.Result
+import com.example.koshelok.domain.LoadState
 import com.example.koshelok.domain.repository.DeleteTransactionRepository
 import com.example.koshelok.domain.usecase.HeaderWalletUseCase
 import com.example.koshelok.domain.usecase.TransactionsUseCase
@@ -18,10 +18,16 @@ class DetailWalletViewModel @Inject constructor(
     private val deleteTransactionRepository: DeleteTransactionRepository
 ) : RxViewModel() {
 
-    val resultData: LiveData<Result>
-        get() = _resultData
+    val detailWalletData: LiveData<List<DetailWalletItem>>
+        get() = _detailWalletData
+    val errorData: LiveData<Throwable>
+        get() = _errorData
+    val loadStateData: LiveData<LoadState>
+        get() = _loadStateData
 
-    private val _resultData = MutableLiveData<Result>()
+    private val _detailWalletData = MutableLiveData<List<DetailWalletItem>>()
+    private val _errorData = MutableLiveData<Throwable>()
+    private val _loadStateData = MutableLiveData<LoadState>()
 
     fun loadWalletData(walletId: Long) {
         Single.zip(
@@ -35,9 +41,9 @@ class DetailWalletViewModel @Inject constructor(
         }.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ detailWalletsItems ->
-                _resultData.value = Result.Success<List<DetailWalletItem>>(detailWalletsItems)
+                _detailWalletData.value = detailWalletsItems
             }, {
-                _resultData.value = Result.Error(it)
+                _errorData.value = it
             })
             .disposeOnFinish()
     }
@@ -47,9 +53,9 @@ class DetailWalletViewModel @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                _resultData.value = Result.Success(Unit)
+                _loadStateData.value = LoadState.SUCCESS
             }, {
-                _resultData.value = Result.Error(it)
+                _errorData.value = it
             })
             .disposeOnFinish()
     }

@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
-import com.example.koshelok.data.AccountSharedPreferences
 import com.example.koshelok.databinding.FragmentCreateCategoryBinding
 import com.example.koshelok.domain.Result
 import com.example.koshelok.domain.TypeOperation
@@ -26,9 +25,6 @@ import javax.inject.Inject
 class CreateCategoryFragment : Fragment(R.layout.fragment_create_category) {
 
     private val binding by viewBinding(FragmentCreateCategoryBinding::bind)
-
-    @Inject
-    lateinit var accountSharedPreferences: AccountSharedPreferences
 
     @Inject
     lateinit var errorHandler: ErrorHandler
@@ -73,7 +69,7 @@ class CreateCategoryFragment : Fragment(R.layout.fragment_create_category) {
             createCategoryButton.setOnClickListener {
                 category.color = viewModel.getEnableIcon()?.color ?: 0
                 category.iconId = viewModel.getEnableIcon()?.id ?: 0
-                viewModel.createCategory(accountSharedPreferences.personId, category)
+                viewModel.createCategory(category)
             }
             binding.toolbar.setNavigationOnClickListener {
                 requireActivity().onBackPressed()

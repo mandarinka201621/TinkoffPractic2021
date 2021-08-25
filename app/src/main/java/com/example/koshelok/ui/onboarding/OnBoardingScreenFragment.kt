@@ -12,7 +12,6 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
-import com.example.koshelok.data.AccountSharedPreferences
 import com.example.koshelok.databinding.FragmentOnboardingScreenBinding
 import com.example.koshelok.domain.Result
 import com.example.koshelok.ui.main.appComponent
@@ -30,9 +29,6 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-
-    @Inject
-    lateinit var accountSharedPreferences: AccountSharedPreferences
 
     private val viewBinding by viewBinding(FragmentOnboardingScreenBinding::bind)
     private val viewModel: OnBoardScreenViewModel by viewModels { viewModelFactory }
@@ -68,7 +64,6 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
         viewModel.resultData.observe(viewLifecycleOwner) { result: Result ->
             when (result) {
                 is Result.Success<*> -> {
-                    accountSharedPreferences.personId = result.data as Long
                     findNavController()
                         .navigate(R.id.action_onboardScreenFragment_to_walletListFragment)
                 }
@@ -93,7 +88,6 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
 
     private fun startDetailWalletFragment(account: GoogleSignInAccount) {
         val email = account.email.orEmpty()
-        accountSharedPreferences.email = email
         viewModel.registrationUser(email = email)
     }
 }

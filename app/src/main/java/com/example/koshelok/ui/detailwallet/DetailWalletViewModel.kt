@@ -6,7 +6,7 @@ import com.example.koshelok.domain.Result
 import com.example.koshelok.domain.repository.DeleteTransactionRepository
 import com.example.koshelok.domain.usecase.HeaderWalletUseCase
 import com.example.koshelok.domain.usecase.TransactionsUseCase
-import com.example.koshelok.ui.RxViewModel
+import com.example.koshelok.ui.main.RxViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers

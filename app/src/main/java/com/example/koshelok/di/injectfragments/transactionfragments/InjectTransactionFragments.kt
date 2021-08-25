@@ -1,9 +1,9 @@
 package com.example.koshelok.di.injectfragments.transactionfragments
 
-import com.example.koshelok.ui.addoperation.AddOperationFragment
-import com.example.koshelok.ui.categoryoperation.CategoryOperationFragment
-import com.example.koshelok.ui.sumoperation.SumOperationFragment
-import com.example.koshelok.ui.typeoperation.TypeOperationFragment
+import com.example.koshelok.ui.categories.categoryoperation.CategoryOperationFragment
+import com.example.koshelok.ui.transactions.addoperation.AddOperationFragment
+import com.example.koshelok.ui.transactions.sumoperation.SumOperationFragment
+import com.example.koshelok.ui.transactions.typeoperation.TypeOperationFragment
 
 interface InjectTransactionFragments {
 

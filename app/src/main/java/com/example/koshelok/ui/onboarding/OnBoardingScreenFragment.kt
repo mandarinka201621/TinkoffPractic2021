@@ -15,9 +15,9 @@ import com.example.koshelok.R
 import com.example.koshelok.data.AccountSharedPreferences
 import com.example.koshelok.databinding.FragmentOnboardingScreenBinding
 import com.example.koshelok.domain.Result
-import com.example.koshelok.ui.ErrorHandler
-import com.example.koshelok.ui.appComponent
-import com.example.koshelok.ui.factory.ViewModelFactory
+import com.example.koshelok.ui.main.appComponent
+import com.example.koshelok.ui.util.ErrorHandler
+import com.example.koshelok.ui.util.factory.ViewModelFactory
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.koshelok.domain.Result
 import com.example.koshelok.domain.usecase.RegistrationUserUseCase
-import com.example.koshelok.ui.RxViewModel
+import com.example.koshelok.ui.main.RxViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject

@@ -2,16 +2,16 @@ package com.example.koshelok.di.module
 
 import androidx.lifecycle.ViewModel
 import com.example.koshelok.di.ViewModelKey
-import com.example.koshelok.ui.addoperation.AddOperationViewModel
-import com.example.koshelok.ui.categoryoperation.CategoryViewModel
-import com.example.koshelok.ui.createcategory.CreateCategoryFragmentViewModel
+import com.example.koshelok.ui.categories.categoryoperation.CategoryViewModel
+import com.example.koshelok.ui.categories.createcategory.CreateCategoryFragmentViewModel
 import com.example.koshelok.ui.detailwallet.DetailWalletViewModel
-import com.example.koshelok.ui.editwallet.EditWalletViewModel
 import com.example.koshelok.ui.listwallet.ListWalletViewModel
 import com.example.koshelok.ui.onboarding.OnBoardScreenViewModel
-import com.example.koshelok.ui.sumoperation.SumOperationViewModel
-import com.example.koshelok.ui.typecategory.CreateTypeCategoryViewModel
-import com.example.koshelok.ui.typeoperation.TypeOperationViewModel
+import com.example.koshelok.ui.transactions.addoperation.AddOperationViewModel
+import com.example.koshelok.ui.transactions.sumoperation.SumOperationViewModel
+import com.example.koshelok.ui.transactions.typecategory.CreateTypeCategoryViewModel
+import com.example.koshelok.ui.transactions.typeoperation.TypeOperationViewModel
+import com.example.koshelok.ui.wallet.editwallet.EditWalletViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

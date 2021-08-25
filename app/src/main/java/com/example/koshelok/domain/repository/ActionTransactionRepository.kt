@@ -1,6 +1,6 @@
 package com.example.koshelok.domain.repository
 
-import com.example.koshelok.ui.entity.TransactionEntity
+import com.example.koshelok.ui.util.entity.TransactionEntity
 import io.reactivex.rxjava3.core.Completable
 
 interface ActionTransactionRepository {

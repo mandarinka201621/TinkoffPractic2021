@@ -16,7 +16,7 @@ interface WalletsDao {
     @Query("SELECT * FROM wallets WHERE id = :walletId")
     fun getWalletByWalletId(walletId: Long): Single<WalletDb>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addWallet(wallet: WalletDb)
 
     @Query("SELECT * FROM wallets WHERE personId =:personId")

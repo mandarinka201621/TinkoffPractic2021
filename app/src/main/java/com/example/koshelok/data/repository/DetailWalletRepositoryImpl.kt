@@ -1,7 +1,8 @@
 package com.example.koshelok.data.repository
 
 import android.content.Context
-import com.example.koshelok.data.db.DetailWalletSourceImpl
+import com.example.koshelok.data.db.DetailWalletSource
+import com.example.koshelok.data.db.WalletSource
 import com.example.koshelok.data.extentions.checkDate
 import com.example.koshelok.data.extentions.getFormattedDate
 import com.example.koshelok.data.mappers.TransactionApiToDetailWalletTransactionMapper
@@ -18,7 +19,8 @@ class DetailWalletRepositoryImpl @Inject constructor(
     private val mapperTransaction: TransactionApiToDetailWalletTransactionMapper,
     private val mapWallet: WalletApiToHeaderWalletMapper,
     private val context: Context,
-    private val walletDbSource: DetailWalletSourceImpl
+    private val walletDbSource: DetailWalletSource,
+    private val walletSource: WalletSource
 ) :
     DetailWalletRepository {
 
@@ -55,8 +57,7 @@ class DetailWalletRepositoryImpl @Inject constructor(
                     walletDbSource.insertAllTransactions(list, walletId)
                 }, {
                     emitter.onError(it)
-                }
-                )
+                })
         }
     }
 
@@ -65,7 +66,11 @@ class DetailWalletRepositoryImpl @Inject constructor(
             walletDbSource.getWallet(walletId)
                 .flatMap {
                     emitter.onNext(mapWallet(it))
-                    return@flatMap appService.getWallet(walletId).map(mapWallet)
+                    return@flatMap appService.getWallet(walletId)
+                        .doOnSuccess { walletApi ->
+                            walletSource.insertWallet(walletApi)
+                        }
+                        .map(mapWallet)
                 }
                 .subscribe { header ->
                     emitter.onNext(header)

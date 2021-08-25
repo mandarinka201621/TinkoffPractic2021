@@ -1,6 +1,7 @@
 package com.example.koshelok.data.repository
 
-import com.example.koshelok.data.db.MainWalletSourceImpl
+import com.example.koshelok.data.db.MainWalletSource
+import com.example.koshelok.data.db.WalletSource
 import com.example.koshelok.data.mappers.MainScreenDataApiToEntityMapper
 import com.example.koshelok.data.mappers.WalletApiToWalletEntityMapper
 import com.example.koshelok.data.mappers.WalletDbToWalletApiMapper
@@ -18,12 +19,13 @@ class MainScreenRepositoryImpl @Inject constructor(
     private val walletDbMapper: WalletDbToWalletApiMapper,
     private val walletApiToWalletEntityMapper: WalletApiToWalletEntityMapper,
     private val appService: AppService,
-    private val mainWalletSource: MainWalletSourceImpl,
+    private val mainWalletSource: MainWalletSource,
+    private val walletSource: WalletSource,
 ) : MainScreenRepository {
 
     override fun getMainScreenData(personId: Long): Observable<MainScreenDataEntity> {
         return Observable.create { emitter ->
-            mainWalletSource.getWallets(personId)
+            mainWalletSource.getMainScreenData(personId)
                 .flatMap { wallet ->
                     emitter.onNext(
                         MainScreenDataEntity(
@@ -44,7 +46,7 @@ class MainScreenRepositoryImpl @Inject constructor(
                     )
                     appService.getDataForMainScreen(personId)
                         .doOnSuccess {
-                            mainWalletSource.insertAllWallets(it.wallets)
+                            walletSource.insertAllWallets(it.wallets)
                         }
                         .map(mapper)
                 }

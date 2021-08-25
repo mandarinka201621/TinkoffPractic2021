@@ -68,9 +68,17 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
                         } else {
                             viewModel.loadWalletData(walletId)
                         }
+                        detailWalletList.scrollToPosition(0)
+                        refreshLayout.isRefreshing = false
                     }
-                    is Result.Error -> errorHandler.createErrorShackBar(result.throwable, root)
+                    is Result.Error -> {
+                        refreshLayout.isRefreshing = false
+                        errorHandler.createErrorShackBar(result.throwable, root)
+                    }
                 }
+            }
+            refreshLayout.setOnRefreshListener {
+                viewModel.loadWalletData(walletId = walletId)
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(

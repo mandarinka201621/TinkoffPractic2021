@@ -34,6 +34,7 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
 
     private val binding by viewBinding(FragmentListWalletBinding::bind)
     private val walletViewModel: ListWalletViewModel by viewModels { viewModelFactory }
+    private val personId by lazy { accountSharedPreferences.personId }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -44,7 +45,7 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        walletViewModel.loadMainScreenData(accountSharedPreferences.personId)
+        walletViewModel.loadMainScreenData(personId)
         with(binding) {
             val walletsAdapter = WalletListAdapter(::transitionToDetailWallet)
             walletList.run {
@@ -52,7 +53,7 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
                 adapter = walletsAdapter
             }
 
-            binding.addWallet.setOnClickListener {
+            addWallet.setOnClickListener {
                 launchTitleWalletFragment()
             }
 

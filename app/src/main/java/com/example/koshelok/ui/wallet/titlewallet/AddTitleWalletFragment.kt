@@ -41,10 +41,9 @@ class AddTitleWalletFragment : Fragment(R.layout.fragment_add_title_wallet) {
 
     private fun launchEditWalletFragment() {
         val title = binding.titleWalletEditText.text.toString().trim()
-            //TODO потом поменять лимит на null
         findNavController().navigate(
             AddTitleWalletFragmentDirections.actionAddTitleWalletFragmentToEditWalletFragment(
-                CreateWalletEntity(null, "0", title, Currency.RUB)
+                CreateWalletEntity(null, null, title, Currency.RUB)
             )
         )
     }

@@ -26,7 +26,7 @@ class OnBoardScreenViewModel @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { personId ->
-                    accountSharedPreferences.email = email
+                    accountSharedPreferences.email = userEntity.email
                     accountSharedPreferences.personId = personId
                     _loadStateData.value = Result.Success<Long>(personId)
                 },

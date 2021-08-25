@@ -2,6 +2,7 @@ package com.example.koshelok.ui.onboarding
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.koshelok.data.AccountSharedPreferences
 import com.example.koshelok.domain.Result
 import com.example.koshelok.domain.usecase.RegistrationUserUseCase
 import com.example.koshelok.ui.main.RxViewModel
@@ -11,6 +12,7 @@ import javax.inject.Inject
 
 class OnBoardScreenViewModel @Inject constructor(
     private val registrationUserUseCase: RegistrationUserUseCase,
+    private val accountSharedPreferences: AccountSharedPreferences
 ) : RxViewModel() {
 
     val resultData: LiveData<Result>
@@ -24,6 +26,8 @@ class OnBoardScreenViewModel @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { personId ->
+                    accountSharedPreferences.email = email
+                    accountSharedPreferences.personId = personId
                     _loadStateData.value = Result.Success<Long>(personId)
                 },
                 { error ->

@@ -2,6 +2,7 @@ package com.example.koshelok.ui.categories.categoryoperation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.koshelok.data.AccountSharedPreferences
 import com.example.koshelok.data.mappers.CategoryToCategoryEntityMapper
 import com.example.koshelok.domain.Result
 import com.example.koshelok.domain.usecase.LoadCategoriesUseCase
@@ -14,7 +15,8 @@ import javax.inject.Inject
 
 class CategoryViewModel @Inject constructor(
     private val loadCategoriesUseCase: LoadCategoriesUseCase,
-    private val categoryMapper: CategoryToCategoryEntityMapper
+    private val categoryMapper: CategoryToCategoryEntityMapper,
+    private val accountSharedPreferences: AccountSharedPreferences
 ) : RxViewModel() {
 
     val listCategoryModel = MutableLiveData<List<CategoryEntity>>()
@@ -26,12 +28,8 @@ class CategoryViewModel @Inject constructor(
     private val categoryListValue: List<CategoryEntity>
         get() = requireNotNull(listCategoryModel.value)
 
-    init {
-        loadCategories()
-    }
-
-    private fun loadCategories() {
-        loadCategoriesUseCase(0)
+    fun loadCategories(type: Int) {
+        loadCategoriesUseCase(accountSharedPreferences.personId, type)
             .map { categories ->
                 categories.map(categoryMapper)
             }

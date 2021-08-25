@@ -11,9 +11,11 @@ import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentCreateCategoryBinding
+import com.example.koshelok.domain.Result
 import com.example.koshelok.domain.TypeOperation
 import com.example.koshelok.ui.main.appComponent
 import com.example.koshelok.ui.transactions.typecategory.CreateTypeCategoryFragmentArgs
+import com.example.koshelok.ui.util.ErrorHandler
 import com.example.koshelok.ui.util.entity.IconEntity
 import com.example.koshelok.ui.util.factory.ViewModelFactory
 import petrov.kristiyan.colorpicker.ColorPicker
@@ -25,10 +27,13 @@ class CreateCategoryFragment : Fragment(R.layout.fragment_create_category) {
     private val binding by viewBinding(FragmentCreateCategoryBinding::bind)
 
     @Inject
+    lateinit var errorHandler: ErrorHandler
+
+    @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private val args by navArgs<CreateTypeCategoryFragmentArgs>()
     private val category by lazy { args.category }
-    private val viewModel: CreateCategoryFragmentViewModel by viewModels { viewModelFactory }
+    private val viewModel: CreateCategoryViewModel by viewModels { viewModelFactory }
 
     private lateinit var adapterIcon: AdapterIcon
 
@@ -41,7 +46,7 @@ class CreateCategoryFragment : Fragment(R.layout.fragment_create_category) {
         super.onViewCreated(view, savedInstanceState)
         setupRecycler()
         isSelectedCategory()
-        
+
         viewModel.enableColor.observe(viewLifecycleOwner, Observer {
             adapterIcon.setEnableColor(it)
             binding.adkColorTextView.setTextColor(it)
@@ -64,10 +69,16 @@ class CreateCategoryFragment : Fragment(R.layout.fragment_create_category) {
             createCategoryButton.setOnClickListener {
                 category.color = viewModel.getEnableIcon()?.color ?: 0
                 category.iconId = viewModel.getEnableIcon()?.id ?: 0
-                findNavController().popBackStack()
+                viewModel.createCategory(category)
             }
             binding.toolbar.setNavigationOnClickListener {
                 requireActivity().onBackPressed()
+            }
+            viewModel.resultData.observe(viewLifecycleOwner) { result: Result ->
+                when (result) {
+                    is Result.Success<*> -> findNavController().popBackStack()
+                    is Result.Error -> errorHandler.createErrorShackBar(result.throwable, root)
+                }
             }
         }
     }
@@ -75,7 +86,6 @@ class CreateCategoryFragment : Fragment(R.layout.fragment_create_category) {
     private fun getTypeToString() = when (category.type) {
         TypeOperation.SELECT_EXPENSE -> requireContext().getString(R.string.text_expense)
         TypeOperation.SELECT_INCOME -> requireContext().getString(R.string.income_text)
-        else -> throw NullPointerException("Error type")
     }
 
     private fun setColorPickerClickListener() {
@@ -88,6 +98,7 @@ class CreateCategoryFragment : Fragment(R.layout.fragment_create_category) {
                     override fun onChooseColor(position: Int, color: Int) {
                         viewModel.setEnableColor(color)
                     }
+
                     override fun onCancel() = Unit
                 })
             show()

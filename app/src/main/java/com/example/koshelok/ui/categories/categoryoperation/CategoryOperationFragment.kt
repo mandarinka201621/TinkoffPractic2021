@@ -44,6 +44,7 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.loadCategories(requireNotNull(transaction.type).code)
         setupRecycler()
         clickBackButton()
         binding.addSumOperationButton.setOnClickListener {

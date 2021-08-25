@@ -1,7 +1,7 @@
 package com.example.koshelok.data.repository
 
 import android.content.Context
-import com.example.koshelok.data.db.DetailWalletSource
+import com.example.koshelok.data.db.DetailWalletSourceImpl
 import com.example.koshelok.data.extentions.checkDate
 import com.example.koshelok.data.extentions.getFormattedDate
 import com.example.koshelok.data.mappers.TransactionApiToDetailWalletTransactionMapper
@@ -18,12 +18,12 @@ class DetailWalletRepositoryImpl @Inject constructor(
     private val mapperTransaction: TransactionApiToDetailWalletTransactionMapper,
     private val mapWallet: WalletApiToHeaderWalletMapper,
     private val context: Context,
-    private val walletDbSource: DetailWalletSource
+    private val walletDbSource: DetailWalletSourceImpl
 ) :
     DetailWalletRepository {
 
     override fun getTransactions(walletId: Long): Observable<List<DetailWalletItem>> {
-        return getWallets(walletId)
+        return startLoadTransactions(walletId)
             .map {
                 it.sortedByDescending { api -> api.time }
                     .groupBy { transactionApi -> transactionApi.time.getFormattedDate() }
@@ -44,16 +44,19 @@ class DetailWalletRepositoryImpl @Inject constructor(
             }
     }
 
-    private fun getWallets(walletId: Long): Observable<List<TransactionApi>> {
+    private fun startLoadTransactions(walletId: Long): Observable<List<TransactionApi>> {
         return Observable.create { emitter ->
             walletDbSource.getTransactions(walletId)
                 .flatMap {
                     emitter.onNext(it)
                     return@flatMap appService.getTransactions(walletId)
-                }.subscribe { list ->
+                }.subscribe({ list ->
                     emitter.onNext(list)
                     walletDbSource.insertAllTransactions(list, walletId)
+                }, {
+                    emitter.onError(it)
                 }
+                )
         }
     }
 

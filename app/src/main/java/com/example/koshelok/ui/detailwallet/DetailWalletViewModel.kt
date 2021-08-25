@@ -38,7 +38,7 @@ class DetailWalletViewModel @Inject constructor(
             return@zip mutableListOf<DetailWalletItem>(wallet).apply {
                 addAll(transactions.reversed())
             }.toList()
-        }.subscribeOn(Schedulers.io())
+        }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ detailWalletsItems ->
                 _detailWalletData.value = detailWalletsItems

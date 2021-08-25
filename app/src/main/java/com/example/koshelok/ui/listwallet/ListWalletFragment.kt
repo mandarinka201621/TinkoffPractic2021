@@ -55,7 +55,7 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
                         setupMainScreen(result.data, walletsAdapter)
                     }
                     is Result.Error -> {
-
+                        //TODO сделать обработку ошибки
                     }
                 }
             }

@@ -13,7 +13,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Converter
 import retrofit2.Retrofit
 
-private const val BASE_URL = "https://api.github.com/"
+private const val BASE_URL = "https://http://34.88.54.200:9090/"
 
 @ExperimentalSerializationApi
 @Module

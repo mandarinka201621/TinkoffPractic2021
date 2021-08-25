@@ -63,8 +63,11 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
 
         viewModel.resultData.observe(viewLifecycleOwner) { result: Result ->
             when (result) {
-                is Result.Success<*> -> findNavController()
-                    .navigate(R.id.action_onboardScreenFragment_to_walletListFragment)
+                is Result.Success<*> -> {
+                    accountSharedPreferences.personId = result.data as Long
+                    findNavController()
+                        .navigate(R.id.action_onboardScreenFragment_to_walletListFragment)
+                }
                 is Result.Error -> {
                     //TODO обработать ошибку
                 }

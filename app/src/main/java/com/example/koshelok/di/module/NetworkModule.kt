@@ -24,12 +24,16 @@ class NetworkModule {
 
     private val contentType = "application/json".toMediaType()
 
-    private val json = Json {
-        ignoreUnknownKeys = true
+    @AppScope
+    @Provides
+    fun provideJson(): Json {
+        return Json {
+            ignoreUnknownKeys = true
+        }
     }
 
     @Provides
-    fun provideConverterFactory(): Converter.Factory {
+    fun provideConverterFactory(json: Json): Converter.Factory {
         return json.asConverterFactory(contentType)
     }
 

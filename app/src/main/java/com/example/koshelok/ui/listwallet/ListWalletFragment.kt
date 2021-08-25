@@ -10,10 +10,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
-import com.example.koshelok.data.AccountSharedPreferences
 import com.example.koshelok.databinding.FragmentListWalletBinding
 import com.example.koshelok.domain.Currency
-import com.example.koshelok.domain.Result
 import com.example.koshelok.ui.listwallet.entity.MainScreenDataEntity
 import com.example.koshelok.ui.main.appComponent
 import com.example.koshelok.ui.util.ErrorHandler
@@ -29,9 +27,6 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    @Inject
-    lateinit var accountSharedPreferences: AccountSharedPreferences
-
     private val binding by viewBinding(FragmentListWalletBinding::bind)
     private val walletViewModel: ListWalletViewModel by viewModels { viewModelFactory }
 
@@ -44,7 +39,7 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        walletViewModel.loadMainScreenData(accountSharedPreferences.personId)
+        walletViewModel.loadMainScreenData()
         with(binding) {
             val walletsAdapter = WalletListAdapter(::transitionToDetailWallet)
             walletList.run {
@@ -56,17 +51,13 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
                 launchTitleWalletFragment()
             }
 
-            walletViewModel.resultData.observe(viewLifecycleOwner) { result: Result ->
-                when (result) {
-                    is Result.Success<*> -> {
-                        result.data as MainScreenDataEntity
-                        setupMainScreen(result.data, walletsAdapter)
-                    }
-                    is Result.Error -> {
-                        disableScroll()
-                        errorHandler.createErrorShackBar(result.throwable, root)
-                    }
-                }
+            walletViewModel.mainScreenData.observe(viewLifecycleOwner) { mainScreenEntity ->
+                setupMainScreen(mainScreenEntity, walletsAdapter)
+            }
+
+            walletViewModel.errorData.observe(viewLifecycleOwner) { throwable ->
+                disableScroll()
+                errorHandler.createErrorShackBar(throwable, root)
             }
         }
     }

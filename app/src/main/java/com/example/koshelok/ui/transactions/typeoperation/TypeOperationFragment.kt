@@ -33,13 +33,18 @@ class TypeOperationFragment : Fragment(R.layout.fragment_type_operation_transact
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setClickListener()
+        setOnBackPressedListener()
+
+        transaction.let { viewModel.setSelectTransaction(it) }
+        transaction.type?.let {
+            checkChoose(it)
+            viewModel.setSelectType(it)
+        }
+
         viewModel.typeOperation.observe(viewLifecycleOwner) {
             checkChoose(it)
         }
-        setClickListener()
-        setOnBackPressedListener()
-        transaction.let { viewModel.setSelectType(it) }
-        transaction.type?.let { checkChoose(it) }
     }
 
     private fun setClickListener() {
@@ -67,14 +72,13 @@ class TypeOperationFragment : Fragment(R.layout.fragment_type_operation_transact
             TypeOperation.SELECT_INCOME -> {
                 binding.incomeImageView.visibility = View.VISIBLE
                 binding.expenseImageView.visibility = View.INVISIBLE
-                setStateButton()
             }
             TypeOperation.SELECT_EXPENSE -> {
                 binding.incomeImageView.visibility = View.INVISIBLE
                 binding.expenseImageView.visibility = View.VISIBLE
-                setStateButton()
             }
         }
+        setStateButton()
     }
 
     private fun setStateButton() {

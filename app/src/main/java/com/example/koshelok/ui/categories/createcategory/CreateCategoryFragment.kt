@@ -45,7 +45,6 @@ class CreateCategoryFragment : Fragment(R.layout.fragment_create_category) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecycler()
-        isSelectedCategory()
 
         viewModel.enableColor.observe(viewLifecycleOwner, Observer {
             adapterIcon.setEnableColor(it)
@@ -99,9 +98,10 @@ class CreateCategoryFragment : Fragment(R.layout.fragment_create_category) {
             setOnChooseColorListener(
                 object : OnChooseColorListener {
                     override fun onChooseColor(position: Int, color: Int) {
-                        viewModel.setEnableColor(color)
+                        if (color != 0) {
+                            viewModel.setEnableColor(color)
+                        }
                     }
-
                     override fun onCancel() = Unit
                 })
             show()

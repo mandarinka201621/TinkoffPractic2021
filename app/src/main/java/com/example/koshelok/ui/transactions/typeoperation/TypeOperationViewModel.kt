@@ -17,11 +17,11 @@ class TypeOperationViewModel @Inject constructor() : ViewModel() {
     private val _typeOperation = MutableLiveData<TypeOperation>()
     private val _transaction = MutableLiveData<TransactionEntity>()
 
-    fun setSelectType(select: TypeOperation) {
-        _typeOperation.value = select
+    fun setSelectType(type: TypeOperation) {
+        _typeOperation.value = type
     }
 
-    fun setSelectType(transactionEntity: TransactionEntity) {
+    fun setSelectTransaction(transactionEntity: TransactionEntity) {
         _transaction.value = transactionEntity
     }
 }

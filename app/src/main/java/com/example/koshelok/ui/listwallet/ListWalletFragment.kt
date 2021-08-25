@@ -18,6 +18,7 @@ import com.example.koshelok.ui.util.ErrorHandler
 import com.example.koshelok.ui.util.factory.ViewModelFactory
 import com.google.android.material.appbar.AppBarLayout
 import javax.inject.Inject
+import kotlin.math.abs
 
 class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
 
@@ -47,17 +48,27 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
                 adapter = walletsAdapter
             }
 
-            binding.addWallet.setOnClickListener {
+            addWallet.setOnClickListener {
                 launchTitleWalletFragment()
             }
 
             walletViewModel.mainScreenData.observe(viewLifecycleOwner) { mainScreenEntity ->
                 setupMainScreen(mainScreenEntity, walletsAdapter)
+                refreshLayout.isRefreshing = false
             }
 
             walletViewModel.errorData.observe(viewLifecycleOwner) { throwable ->
                 disableScroll()
                 errorHandler.createErrorShackBar(throwable, root)
+                refreshLayout.isRefreshing = false
+            }
+
+            appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+                refreshLayout.isEnabled = abs(verticalOffset) - appBarLayout.totalScrollRange != 0
+            })
+
+            refreshLayout.setOnRefreshListener {
+                walletViewModel.loadMainScreenData()
             }
         }
     }

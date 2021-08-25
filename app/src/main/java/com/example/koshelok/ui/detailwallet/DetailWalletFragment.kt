@@ -61,16 +61,24 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
                 detailWalletAdapter.setData(detailWallet)
                 emptyNotes.visibility =
                     if (detailWallet.size <= 1) View.VISIBLE else View.GONE
+                detailWalletList.scrollToPosition(0)
+                refreshLayout.isRefreshing = false
             }
 
             viewModel.loadStateData.observe(viewLifecycleOwner) { loadState: LoadState ->
                 when (loadState) {
                     LoadState.SUCCESS -> viewModel.loadWalletData(walletId)
                 }
+                refreshLayout.isRefreshing = false
             }
 
             viewModel.errorData.observe(viewLifecycleOwner) { throwable ->
+                refreshLayout.isRefreshing = false
                 errorHandler.createErrorShackBar(throwable, root)
+            }
+
+            refreshLayout.setOnRefreshListener {
+                viewModel.loadWalletData(walletId)
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(

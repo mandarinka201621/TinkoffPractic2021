@@ -15,6 +15,7 @@ class WalletApiToHeaderWalletMapper @Inject constructor() :
             income = walletApi.income,
             consumption = walletApi.consumption,
             limit = walletApi.limit,
-            currency = Currency.valueOf(walletApi.currency)
+            currency = Currency.valueOf(walletApi.currency),
+            isExceededLimit = walletApi.isExceededLimit
         )
 }

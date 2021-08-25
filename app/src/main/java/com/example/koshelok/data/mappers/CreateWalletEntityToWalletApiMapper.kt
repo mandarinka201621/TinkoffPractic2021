@@ -16,6 +16,7 @@ class CreateWalletEntityToWalletApiMapper @Inject constructor() :
             limit = createWalletEntity.limit,
             currency = createWalletEntity.currency.name,
             personId = personId,
+            isExceededLimit = false,
             isHide = false
         )
 }

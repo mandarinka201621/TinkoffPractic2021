@@ -27,7 +27,13 @@ class HeaderHolder(view: View) : DetailWalletHolder(view) {
                 if (data.limit == null) {
                     limit.visibility = View.GONE
                 } else {
-                    limit.text = data.limit
+                    limit.text = "/${data.limit}"
+                }
+                exceededLimit.visibility = if (data.isExceededLimit) {
+                    limit.setTextColor(root.context.getColor(R.color.red))
+                    View.VISIBLE
+                } else {
+                    View.GONE
                 }
             }
         }
@@ -69,7 +75,7 @@ class TransactionHolder(view: View, private val swipeCallback: SwipeOptionsCallb
                         category = root.context.getString(R.string.spending)
                     }
                 }
-                money.text = moneyText+data.currency.icon
+                money.text = moneyText + data.currency.icon
                 categoryText.text = category
                 time.text = data.time
                 deleteButton.setOnClickListener {
@@ -86,6 +92,7 @@ class TransactionHolder(view: View, private val swipeCallback: SwipeOptionsCallb
         binding.swipeLayout.reset()
     }
 }
+
 
 abstract class DetailWalletHolder(view: View) : RecyclerView.ViewHolder(view) {
 

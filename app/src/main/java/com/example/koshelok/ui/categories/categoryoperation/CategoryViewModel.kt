@@ -2,8 +2,8 @@ package com.example.koshelok.ui.categories.categoryoperation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.koshelok.data.AccountSharedPreferences
 import com.example.koshelok.data.mappers.CategoryToCategoryEntityMapper
-import com.example.koshelok.domain.Result
 import com.example.koshelok.domain.usecase.LoadCategoriesUseCase
 import com.example.koshelok.ui.main.RxViewModel
 import com.example.koshelok.ui.util.entity.CategoryEntity
@@ -14,20 +14,22 @@ import javax.inject.Inject
 
 class CategoryViewModel @Inject constructor(
     private val loadCategoriesUseCase: LoadCategoriesUseCase,
-    private val categoryMapper: CategoryToCategoryEntityMapper
+    private val categoryMapper: CategoryToCategoryEntityMapper,
+    private val accountSharedPreferences: AccountSharedPreferences
 ) : RxViewModel() {
 
+    val errorData: LiveData<Throwable>
+        get() = _errorData
+
     val listCategoryModel = MutableLiveData<List<CategoryEntity>>()
-    val resultData: LiveData<Result>
-        get() = _resultData
+    private val _errorData = MutableLiveData<Throwable>()
 
     private val transactionLiveData = MutableLiveData<TransactionEntity>()
-    private val _resultData = MutableLiveData<Result>()
     private val categoryListValue: List<CategoryEntity>
         get() = requireNotNull(listCategoryModel.value)
 
-    fun loadCategories(personId: Long, type: Int) {
-        loadCategoriesUseCase(personId, type)
+    fun loadCategories(type: Int) {
+        loadCategoriesUseCase(accountSharedPreferences.personId, type)
             .map { categories ->
                 categories.map(categoryMapper)
             }
@@ -36,10 +38,9 @@ class CategoryViewModel @Inject constructor(
             .subscribe(
                 { categories ->
                     listCategoryModel.value = categories
-                    _resultData.value = Result.Success(Unit)
                 },
                 {
-                    _resultData.value = Result.Error(it)
+                    _errorData.value = it
                 }
             )
             .disposeOnFinish()

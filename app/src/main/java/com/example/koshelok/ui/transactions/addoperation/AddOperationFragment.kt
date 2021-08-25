@@ -12,7 +12,7 @@ import com.example.koshelok.R
 import com.example.koshelok.data.extentions.getCalendar
 import com.example.koshelok.data.extentions.getDayWithMonth
 import com.example.koshelok.databinding.FragmentAddOperationTransactionBinding
-import com.example.koshelok.domain.Result
+import com.example.koshelok.domain.LoadState
 import com.example.koshelok.domain.TypeOperation
 import com.example.koshelok.ui.main.appComponent
 import com.example.koshelok.ui.transactions.sumoperation.SumOperationFragmentArgs
@@ -51,14 +51,19 @@ class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transactio
             }
         }
 
-        viewModel.responseServerData.observe(viewLifecycleOwner) { result: Result? ->
-            when (result) {
-                is Result.Success<*> -> findNavController().popBackStack(
-                    R.id.detailWalletFragment,
-                    false
-                )
-                is Result.Error -> errorHandler.createErrorShackBar(result.throwable, binding.root)
+        viewModel.loadStateData.observe(viewLifecycleOwner) { loadState: LoadState ->
+            when (loadState) {
+                LoadState.SUCCESS -> {
+                    findNavController().popBackStack(
+                        R.id.detailWalletFragment,
+                        false
+                    )
+                }
             }
+        }
+
+        viewModel.errorData.observe(viewLifecycleOwner) { throwable ->
+            errorHandler.createErrorShackBar(throwable, binding.root)
         }
     }
 

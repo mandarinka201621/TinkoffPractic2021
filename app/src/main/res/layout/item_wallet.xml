@@ -36,7 +36,7 @@
                 android:id="@+id/nameWallet"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
+                android:textSize="16sp"
                 android:textColor="@color/black"
                 android:ellipsize="end"
                 android:maxLines="1"
@@ -52,13 +52,12 @@
                 android:id="@+id/amountMoney"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                tools:text="kgwnkj"/>
+                android:layout_marginEnd="16dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 

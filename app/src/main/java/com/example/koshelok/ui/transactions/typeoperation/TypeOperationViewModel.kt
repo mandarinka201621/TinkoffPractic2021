@@ -19,7 +19,6 @@ class TypeOperationViewModel @Inject constructor() : ViewModel() {
 
     fun setSelectType(select: TypeOperation) {
         _typeOperation.value = select
-        TypeOperation.valueOf(select.name)
     }
 
     fun setSelectType(transactionEntity: TransactionEntity) {

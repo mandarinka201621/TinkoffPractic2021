@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipeLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,10 +34,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="5dp"
-                android:textColor="@color/black"
-                android:textSize="16sp"
+                android:layout_marginBottom="5dp"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/categoryText"
                 app:layout_constraintEnd_toStartOf="@id/money"
                 app:layout_constraintStart_toEndOf="@id/icon"
                 app:layout_constraintTop_toTopOf="@id/icon"
@@ -51,7 +52,6 @@
                 android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="@id/icon"
                 app:layout_constraintEnd_toEndOf="@id/typeOperation"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@id/typeOperation"
                 tools:text="gknekg" />
 
@@ -62,6 +62,7 @@
                 android:layout_marginEnd="16dp"
                 android:textColor="@color/black"
                 android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/typeOperation"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/icon"
                 tools:text="gwkemqwl" />
@@ -73,6 +74,7 @@
                 android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="@id/icon"
                 app:layout_constraintEnd_toEndOf="@id/money"
+                app:layout_constraintTop_toTopOf="@+id/categoryText"
                 tools:text="gknekg" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>

@@ -13,7 +13,7 @@ class WalletHolder(view: View) : RecyclerView.ViewHolder(view) {
     @SuppressLint("SetTextI18n")
     fun onBind(data: WalletEntity) {
         with(binding) {
-            amountMoney.text = data.amountMoney+data.currency.icon
+            amountMoney.text = data.amountMoney + " " + data.currency.icon
             nameWallet.text = data.name
         }
     }

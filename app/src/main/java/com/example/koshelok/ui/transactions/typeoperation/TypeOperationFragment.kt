@@ -28,8 +28,7 @@ class TypeOperationFragment : Fragment(R.layout.fragment_type_operation_transact
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        context.appComponent
-            .inject(this)
+        context.appComponent.inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,6 +39,7 @@ class TypeOperationFragment : Fragment(R.layout.fragment_type_operation_transact
         setClickListener()
         setOnBackPressedListener()
         transaction.let { viewModel.setSelectType(it) }
+        transaction.type?.let { checkChoose(it) }
     }
 
     private fun setClickListener() {

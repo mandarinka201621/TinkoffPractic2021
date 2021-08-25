@@ -67,8 +67,8 @@ class CreateCategoryFragment : Fragment(R.layout.fragment_create_category) {
                 setColorPickerClickListener()
             }
             createCategoryButton.setOnClickListener {
-                category.color = viewModel.getEnableIcon()?.color ?: 0
-                category.iconId = viewModel.getEnableIcon()?.id ?: 0
+                category.color = viewModel.enableColor.value ?: 0
+                category.iconId = viewModel.getEnableIcon()?.resIcon ?: 0
                 viewModel.createCategory(category)
             }
             binding.toolbar.setNavigationOnClickListener {

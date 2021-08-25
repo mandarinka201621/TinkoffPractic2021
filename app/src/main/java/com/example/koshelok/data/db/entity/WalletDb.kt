@@ -1,10 +1,10 @@
-package com.example.koshelok.data.db
+package com.example.koshelok.data.db.entity
 
 import androidx.room.Entity
-import androidx.room.PrimaryKey
 
 @Entity(tableName = "Wallets")
 data class WalletDb(
+    var id: Long,
     val name: String,
     val amountMoney: String,
     val income: String,
@@ -13,8 +13,4 @@ data class WalletDb(
     val currency: String,
     val personId: Long,
     val isHide: Boolean
-) {
-
-    @PrimaryKey(autoGenerate = true)
-    var id: Long? = null
-}
+)

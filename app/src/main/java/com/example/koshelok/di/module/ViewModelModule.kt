@@ -48,6 +48,10 @@ interface ViewModelModule {
     fun bindEditWalletViewModel(editWalletViewModel: EditWalletViewModel): ViewModel
 
     @Binds
+    @[IntoMap ViewModelKey(OnBoardScreenViewModel::class)]
+    fun bindOnBoardScreenViewMode(onBoardScreenViewModel: OnBoardScreenViewModel): ViewModel
+
+    @Binds
     @[IntoMap ViewModelKey(CreateCategoryFragmentViewModel::class)]
     fun bindCreateCategoryFragmentViewModel(
         createCategoryFragmentViewModel: CreateCategoryFragmentViewModel
@@ -58,8 +62,4 @@ interface ViewModelModule {
     fun bindCreateTypeCategoryViewModel(
         createTypeCategoryViewModel: CreateTypeCategoryViewModel
     ): ViewModel
-
-    @Binds
-    @[IntoMap ViewModelKey(OnBoardScreenViewModel::class)]
-    fun bindOnBoardScreenViewMode(onBoardScreenViewModel: OnBoardScreenViewModel): ViewModel
 }

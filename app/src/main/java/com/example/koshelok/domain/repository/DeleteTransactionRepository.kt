@@ -1,9 +1,8 @@
 package com.example.koshelok.domain.repository
 
-import com.example.koshelok.domain.Response
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.core.Completable
 
 interface DeleteTransactionRepository {
 
-    fun deleteTransaction(transactionId: Long): Single<Response>
+    fun deleteTransaction(transactionId: Long): Completable
 }

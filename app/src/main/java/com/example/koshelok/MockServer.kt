@@ -2,13 +2,14 @@ package com.example.koshelok
 
 import android.graphics.Color
 import com.example.koshelok.data.service.AppService
+import com.example.koshelok.data.service.api.BalanceApi
 import com.example.koshelok.data.service.api.CategoryApi
 import com.example.koshelok.data.service.api.CreateTransactionApi
+import com.example.koshelok.data.service.api.ExchangeRatesApi
 import com.example.koshelok.data.service.api.MainScreenDataApi
-import com.example.koshelok.data.service.api.ResponseApi
-import com.example.koshelok.data.service.api.ResponseWithWalletIdApi
 import com.example.koshelok.data.service.api.TransactionApi
 import com.example.koshelok.data.service.api.WalletApi
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
@@ -130,7 +131,38 @@ class MockServer @Inject constructor() : AppService {
     }
 
     override fun getCategories(personId: Long): Single<List<CategoryApi>> {
-        TODO("Not yet implemented")
+        return Single.just(
+            listOf(
+                CategoryApi(
+                    0,
+                    0,
+                    "Супермаркет",
+                    4,
+                    Color.parseColor("#5833EE")
+                ),
+                CategoryApi(
+                    1,
+                    1,
+                    "Супермаркет1",
+                    4,
+                    Color.parseColor("#5833EE")
+                ),
+                CategoryApi(
+                    2,
+                    0,
+                    "Супермаркет2",
+                    4,
+                    Color.parseColor("#5833EE")
+                ),
+                CategoryApi(
+                    3,
+                    1,
+                    "Супермаркет3",
+                    4,
+                    Color.parseColor("#5833EE")
+                )
+            )
+        )
     }
 
     override fun getWallet(walletId: Long): Single<WalletApi> {
@@ -141,31 +173,75 @@ class MockServer @Inject constructor() : AppService {
         )
     }
 
-    override fun createTransaction(transactionApi: CreateTransactionApi): Single<ResponseApi> {
-        TODO("Not yet implemented")
+    override fun createTransaction(transactionApi: CreateTransactionApi): Completable {
+        list.add(
+            TransactionApi(
+                300,
+                transactionApi.money,
+                transactionApi.idCategory,
+                0,
+                "Супермаркет",
+                6,
+                Color.parseColor("#5833EE"),
+                transactionApi.currency,
+                transactionApi.time
+            )
+        )
+        return Completable.complete()
     }
 
-    override fun createWallet(walletApi: WalletApi): Single<ResponseWithWalletIdApi> {
-        TODO("Not yet implemented")
+    override fun createWallet(walletApi: WalletApi): Single<Long> {
+        return Single.just(200)
     }
 
     override fun editTransaction(
         id: Long,
         transactionApi: CreateTransactionApi
-    ): Single<ResponseApi> {
+    ): Completable {
         TODO("Not yet implemented")
     }
 
-    override fun deleteTransaction(id: Long): Single<ResponseApi> {
+    override fun deleteTransaction(id: Long): Completable {
         TODO("Not yet implemented")
     }
 
     override fun getDataForMainScreen(personId: Long): Single<MainScreenDataApi> {
-        TODO("Not yet implemented")
+        return Single.just(
+            MainScreenDataApi(
+                BalanceApi(
+                    "20000",
+                    "23000",
+                    "3000"
+                ),
+                ExchangeRatesApi(
+                    "USD",
+                    "73.22",
+                    false,
+                    "EUR",
+                    "80.12",
+                    true,
+                    "GBR",
+                    "100.24",
+                    true
+                ),
+                listOf(
+                    WalletApi(
+                        0,
+                        "Кошелек 1",
+                        "3515",
+                        "3516",
+                        "353",
+                        "2100",
+                        "RUB",
+                        100,
+                        false
+                    )
+                )
+            )
+        )
     }
 
     override fun registrationUser(email: String): Single<Long> {
         TODO("Not yet implemented")
     }
 }
-

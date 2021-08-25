@@ -1,7 +1,9 @@
 package com.example.koshelok.ui.categoryoperation
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.koshelok.data.mappers.CategoryToCategoryEntityMapper
+import com.example.koshelok.domain.Result
 import com.example.koshelok.domain.usecase.LoadCategoriesUseCase
 import com.example.koshelok.ui.RxViewModel
 import com.example.koshelok.ui.entity.CategoryEntity
@@ -16,9 +18,11 @@ class CategoryViewModel @Inject constructor(
 ) : RxViewModel() {
 
     val listCategoryModel = MutableLiveData<List<CategoryEntity>>()
+    val resultData: LiveData<Result>
+        get() = _resultData
 
     private val transactionLiveData = MutableLiveData<TransactionEntity>()
-
+    private val _resultData = MutableLiveData<Result>()
     private val categoryListValue: List<CategoryEntity>
         get() = requireNotNull(listCategoryModel.value)
 
@@ -36,9 +40,10 @@ class CategoryViewModel @Inject constructor(
             .subscribe(
                 { categories ->
                     listCategoryModel.value = categories
+                    _resultData.value = Result.Success(Unit)
                 },
                 {
-                    //TODO сделать обработчик ошибок
+                    _resultData.value = Result.Error(it)
                 }
             )
             .disposeOnFinish()

@@ -12,7 +12,7 @@ import com.example.koshelok.R
 import com.example.koshelok.data.extentions.getCalendar
 import com.example.koshelok.data.extentions.getDayWithMonth
 import com.example.koshelok.databinding.FragmentAddOperationTransactionBinding
-import com.example.koshelok.domain.Response
+import com.example.koshelok.domain.Result
 import com.example.koshelok.domain.TypeOperation
 import com.example.koshelok.ui.appComponent
 import com.example.koshelok.ui.factory.ViewModelFactory
@@ -47,16 +47,17 @@ class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transactio
             }
         }
 
-        viewModel.responseServerData.observe(viewLifecycleOwner) { response:Response? ->
-            when (response) {
-                Response.OK -> findNavController().popBackStack(R.id.detailWalletFragment, false)
-                Response.ERROR -> showErrorServerMessage()
+        viewModel.responseServerData.observe(viewLifecycleOwner) { result: Result? ->
+            when (result) {
+                is Result.Success<*> -> findNavController().popBackStack(
+                    R.id.detailWalletFragment,
+                    false
+                )
+                is Result.Error -> {
+                    //TODO вывести сообщение об ошибки на серваке
+                }
             }
         }
-    }
-
-    private fun showErrorServerMessage(){
-        //TODO вывести сообщение об ошибки на серваке
     }
 
     private fun setupTransaction() {

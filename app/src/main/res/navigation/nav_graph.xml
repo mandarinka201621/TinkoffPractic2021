@@ -25,7 +25,6 @@
             app:enterAnim="@anim/slide_in_top"
             app:popEnterAnim="@anim/slide_out_top"
             app:popExitAnim="@anim/slide_in_bottom" />
-
         <argument
             android:name="walletId"
             app:argType="long" />
@@ -80,6 +79,9 @@
         <argument
             android:name="transaction"
             app:argType="com.example.koshelok.ui.entity.TransactionEntity" />
+        <action
+            android:id="@+id/action_categoryOperationFragment_to_createCategoryFragment"
+            app:destination="@id/createCategoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/addOperationFragment"
@@ -136,6 +138,37 @@
         android:label="LimitWalletFragment" >
         <argument
             android:name="wallet"
+            app:argType="com.example.koshelok.ui.entity.CreateWalletEntity" />
+    </fragment>
+    <fragment
+        android:id="@+id/createCategoryFragment"
+        android:name="com.example.koshelok.ui.createcategory.CreateCategoryFragment"
+        android:label="CreateCategoryFragment" >
+        <argument
+            android:name="category"
+            app:argType="com.example.koshelok.domain.Category" />
+        <action
+            android:id="@+id/action_createCategoryFragment_to_addTypeCategoryFragment"
+            app:destination="@id/addTypeCategoryFragment" />
+        <action
+            android:id="@+id/action_createCategoryFragment_to_addTitleCategoryFragment"
+            app:destination="@id/addTitleCategoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTypeCategoryFragment"
+        android:name="com.example.koshelok.ui.typecategory.CreateTypeCategoryFragment"
+        android:label="AddTypeCategoryFragment" >
+        <argument
+            android:name="category"
+            app:argType="com.example.koshelok.domain.Category" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTitleCategoryFragment"
+        android:name="com.example.koshelok.ui.titlecategory.AddTitleCategoryFragment"
+        android:label="AddTitleCategoryFragment" >
+        <argument
+            android:name="category"
+            app:argType="com.example.koshelok.domain.Category" />
             app:argType="com.example.koshelok.ui.entity.CreateWalletEntity" />
     </fragment>
 </navigation>

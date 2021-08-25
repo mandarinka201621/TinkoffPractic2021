@@ -4,11 +4,13 @@ import androidx.lifecycle.ViewModel
 import com.example.koshelok.di.ViewModelKey
 import com.example.koshelok.ui.addoperation.AddOperationViewModel
 import com.example.koshelok.ui.categoryoperation.CategoryViewModel
+import com.example.koshelok.ui.createcategory.CreateCategoryFragmentViewModel
 import com.example.koshelok.ui.detailwallet.DetailWalletViewModel
 import com.example.koshelok.ui.editwallet.EditWalletViewModel
 import com.example.koshelok.ui.listwallet.ListWalletViewModel
 import com.example.koshelok.ui.onboarding.OnBoardScreenViewModel
 import com.example.koshelok.ui.sumoperation.SumOperationViewModel
+import com.example.koshelok.ui.typecategory.CreateTypeCategoryViewModel
 import com.example.koshelok.ui.typeoperation.TypeOperationViewModel
 import dagger.Binds
 import dagger.Module
@@ -48,4 +50,16 @@ interface ViewModelModule {
     @Binds
     @[IntoMap ViewModelKey(OnBoardScreenViewModel::class)]
     fun bindOnBoardScreenViewMode(onBoardScreenViewModel: OnBoardScreenViewModel): ViewModel
+
+    @Binds
+    @[IntoMap ViewModelKey(CreateCategoryFragmentViewModel::class)]
+    fun bindCreateCategoryFragmentViewModel(
+        createCategoryFragmentViewModel: CreateCategoryFragmentViewModel
+    ): ViewModel
+
+    @Binds
+    @[IntoMap ViewModelKey(CreateTypeCategoryViewModel::class)]
+    fun bindCreateTypeCategoryViewModel(
+        createTypeCategoryViewModel: CreateTypeCategoryViewModel
+    ): ViewModel
 }

@@ -75,9 +75,16 @@
     <string name="title">Название</string>
     <string name="add_wallet">Создать кошелек</string>
     <string name="currency">Валюта</string>
+    <string name="create_category">Создать категорию</string>
+    <string name="icon">Иконка</string>
+    <string name="ask_color">Задать цвет</string>
     <string name="limit_not_install">Лимит не установлен</string>
     <string name="RUB">Руссийский рубль (RUB)</string>
     <string name="russian_rub">Российский рубль</string>
+    <string name="choose_color">Выберите цвет</string>
+    <string name="title_category">Название категории</string>
+    <string name="category1">Категория1</string>
+
     <string name="spending_limit">Лимит на траты</string>
     <string name="save">Сохранить</string>
 </resources>

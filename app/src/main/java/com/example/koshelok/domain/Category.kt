@@ -1,9 +1,13 @@
 package com.example.koshelok.domain
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Category(
     val id: Long,
-    val type: TypeOperation,
-    val operation: String,
-    val iconId: Int,
-    val color: Int
-)
+    var type: TypeOperation,
+    var operation: String,
+    var iconId: Int,
+    var color: Int
+): Parcelable

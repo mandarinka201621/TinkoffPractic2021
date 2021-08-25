@@ -85,4 +85,6 @@
     <string name="title_category">Название категории</string>
     <string name="category1">Категория1</string>
 
+    <string name="spending_limit">Лимит на траты</string>
+    <string name="save">Сохранить</string>
 </resources>

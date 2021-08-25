@@ -7,13 +7,16 @@ import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.data.AccountSharedPreferences
 import com.example.koshelok.databinding.FragmentOnboardingScreenBinding
+import com.example.koshelok.domain.Result
 import com.example.koshelok.ui.appComponent
+import com.example.koshelok.ui.factory.ViewModelFactory
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -22,9 +25,13 @@ import javax.inject.Inject
 class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
 
     @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    @Inject
     lateinit var accountSharedPreferences: AccountSharedPreferences
 
     private val viewBinding by viewBinding(FragmentOnboardingScreenBinding::bind)
+    private val viewModel: OnBoardScreenViewModel by viewModels { viewModelFactory }
     private val loginResultHandler =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result: ActivityResult? ->
@@ -53,6 +60,16 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
         viewBinding.buttonGoogle.setOnClickListener {
             loginResultHandler.launch(getSignInIntent())
         }
+
+        viewModel.resultData.observe(viewLifecycleOwner) { result: Result ->
+            when (result) {
+                is Result.Success<*> -> findNavController()
+                    .navigate(R.id.action_onboardScreenFragment_to_walletListFragment)
+                is Result.Error -> {
+                    //TODO обработать ошибку
+                }
+            }
+        }
     }
 
     private fun getSignInIntent(): Intent {
@@ -67,7 +84,8 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
     }
 
     private fun startDetailWalletFragment(account: GoogleSignInAccount) {
-        accountSharedPreferences.email = account.email.orEmpty()
-        findNavController().navigate(R.id.action_onboardScreenFragment_to_walletListFragment)
+        val email = account.email.orEmpty()
+        accountSharedPreferences.email = email
+        viewModel.registrationUser(email = email)
     }
 }

@@ -69,11 +69,16 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
                 when (loadState) {
                     LoadState.SUCCESS -> viewModel.loadWalletData(walletId)
                 }
+                refreshLayout.isRefreshing = false
             }
 
             viewModel.errorData.observe(viewLifecycleOwner) { throwable ->
                 refreshLayout.isRefreshing = false
                 errorHandler.createErrorShackBar(throwable, root)
+            }
+
+            refreshLayout.setOnRefreshListener {
+                viewModel.loadWalletData(walletId)
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(

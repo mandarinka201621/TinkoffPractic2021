@@ -68,7 +68,7 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
             })
 
             refreshLayout.setOnRefreshListener {
-                walletViewModel.loadMainScreenData(personId)
+                walletViewModel.loadMainScreenData()
             }
         }
     }

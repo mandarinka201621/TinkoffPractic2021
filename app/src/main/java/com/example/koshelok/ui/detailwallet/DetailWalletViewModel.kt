@@ -2,7 +2,7 @@ package com.example.koshelok.ui.detailwallet
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.koshelok.domain.Response
+import com.example.koshelok.domain.Result
 import com.example.koshelok.domain.repository.DeleteTransactionRepository
 import com.example.koshelok.domain.usecase.HeaderWalletUseCase
 import com.example.koshelok.domain.usecase.TransactionsUseCase
@@ -18,13 +18,13 @@ class DetailWalletViewModel @Inject constructor(
     private val deleteTransactionRepository: DeleteTransactionRepository
 ) : RxViewModel() {
 
+    val resultData: LiveData<Result>
+        get() = _resultData
     val detailWalletData: LiveData<List<DetailWalletItem>>
         get() = _detailWalletData
-    val responseServerData: LiveData<Response>
-        get() = _serverResponseData
 
+    private val _resultData = MutableLiveData<Result>()
     private val _detailWalletData = MutableLiveData<List<DetailWalletItem>>()
-    private val _serverResponseData = MutableLiveData<Response>()
 
     fun loadWalletData(walletId: Long) {
         Single.zip(
@@ -49,9 +49,11 @@ class DetailWalletViewModel @Inject constructor(
         deleteTransactionRepository.deleteTransaction(transaction.id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { response ->
-                _serverResponseData.value = response
-            }
+            .subscribe({
+                _resultData.value = Result.Success(Unit)
+            }, {
+                _resultData.value = Result.Error(it)
+            })
             .disposeOnFinish()
     }
 }

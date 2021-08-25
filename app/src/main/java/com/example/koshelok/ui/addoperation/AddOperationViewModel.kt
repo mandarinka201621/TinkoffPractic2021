@@ -2,7 +2,7 @@ package com.example.koshelok.ui.addoperation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.koshelok.domain.Response
+import com.example.koshelok.domain.Result
 import com.example.koshelok.domain.usecase.CreateTransactionUseCase
 import com.example.koshelok.domain.usecase.EditTransactionUseCase
 import com.example.koshelok.ui.RxViewModel
@@ -18,11 +18,11 @@ class AddOperationViewModel @Inject constructor(
 
     val transactionEntity: LiveData<TransactionEntity>
         get() = _transaction
-    val responseServerData: LiveData<Response>
+    val responseServerData: LiveData<Result>
         get() = _responseServerData
 
     private val _transaction = MutableLiveData<TransactionEntity>()
-    private val _responseServerData = MutableLiveData<Response>()
+    private val _responseServerData = MutableLiveData<Result>()
 
     fun setTransaction(transactionEntity: TransactionEntity) {
         _transaction.value = transactionEntity
@@ -32,10 +32,10 @@ class AddOperationViewModel @Inject constructor(
         createTransactionUseCase(transactionEntity)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ response ->
-                _responseServerData.value = response
+            .subscribe({
+                _responseServerData.value = Result.Success(Unit)
             }, {
-                //TODO сделать обработку ошибок
+                _responseServerData.value = Result.Error(it)
             })
             .disposeOnFinish()
     }
@@ -44,10 +44,10 @@ class AddOperationViewModel @Inject constructor(
         editTransactionUseCase(transactionEntity)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ response ->
-                _responseServerData.value = response
+            .subscribe({
+                _responseServerData.value = Result.Success(Unit)
             }, {
-
+                _responseServerData.value = Result.Error(it)
             })
             .disposeOnFinish()
     }

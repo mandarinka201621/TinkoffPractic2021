@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentDetailWalletBinding
+import com.example.koshelok.domain.Result
 import com.example.koshelok.ui.appComponent
 import com.example.koshelok.ui.entity.TransactionEntity
 import com.example.koshelok.ui.factory.ViewModelFactory
@@ -58,8 +59,12 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
                 }
             }
 
-            viewModel.responseServerData.observe(viewLifecycleOwner) {
-                viewModel.loadWalletData(walletId)
+            viewModel.resultData.observe(viewLifecycleOwner) { result: Result ->
+                when (result) {
+                    is Result.Success<*> -> viewModel.loadWalletData(walletId)
+                    is Result.Error -> {//TODO показать ошибку
+                    }
+                }
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(

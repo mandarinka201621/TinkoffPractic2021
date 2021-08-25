@@ -2,6 +2,7 @@ package com.example.koshelok.ui.editwallet
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.koshelok.domain.Result
 import com.example.koshelok.domain.usecase.CreateWalletUseCase
 import com.example.koshelok.ui.RxViewModel
 import com.example.koshelok.ui.entity.CreateWalletEntity
@@ -13,21 +14,21 @@ class EditWalletViewModel @Inject constructor(
     private val createWalletUseCase: CreateWalletUseCase
 ) : RxViewModel() {
 
-    val responseServerData: LiveData<ResponseWithWalletEntity>
+    val responseServerData: LiveData<Result>
         get() = _responseServerData
 
-    private val _responseServerData = MutableLiveData<ResponseWithWalletEntity>()
+    private val _responseServerData = MutableLiveData<Result>()
 
     fun createWallet(createWalletEntity: CreateWalletEntity) {
         createWalletUseCase(0, createWalletEntity)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { response ->
-                    _responseServerData.value = response
+                { walletId ->
+                    _responseServerData.value = Result.Success<Long>(walletId)
                 },
                 {
-
+                    _responseServerData.value = Result.Error(it)
                 }
             )
             .disposeOnFinish()

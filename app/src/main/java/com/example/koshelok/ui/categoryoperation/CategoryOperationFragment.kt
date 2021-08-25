@@ -61,6 +61,9 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
                 isSelectedCategory()
             }
         }
+        viewModel.listCategoryModel.observe(viewLifecycleOwner) { result ->
+
+        }
     }
 
     private fun isSelectedCategory() {

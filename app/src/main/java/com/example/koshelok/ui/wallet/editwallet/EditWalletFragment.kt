@@ -82,13 +82,17 @@ class EditWalletFragment : Fragment(R.layout.fragment_edit_wallet) {
     private fun setOnCLickEditWalletListener() {
         with(binding) {
             titleLayout.setOnClickListener {
-
+                findNavController().popBackStack()
             }
             currencyLayout.setOnClickListener {
 
             }
             limitLayout.setOnClickListener {
-
+                findNavController().navigate(
+                    EditWalletFragmentDirections.actionEditWalletFragmentToLimitWalletFragment(
+                        wallet
+                    )
+                )
             }
         }
     }

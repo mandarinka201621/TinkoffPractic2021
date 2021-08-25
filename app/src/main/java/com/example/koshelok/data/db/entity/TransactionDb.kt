@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "Transactions")
-data class TransactionsDb(
+data class TransactionDb(
     @PrimaryKey
     var id: Long,
     val money: String,

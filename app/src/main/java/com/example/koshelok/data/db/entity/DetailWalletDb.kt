@@ -10,5 +10,5 @@ data class DetailWalletDb(
         parentColumn = "id",
         entityColumn = "walletId"
     )
-    val transaction: List<TransactionsDb>
+    val transaction: List<TransactionDb>
 )

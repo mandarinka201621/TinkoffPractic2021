@@ -1,11 +1,11 @@
 package com.example.koshelok.domain.repository
 
 import com.example.koshelok.ui.detailwallet.DetailWalletItem
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.core.Observable
 
 interface DetailWalletRepository {
 
-    fun getTransactions(walletId: Long): Single<List<DetailWalletItem>>
+    fun getTransactions(walletId: Long): Observable<List<DetailWalletItem>>
 
-    fun getDataWallet(walletId: Long): Single<DetailWalletItem.HeaderDetailWallet>
+    fun getDataWallet(walletId: Long): Observable<DetailWalletItem.HeaderDetailWallet>
 }

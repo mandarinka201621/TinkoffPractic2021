@@ -126,7 +126,7 @@
             app:popUpTo="@layout/fragment_edit_wallet" />
         <argument
             android:name="createWallet"
-            app:argType="com.example.koshelok.ui.util.entity.CreateWalletEntity" />
+            app:argType="com.example.koshelok.ui.entity.CreateWalletEntity" />
         <action
             android:id="@+id/action_editWalletFragment_to_limitWalletFragment"
             app:destination="@id/limitWalletFragment" />
@@ -135,13 +135,10 @@
         android:id="@+id/limitWalletFragment"
         tools:layout="@layout/fragment_limit_wallet"
         android:name="com.example.koshelok.ui.wallet.limitwallet.LimitWalletFragment"
-        android:label="LimitWalletFragment">
+        android:label="LimitWalletFragment" >
         <argument
             android:name="wallet"
-            app:argType="com.example.koshelok.ui.util.entity.CreateWalletEntity" />
-        <action
-            android:id="@+id/action_editWalletFragment_to_limitWalletFragment"
-            app:destination="@id/limitWalletFragment" />
+            app:argType="com.example.koshelok.ui.entity.CreateWalletEntity" />
     </fragment>
     <fragment
         android:id="@+id/createCategoryFragment"

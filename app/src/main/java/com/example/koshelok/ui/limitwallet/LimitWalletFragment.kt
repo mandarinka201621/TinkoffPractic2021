@@ -9,9 +9,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
-import com.example.koshelok.data.extentions.hideKeyboard
-import com.example.koshelok.data.extentions.showKeyboard
 import com.example.koshelok.databinding.FragmentLimitWalletBinding
+import com.example.koshelok.ui.util.extentions.hideKeyboard
+import com.example.koshelok.ui.util.extentions.showKeyboard
+import com.example.koshelok.ui.wallet.limitwallet.LimitWalletFragmentArgs
 
 class LimitWalletFragment : Fragment(R.layout.fragment_limit_wallet) {
 

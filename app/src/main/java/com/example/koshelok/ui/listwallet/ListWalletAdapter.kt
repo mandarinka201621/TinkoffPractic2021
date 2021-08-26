@@ -70,7 +70,7 @@ class WalletListAdapter(
     fun isEmptyList() = diffUtil.currentList.isEmpty()
 
     private companion object {
-        const val MAX_CLICK_DURATION = 50
+        const val MAX_CLICK_DURATION = 65
     }
 
     inner class WalletHolder(view: View) : RecyclerView.ViewHolder(view) {

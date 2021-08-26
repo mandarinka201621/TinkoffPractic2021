@@ -17,4 +17,5 @@ interface WalletsDao {
 
     @Query("SELECT * FROM Wallets WHERE id=:walletId")
     fun getDetailWalletDb(walletId: Long): Maybe<DetailWalletDb>
+
 }

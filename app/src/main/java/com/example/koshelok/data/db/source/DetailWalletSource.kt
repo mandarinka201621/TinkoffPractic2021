@@ -14,6 +14,8 @@ interface DetailWalletSource {
     fun insertAllTransactions(wallets: List<TransactionApi>, walletId: Long)
 
     fun getDetailWallet(walletId: Long): Maybe<DetailWalletApi>
+
+    fun deleteTransaction(transactionId: Long)
 }
 
 class DetailWalletSourceImpl @Inject constructor(
@@ -38,5 +40,9 @@ class DetailWalletSourceImpl @Inject constructor(
                 Log.d("tut_det", it.toString())
             }
             .map(detailMapper)
+    }
+
+    override fun deleteTransaction(transactionId: Long) {
+        database.getTransactionDao().deleteTransactions(transactionId)
     }
 }

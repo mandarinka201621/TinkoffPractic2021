@@ -21,6 +21,7 @@ class MainScreenRepositoryImpl @Inject constructor(
                 .doOnSuccess {
                     mainWalletSource.insertMainScreenData(personId, it)
                 }
-                .map(mapper).toObservable()).distinctUntilChanged()
+                .map(mapper).toObservable())
+            .distinctUntilChanged()
     }
 }

@@ -15,4 +15,7 @@ interface TransactionDao {
 
     @Query("SELECT * FROM Transactions WHERE walletId= :id")
     fun getTransactionsByWalletId(id: Long): Maybe<List<TransactionDb>>
+
+    @Query("DELETE FROM Transactions WHERE id=:transactionId")
+    fun deleteTransactions(transactionId: Long)
 }

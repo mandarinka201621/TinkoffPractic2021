@@ -4,6 +4,7 @@ import com.example.koshelok.data.repository.ActionTransactionRepositoryImpl
 import com.example.koshelok.data.repository.CreateCategoryRepositoryImpl
 import com.example.koshelok.data.repository.CreateWalletRepositoryImpl
 import com.example.koshelok.data.repository.DeleteTransactionRepositoryImpl
+import com.example.koshelok.data.repository.DeleteWalletRepositoryImpl
 import com.example.koshelok.data.repository.DetailWalletRepositoryImpl
 import com.example.koshelok.data.repository.LoadCategoriesRepositoryImpl
 import com.example.koshelok.data.repository.MainScreenRepositoryImpl
@@ -12,6 +13,7 @@ import com.example.koshelok.domain.repository.ActionTransactionRepository
 import com.example.koshelok.domain.repository.CreateCategoryRepository
 import com.example.koshelok.domain.repository.CreateWalletRepository
 import com.example.koshelok.domain.repository.DeleteTransactionRepository
+import com.example.koshelok.domain.repository.DeleteWalletRepository
 import com.example.koshelok.domain.repository.DetailWalletRepository
 import com.example.koshelok.domain.repository.LoadCategoriesRepository
 import com.example.koshelok.domain.repository.MainScreenRepository
@@ -53,4 +55,8 @@ interface BindsRepositoryModule {
     @Binds
     fun bindCreateCategoryRepository(createCategoryRepositoryImpl: CreateCategoryRepositoryImpl)
             : CreateCategoryRepository
+
+    @Binds
+    fun bindDeleteWalletRepository(deleteWalletRepositoryImpl: DeleteWalletRepositoryImpl)
+            : DeleteWalletRepository
 }

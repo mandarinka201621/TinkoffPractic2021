@@ -1,6 +1,7 @@
 package com.example.koshelok.ui.listwallet
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentListWalletBinding
 import com.example.koshelok.domain.Currency
+import com.example.koshelok.domain.LoadState
 import com.example.koshelok.ui.listwallet.entity.MainScreenDataEntity
 import com.example.koshelok.ui.main.appComponent
 import com.example.koshelok.ui.util.ErrorHandler
@@ -22,6 +24,7 @@ import com.google.android.material.appbar.AppBarLayout
 import javax.inject.Inject
 import kotlin.math.abs
 
+@SuppressWarnings("TooManyFunctions")
 class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
 
     @Inject
@@ -44,7 +47,7 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        requireActivity().window.statusBarColor = requireActivity().getColor(R.color.blue);
+        requireActivity().window.statusBarColor = requireActivity().getColor(R.color.blue)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
@@ -53,7 +56,7 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
         super.onViewCreated(view, savedInstanceState)
         walletViewModel.loadMainScreenData()
         with(binding) {
-            val walletsAdapter = WalletListAdapter(::transitionToDetailWallet)
+            val walletsAdapter = WalletListAdapter(::transitionToDetailWallet, ::deleteWallet)
             walletList.run {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = walletsAdapter
@@ -65,13 +68,22 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
 
             walletViewModel.mainScreenData.observe(viewLifecycleOwner) { mainScreenEntity ->
                 setupMainScreen(mainScreenEntity, walletsAdapter)
+                finishButton()
                 refreshLayout.isRefreshing = false
             }
 
             walletViewModel.errorData.observe(viewLifecycleOwner) { throwable ->
-                disableScroll()
+                finishButton()
                 errorHandler.createErrorToastBar(throwable, layoutInflater, requireContext())
                 refreshLayout.isRefreshing = false
+            }
+
+            walletViewModel.loadStateData.observe(viewLifecycleOwner) { loadState: LoadState ->
+                when (loadState) {
+                    LoadState.SUCCESS -> {
+                        walletViewModel.loadMainScreenData()
+                    }
+                }
             }
 
             appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
@@ -143,8 +155,41 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
         findNavController().navigate(R.id.action_walletListFragment_to_addTitleWalletFragment)
     }
 
+    private fun deleteWallet(walletId: Long) {
+        AlertDialog.Builder(requireContext())
+            .setMessage(requireContext().getString(R.string.you_really_delete_wallet))
+            .setPositiveButton(requireContext().getString(R.string.delete_transaction)) { _, _ ->
+                walletViewModel.deleteWallet(walletId)
+                activeButton()
+            }
+            .setNegativeButton(requireContext().getString(R.string.cancel)) { dialog, _ ->
+                dialog.cancel()
+            }
+            .create().apply {
+                show()
+                getButton(AlertDialog.BUTTON_POSITIVE)
+                    .setTextColor(requireContext().getColor(R.color.red))
+                getButton(AlertDialog.BUTTON_NEGATIVE)
+                    .setTextColor(requireContext().getColor(R.color.light_blue))
+            }
+    }
+
+    private fun activeButton() {
+        with(binding) {
+            progressIndicator.visibility = View.VISIBLE
+            buttonText.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun finishButton() {
+        with(binding) {
+            progressIndicator.visibility = View.GONE
+            buttonText.visibility = View.VISIBLE
+        }
+    }
+
     override fun onDestroyView() {
-        requireActivity().window.statusBarColor = requireActivity().getColor(R.color.white);
+        requireActivity().window.statusBarColor = requireActivity().getColor(R.color.white)
         super.onDestroyView()
     }
 }

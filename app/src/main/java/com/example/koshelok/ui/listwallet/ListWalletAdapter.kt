@@ -1,15 +1,22 @@
 package com.example.koshelok.ui.listwallet
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
+import com.example.koshelok.databinding.ItemWalletBinding
 import com.example.koshelok.ui.listwallet.entity.WalletEntity
 
-class WalletListAdapter(private val transitionToDetailWallet: (walletId: Long) -> Unit) :
-    RecyclerView.Adapter<WalletHolder>() {
+class WalletListAdapter(
+    private val transitionToDetailWallet: (walletId: Long) -> Unit,
+    private val deleteWallet: (walletId: Long) -> Unit
+) :
+    RecyclerView.Adapter<WalletListAdapter.WalletHolder>() {
 
     private val diffUtil = AsyncListDiffer(this, WalletCallback())
 
@@ -39,6 +46,26 @@ class WalletListAdapter(private val transitionToDetailWallet: (walletId: Long) -
 
     fun setData(data: List<WalletEntity>) {
         diffUtil.submitList(data)
+    }
+
+
+    inner class WalletHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val binding by viewBinding(ItemWalletBinding::bind)
+
+        @SuppressLint("SetTextI18n")
+        fun onBind(data: WalletEntity) {
+            with(binding) {
+                amountMoney.text = data.amountMoney + " " + data.currency.icon
+                nameWallet.text = data.name
+                deleteButton.setOnClickListener {
+                    deleteWallet(data.id)
+                }
+            }
+        }
+
+        fun resetSwipe() {
+            binding.swipeLayout.reset()
+        }
     }
 }
 

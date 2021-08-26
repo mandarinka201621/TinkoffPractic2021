@@ -15,6 +15,7 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
 
+@SuppressWarnings("TooManyFunctions")
 interface AppService {
 
     @GET("wallets/{walletId}")
@@ -22,6 +23,9 @@ interface AppService {
 
     @POST("wallets")
     fun createWallet(@Body walletApi: WalletApi): Single<Long>
+
+    @DELETE("wallets/{walletId}")
+    fun deleteWallet(@Path("walletId") walletId: Long): Completable
 
     @GET("wallets/person/{personId}/all")
     fun getDataForMainScreen(@Path("personId") personId: Long): Single<MainScreenDataApi>

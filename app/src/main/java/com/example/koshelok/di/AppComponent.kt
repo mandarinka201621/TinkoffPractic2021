@@ -6,6 +6,7 @@ import com.example.koshelok.di.module.BindsUseCaseModule
 import com.example.koshelok.di.module.DatabaseModule
 import com.example.koshelok.di.module.NetworkModule
 import com.example.koshelok.di.module.SharedPreferencesModule
+import com.example.koshelok.di.module.SourceModule
 import com.example.koshelok.di.module.ViewModelModule
 import dagger.BindsInstance
 import dagger.Component
@@ -17,7 +18,8 @@ import dagger.Component
         NetworkModule::class,
         ViewModelModule::class,
         SharedPreferencesModule::class,
-        DatabaseModule::class
+        DatabaseModule::class,
+        SourceModule::class
     ]
 )
 interface AppComponent : InjectFragments {

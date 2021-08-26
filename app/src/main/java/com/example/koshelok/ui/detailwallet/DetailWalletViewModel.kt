@@ -8,7 +8,7 @@ import com.example.koshelok.domain.usecase.HeaderWalletUseCase
 import com.example.koshelok.domain.usecase.TransactionsUseCase
 import com.example.koshelok.ui.main.RxViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -30,7 +30,7 @@ class DetailWalletViewModel @Inject constructor(
     private val _loadStateData = MutableLiveData<LoadState>()
 
     fun loadWalletData(walletId: Long) {
-        Single.zip(
+        Observable.zip(
             headerWalletUseCase(walletId).subscribeOn(Schedulers.io()),
             transactionsUseCase(walletId).subscribeOn(Schedulers.io())
         )
@@ -38,7 +38,7 @@ class DetailWalletViewModel @Inject constructor(
             return@zip mutableListOf<DetailWalletItem>(wallet).apply {
                 addAll(transactions.reversed())
             }.toList()
-        }.subscribeOn(Schedulers.io())
+        }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ detailWalletsItems ->
                 _detailWalletData.value = detailWalletsItems

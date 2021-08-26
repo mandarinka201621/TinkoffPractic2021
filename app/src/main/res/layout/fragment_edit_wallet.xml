@@ -45,9 +45,9 @@
 
                 <TextView
                     android:id="@+id/titleTextView"
-                    android:textColor="@drawable/selector_color_text_edit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="@drawable/selector_color_text_edit" />
 
                 <ImageView
                     android:layout_width="14dp"
@@ -85,8 +85,8 @@
                 <TextView
                     android:id="@+id/currencyTextView"
                     android:layout_width="wrap_content"
-                    android:textColor="@drawable/selector_color_text_edit"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="@drawable/selector_color_text_edit" />
 
                 <ImageView
                     android:layout_width="14dp"
@@ -123,9 +123,9 @@
 
                 <TextView
                     android:id="@+id/limitTextView"
-                    android:textColor="@drawable/selector_color_text_edit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="@drawable/selector_color_text_edit" />
 
                 <ImageView
                     android:layout_width="14dp"
@@ -137,21 +137,40 @@
             </LinearLayout>
         </FrameLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <RelativeLayout
             android:id="@+id/createWalletButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:elevation="2dp"
+            android:layout_height="50dp"
             android:layout_margin="16dp"
             android:background="@drawable/selector_background_button"
             android:enabled="true"
             android:padding="14dp"
-            app:layout_constraintVertical_bias="1"
-            android:text="@string/create_wallet"
             android:textColor="@drawable/selector_color_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/limitFrame" />
+            app:layout_constraintTop_toBottomOf="@+id/limitFrame"
+            app:layout_constraintVertical_bias="1">
+
+            <TextView
+                android:id="@+id/button_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:textAllCaps="true"
+                android:text="@string/create_wallet"
+                android:textColor="@color/white" />
+
+            <ProgressBar
+                android:id="@+id/progress_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:indeterminate="true"
+                android:visibility="gone" />
+        </RelativeLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

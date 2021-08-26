@@ -50,6 +50,7 @@ class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transactio
                 if (transaction.id != null) {
                     viewModel.editTransaction(transaction)
                 } else {
+                    activeButton()
                     viewModel.createTransaction(transaction)
                 }
             }
@@ -86,7 +87,8 @@ class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transactio
         }
 
         viewModel.errorData.observe(viewLifecycleOwner) { throwable ->
-            errorHandler.createErrorShackBar(throwable, binding.root)
+            errorHandler.createErrorToastBar(throwable, layoutInflater, requireContext())
+            finishButton()
         }
     }
 
@@ -109,6 +111,20 @@ class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transactio
     private fun setOnBackPressedListener() {
         binding.toolbar.setNavigationOnClickListener {
             requireActivity().onBackPressed()
+        }
+    }
+
+    private fun activeButton() {
+        with(binding) {
+            progressIndicator.visibility = View.VISIBLE
+            buttonText.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun finishButton() {
+        with(binding) {
+            progressIndicator.visibility = View.GONE
+            buttonText.visibility = View.VISIBLE
         }
     }
 }

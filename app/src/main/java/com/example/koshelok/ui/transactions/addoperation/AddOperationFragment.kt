@@ -103,8 +103,8 @@ class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transactio
     }
 
     private fun getTypeToString() = when (viewModel.transactionEntity.value?.type) {
-        TypeOperation.SELECT_EXPENSE -> requireContext().getString(R.string.income_text)
-        TypeOperation.SELECT_INCOME -> requireContext().getString(R.string.text_expense)
+        TypeOperation.SELECT_EXPENSE -> requireContext().getString(R.string.text_expense)
+        TypeOperation.SELECT_INCOME -> requireContext().getString(R.string.income_text)
         else -> throw NullPointerException("Error type")
     }
 

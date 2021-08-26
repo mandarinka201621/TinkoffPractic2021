@@ -74,7 +74,7 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
 
             walletViewModel.errorData.observe(viewLifecycleOwner) { throwable ->
                 finishButton()
-                errorHandler.createErrorToastBar(throwable, layoutInflater, requireContext())
+                errorHandler.createErrorToastBar(throwable, layoutInflater)
                 refreshLayout.isRefreshing = false
             }
 

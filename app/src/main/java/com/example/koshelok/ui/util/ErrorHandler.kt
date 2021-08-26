@@ -11,37 +11,42 @@ import retrofit2.HttpException
 import java.net.ConnectException
 import javax.inject.Inject
 
-class ErrorHandler @Inject constructor() {
+
+class ErrorHandler @Inject constructor(
+    private val context: Context
+) {
 
     fun createErrorToastBar(
         throwable: Throwable,
         layoutInflater: LayoutInflater,
-        context: Context
     ) {
         when (throwable) {
-            is HttpException -> { createToastBarHttp(layoutInflater, context) }
-            is ConnectException -> { createToastBarConnect(layoutInflater, context) }
-            is ApiException -> { createToastBarHttp(layoutInflater, context) }
-            else -> { createToastBarHttp(layoutInflater, context) }
+            is HttpException -> {
+                createToastBarHttp(layoutInflater)
+            }
+            is ConnectException -> {
+                createToastBarConnect(layoutInflater)
+            }
+            is ApiException -> {
+                createToastBarHttp(layoutInflater)
+            }
+            else -> {
+                createToastBarHttp(layoutInflater)
+            }
         }
     }
 
-    private fun createToastBarHttp(
-        layoutInflater: LayoutInflater,
-        context: Context
-    ) {
+    private fun createToastBarHttp(layoutInflater: LayoutInflater) {
         val layout = layoutInflater.inflate(R.layout.item_custom_snackbar_http, null)
-        showToast(layout, context)
+        showToast(layout)
     }
 
-    private fun createToastBarConnect(
-        layoutInflater: LayoutInflater, context: Context
-    ) {
+    private fun createToastBarConnect(layoutInflater: LayoutInflater) {
         val layout = layoutInflater.inflate(R.layout.item_custom_snackbar_connect, null)
-        showToast(layout, context)
+        showToast(layout)
     }
 
-    private fun showToast(layout: View, context: Context) {
+    private fun showToast(layout: View) {
         val toast = Toast(context)
         with(toast) {
             setGravity(Gravity.TOP, 0, 0)

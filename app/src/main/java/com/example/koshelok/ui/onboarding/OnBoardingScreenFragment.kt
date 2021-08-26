@@ -42,7 +42,7 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
                     .getResult(ApiException::class.java)
                 startDetailWalletFragment(task)
             } catch (exception: ApiException) {
-                errorHandler.createErrorToastBar(exception, layoutInflater, requireContext())
+                errorHandler.createErrorToastBar(exception, layoutInflater)
             }
         }
 
@@ -66,7 +66,7 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
         }
 
         viewModel.errorData.observe(viewLifecycleOwner) { throwable ->
-            errorHandler.createErrorToastBar(throwable, layoutInflater, requireContext())
+            errorHandler.createErrorToastBar(throwable, layoutInflater)
         }
 
         viewModel.loadStateData.observe(viewLifecycleOwner) { loadState: LoadState ->

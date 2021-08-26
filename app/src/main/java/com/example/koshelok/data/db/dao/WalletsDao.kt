@@ -20,4 +20,6 @@ interface WalletsDao {
     @Query("SELECT * FROM Wallets WHERE id=:walletId")
     fun getDetailWalletDb(walletId: Long): Maybe<DetailWalletDb>
 
+    @Query("DELETE FROM Wallets WHERE id=:walletId")
+    fun deleteWallet(walletId: Long)
 }

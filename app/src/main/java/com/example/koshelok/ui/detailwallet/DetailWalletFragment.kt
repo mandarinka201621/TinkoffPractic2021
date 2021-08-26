@@ -75,7 +75,7 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
 
             viewModel.errorData.observe(viewLifecycleOwner) { throwable ->
                 refreshLayout.isRefreshing = false
-                errorHandler.createErrorToastBar(throwable, layoutInflater, requireContext())
+                errorHandler.createErrorToastBar(throwable, layoutInflater)
             }
 
             refreshLayout.setOnRefreshListener {

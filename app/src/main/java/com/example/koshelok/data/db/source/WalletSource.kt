@@ -8,6 +8,8 @@ import javax.inject.Inject
 interface WalletSource {
 
     fun insertWallet(wallet: WalletApi)
+
+    fun deleteWallet(walletId: Long)
 }
 
 class WalletSourceImpl @Inject constructor(
@@ -18,5 +20,9 @@ class WalletSourceImpl @Inject constructor(
     override fun insertWallet(wallet: WalletApi) {
         database.getWalletsDao()
             .addWallet(walletMapper(wallet))
+    }
+
+    override fun deleteWallet(walletId: Long) {
+        return database.getWalletsDao().deleteWallet(walletId)
     }
 }

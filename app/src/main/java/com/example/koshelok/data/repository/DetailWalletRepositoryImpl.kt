@@ -47,34 +47,23 @@ class DetailWalletRepositoryImpl @Inject constructor(
     }
 
     private fun startLoadTransactions(walletId: Long): Observable<List<TransactionApi>> {
-        return Observable.create { emitter ->
-            walletDbSource.getTransactions(walletId)
-                .flatMap {
-                    emitter.onNext(it)
-                    return@flatMap appService.getTransactions(walletId)
-                }.subscribe({ list ->
-                    emitter.onNext(list)
+        return Observable.concat(
+            walletDbSource.getTransactions(walletId).toObservable(),
+            appService.getTransactions(walletId)
+                .doOnSuccess { list ->
                     walletDbSource.insertAllTransactions(list, walletId)
-                }, {
-                    emitter.onError(it)
-                })
-        }
+                }.toObservable()
+        )
+            .distinctUntilChanged()
     }
 
     override fun getDataWallet(walletId: Long): Observable<DetailWalletItem.HeaderDetailWallet> {
-        return Observable.create { emitter ->
-            walletDbSource.getWallet(walletId)
-                .flatMap {
-                    emitter.onNext(mapWallet(it))
-                    return@flatMap appService.getWallet(walletId)
-                        .doOnSuccess { walletApi ->
-                            walletSource.insertWallet(walletApi)
-                        }
-                        .map(mapWallet)
-                }
-                .subscribe { header ->
-                    emitter.onNext(header)
-                }
-        }
+        return Observable.concat(
+            walletDbSource.getWallet(walletId).map(mapWallet).toObservable(),
+            appService.getWallet(walletId)
+                .doOnSuccess { walletApi ->
+                    walletSource.insertWallet(walletApi)
+                }.map(mapWallet).toObservable()
+        ).distinctUntilChanged()
     }
 }

@@ -6,16 +6,16 @@ import com.example.koshelok.data.mappers.transactions.TransactionsApiToTransacti
 import com.example.koshelok.data.mappers.wallets.WalletDbToWalletApiMapper
 import com.example.koshelok.data.service.api.TransactionApi
 import com.example.koshelok.data.service.api.WalletApi
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.core.Maybe
 import javax.inject.Inject
 
 interface DetailWalletSource {
 
-    fun getWallet(walletId: Long): Single<WalletApi>
+    fun getWallet(walletId: Long): Maybe<WalletApi>
 
     fun insertAllTransactions(wallets: List<TransactionApi>, walletId: Long)
 
-    fun getTransactions(walletId: Long): Single<List<TransactionApi>>
+    fun getTransactions(walletId: Long): Maybe<List<TransactionApi>>
 }
 
 class DetailWalletSourceImpl @Inject constructor(
@@ -26,13 +26,13 @@ class DetailWalletSourceImpl @Inject constructor(
 ) : DetailWalletSource {
 
 
-    override fun getWallet(walletId: Long): Single<WalletApi> {
+    override fun getWallet(walletId: Long): Maybe<WalletApi> {
         return database.getWalletsDao()
             .getWalletByWalletId(walletId)
             .map(walletMapper)
     }
 
-    override fun getTransactions(walletId: Long): Single<List<TransactionApi>> {
+    override fun getTransactions(walletId: Long): Maybe<List<TransactionApi>> {
         return database.getTransactionDao()
             .getTransactionsByWalletId(walletId)
             .map {
@@ -43,7 +43,9 @@ class DetailWalletSourceImpl @Inject constructor(
     override fun insertAllTransactions(wallets: List<TransactionApi>, walletId: Long) {
         return database.getTransactionDao()
             .insertAllTransactions(
-                wallets.map { transactionsDbMapper(it, walletId) }
+                wallets.map {
+                    transactionsDbMapper(it, walletId)
+                }
             )
     }
 }

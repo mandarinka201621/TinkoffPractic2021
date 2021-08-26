@@ -15,22 +15,12 @@ class MainScreenRepositoryImpl @Inject constructor(
 ) : MainScreenRepository {
 
     override fun getMainScreenData(personId: Long): Observable<MainScreenDataEntity> {
-        return Observable.create { emitter ->
-            mainWalletSource.getMainScreenData(personId)
-                .flatMap { wallet ->
-                    emitter.onNext(mapper(wallet))
-                    appService.getDataForMainScreen(personId)
-                        .doOnSuccess {
-                            mainWalletSource.insertMainScreenData(personId, it)
-                        }
-                        .map(mapper)
+        return Observable.concat(mainWalletSource.getMainScreenData(personId).map(mapper)
+            .toObservable(),
+            appService.getDataForMainScreen(personId)
+                .doOnSuccess {
+                    mainWalletSource.insertMainScreenData(personId, it)
                 }
-                .subscribe({ mainScreenData ->
-                    emitter.onNext(mainScreenData)
-                }, {
-                    emitter.onError(it)
-                }
-                )
-        }
+                .map(mapper).toObservable()).distinctUntilChanged()
     }
 }

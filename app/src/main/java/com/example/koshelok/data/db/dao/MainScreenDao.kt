@@ -9,7 +9,7 @@ import com.example.koshelok.data.db.entity.BalanceDb
 import com.example.koshelok.data.db.entity.ExchangeRatesDb
 import com.example.koshelok.data.db.entity.MainScreenDataDb
 import com.example.koshelok.data.db.entity.WalletDb
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.core.Maybe
 
 @Dao
 interface MainScreenDao {
@@ -36,5 +36,5 @@ interface MainScreenDao {
 
     @Transaction
     @Query("SELECT * FROM Balance WHERE personId= :personId")
-    fun getMainScreenData(personId: Long): Single<MainScreenDataDb>
+    fun getMainScreenData(personId: Long): Maybe<MainScreenDataDb>
 }

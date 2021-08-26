@@ -3,6 +3,7 @@ package com.example.koshelok.di
 import android.content.Context
 import com.example.koshelok.di.module.BindsRepositoryModule
 import com.example.koshelok.di.module.BindsUseCaseModule
+import com.example.koshelok.di.module.DatabaseModule
 import com.example.koshelok.di.module.NetworkModule
 import com.example.koshelok.di.module.SharedPreferencesModule
 import com.example.koshelok.di.module.ViewModelModule
@@ -15,7 +16,8 @@ import dagger.Component
         BindsUseCaseModule::class,
         NetworkModule::class,
         ViewModelModule::class,
-        SharedPreferencesModule::class
+        SharedPreferencesModule::class,
+        DatabaseModule::class
     ]
 )
 interface AppComponent : InjectFragments {

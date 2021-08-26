@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
             android:importantForAutofill="no"
-            android:inputType="text"
+            android:inputType="text|textCapSentences"
             android:maxLength="30"
             tools:ignore="LabelFor" />
     </com.google.android.material.textfield.TextInputLayout>

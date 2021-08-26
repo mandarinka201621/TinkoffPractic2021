@@ -17,10 +17,11 @@ class WalletListAdapter(private val transitionToDetailWallet: (walletId: Long) -
         val viewHolder = WalletHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_wallet, parent, false)
         )
-        viewHolder.itemView.setOnClickListener {
+        viewHolder.itemView.setOnLongClickListener {
             if (viewHolder.adapterPosition != RecyclerView.NO_POSITION) {
                 transitionToDetailWallet(diffUtil.currentList[viewHolder.adapterPosition].id)
             }
+            return@setOnLongClickListener true
         }
         return viewHolder
     }

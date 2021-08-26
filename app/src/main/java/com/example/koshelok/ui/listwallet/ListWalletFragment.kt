@@ -3,7 +3,9 @@ package com.example.koshelok.ui.listwallet
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -37,6 +39,15 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
             .inject(this)
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        requireActivity().window.statusBarColor = requireActivity().getColor(R.color.blue);
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,7 +69,7 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
             }
 
             walletViewModel.errorData.observe(viewLifecycleOwner) { throwable ->
-                errorHandler.createErrorShackBar(throwable, root)
+                errorHandler.createErrorToastBar(throwable, layoutInflater, requireContext())
                 refreshLayout.isRefreshing = false
             }
 
@@ -73,10 +84,7 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun setupMainScreen(
-        data: MainScreenDataEntity,
-        walletsAdapter: WalletListAdapter
-    ) {
+    private fun setupMainScreen(data: MainScreenDataEntity, walletsAdapter: WalletListAdapter) {
         with(binding) {
             with(exchangeRates) {
                 firstCurrency.text = data.exchangeRatesEntity.firstCurrency.name
@@ -100,11 +108,11 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
             }
             with(balance) {
                 amountMoney.text =
-                    data.balanceEntity.amountMoney + Currency.RUB.icon
+                    data.balanceEntity.amountMoney + " " + Currency.RUB.icon
                 incomeMoney.text =
-                    data.balanceEntity.incomeMoney + Currency.RUB.icon
+                    data.balanceEntity.incomeMoney + " " + Currency.RUB.icon
                 consumptionMoney.text =
-                    data.balanceEntity.consumptionMoney + Currency.RUB.icon
+                    data.balanceEntity.consumptionMoney + " " + Currency.RUB.icon
             }
         }
     }
@@ -132,5 +140,10 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
 
     private fun launchTitleWalletFragment() {
         findNavController().navigate(R.id.action_walletListFragment_to_addTitleWalletFragment)
+    }
+
+    override fun onDestroyView() {
+        requireActivity().window.statusBarColor = requireActivity().getColor(R.color.white);
+        super.onDestroyView()
     }
 }

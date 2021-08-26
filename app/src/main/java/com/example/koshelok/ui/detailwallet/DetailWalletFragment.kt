@@ -44,6 +44,7 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
         viewModel.loadWalletData(walletId = walletId)
         with(binding) {
             setOnBackPressedListener()
+
             toolbar.inflateMenu(R.menu.menu_detail_wallet)
             toolbar.setNavigationOnClickListener {
                 findNavController().popBackStack(R.id.walletListFragment, false)
@@ -74,7 +75,7 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
 
             viewModel.errorData.observe(viewLifecycleOwner) { throwable ->
                 refreshLayout.isRefreshing = false
-                errorHandler.createErrorShackBar(throwable, root)
+                errorHandler.createErrorToastBar(throwable, layoutInflater, requireContext())
             }
 
             refreshLayout.setOnRefreshListener {

@@ -45,6 +45,7 @@ class EditWalletFragment : Fragment(R.layout.fragment_edit_wallet) {
                 if (wallet.limit == null) getString(R.string.limit_not_install) else wallet.limit
             limitTextView.text = limit
             createWalletButton.setOnClickListener {
+                activeButton()
                 viewModel.createWallet(wallet)
             }
 
@@ -53,7 +54,8 @@ class EditWalletFragment : Fragment(R.layout.fragment_edit_wallet) {
             }
 
             viewModel.errorData.observe(viewLifecycleOwner) { throwable ->
-                errorHandler.createErrorShackBar(throwable, root)
+                errorHandler.createErrorToastBar(throwable, layoutInflater, requireContext())
+                finishButton()
             }
         }
     }
@@ -90,7 +92,22 @@ class EditWalletFragment : Fragment(R.layout.fragment_edit_wallet) {
         }
     }
 
+    private fun activeButton() {
+        with(binding) {
+            progressIndicator.visibility = View.VISIBLE
+            buttonText.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun finishButton() {
+        with(binding) {
+            progressIndicator.visibility = View.GONE
+            buttonText.visibility = View.VISIBLE
+        }
+    }
+
     private fun setOnBackPressedListener() {
+
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }

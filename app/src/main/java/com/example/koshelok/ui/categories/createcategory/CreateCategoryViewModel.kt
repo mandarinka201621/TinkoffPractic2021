@@ -39,12 +39,16 @@ class CreateCategoryViewModel @Inject constructor(
             )
         }
         listIconModel.value = listIcon
+        enableColor.value = Color.parseColor("#333333")
     }
 
     fun createCategory(category: Category) {
         createCategoryUseCase(accountSharedPreferences.personId, category)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe {
+
+            }
             .subscribe(
                 {
                     loadStateData.value = LoadState.SUCCESS

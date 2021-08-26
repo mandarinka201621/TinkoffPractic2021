@@ -84,11 +84,11 @@
     <string name="choose_color">Выберите цвет</string>
     <string name="title_category">Название категории</string>
     <string name="category1">Категория1</string>
-
     <string name="unknown_error">Что-то пошло не так</string>
     <string name="internet_error">Нет соединения с интернетом</string>
     <string name="server_error">Ошибка с сервером</string>
     <string name="spending_limit">Лимит на траты</string>
     <string name="save">Сохранить</string>
     <string name="you_exceeded_limit">Вы превысили лимит по тратам</string>
+    <string name="auth_error">Ошибка при регистрации</string>
 </resources>

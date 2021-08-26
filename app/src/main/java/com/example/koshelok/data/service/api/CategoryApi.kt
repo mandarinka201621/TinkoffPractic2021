@@ -15,5 +15,5 @@ data class CategoryApi (
     val idIcon: Int,
     @SerialName("colour")
     val color: Int,
-    val personId: Long
+    val personId: Long?
 )

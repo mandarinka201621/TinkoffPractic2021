@@ -11,7 +11,7 @@ import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentCreateCategoryBinding
-import com.example.koshelok.domain.Result
+import com.example.koshelok.domain.LoadState
 import com.example.koshelok.domain.TypeOperation
 import com.example.koshelok.ui.main.appComponent
 import com.example.koshelok.ui.transactions.typecategory.CreateTypeCategoryFragmentArgs
@@ -74,10 +74,13 @@ class CreateCategoryFragment : Fragment(R.layout.fragment_create_category) {
             binding.toolbar.setNavigationOnClickListener {
                 requireActivity().onBackPressed()
             }
-            viewModel.resultData.observe(viewLifecycleOwner) { result: Result ->
-                when (result) {
-                    is Result.Success<*> -> findNavController().popBackStack()
-                    is Result.Error -> errorHandler.createErrorShackBar(result.throwable, root)
+            viewModel.errorData.observe(viewLifecycleOwner) { throwable ->
+                errorHandler.createErrorShackBar(throwable, root)
+            }
+
+            viewModel.loadStateData.observe(viewLifecycleOwner) { state: LoadState ->
+                when (state) {
+                    LoadState.SUCCESS -> findNavController().popBackStack()
                 }
             }
         }

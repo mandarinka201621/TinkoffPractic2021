@@ -12,7 +12,11 @@ class MainScreenDataApiToEntityMapper @Inject constructor(
 
     override operator fun invoke(mainScreenDataApi: MainScreenDataApi) =
         MainScreenDataEntity(
-            balanceMapper(mainScreenDataApi.balanceApi),
+            balanceMapper(
+                mainScreenDataApi.balance,
+                mainScreenDataApi.income,
+                mainScreenDataApi.consumption
+            ),
             exchangeRatesMapper(mainScreenDataApi.exchangeRatesApi),
             mainScreenDataApi.wallets.map {
                 walletMapper(it)

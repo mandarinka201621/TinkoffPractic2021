@@ -3,7 +3,7 @@ package com.example.koshelok.ui.onboarding
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.koshelok.data.AccountSharedPreferences
-import com.example.koshelok.domain.Result
+import com.example.koshelok.domain.LoadState
 import com.example.koshelok.domain.usecase.RegistrationUserUseCase
 import com.example.koshelok.ui.main.RxViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -15,23 +15,27 @@ class OnBoardScreenViewModel @Inject constructor(
     private val accountSharedPreferences: AccountSharedPreferences
 ) : RxViewModel() {
 
-    val resultData: LiveData<Result>
+
+    val loadStateData: LiveData<LoadState>
         get() = _loadStateData
+    val errorData: LiveData<Throwable>
+        get() = _errorData
 
-    private val _loadStateData = MutableLiveData<Result>()
+    private val _errorData = MutableLiveData<Throwable>()
+    private val _loadStateData = MutableLiveData<LoadState>()
 
-    fun registrationUser(email: String) {
-        registrationUserUseCase(email)
+    fun registrationUser(userEntity: UserEntity) {
+        registrationUserUseCase(userEntity)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { personId ->
-                    accountSharedPreferences.email = email
+                    accountSharedPreferences.email = userEntity.email
                     accountSharedPreferences.personId = personId
-                    _loadStateData.value = Result.Success<Long>(personId)
+                    _loadStateData.value = LoadState.SUCCESS
                 },
                 { error ->
-                    _loadStateData.value = Result.Error(error)
+                    _errorData.value = error
                 }
             )
             .disposeOnFinish()

@@ -11,7 +11,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentEditWalletBinding
 import com.example.koshelok.domain.Currency
-import com.example.koshelok.domain.Result
 import com.example.koshelok.ui.main.appComponent
 import com.example.koshelok.ui.util.ErrorHandler
 import com.example.koshelok.ui.util.factory.ViewModelFactory
@@ -42,16 +41,19 @@ class EditWalletFragment : Fragment(R.layout.fragment_edit_wallet) {
         with(binding) {
             titleTextView.text = wallet.name
             currencyTextView.text = getCurrency()
-            limitTextView.text = wallet.limit
+            val limit =
+                if (wallet.limit == null) getString(R.string.limit_not_install) else wallet.limit
+            limitTextView.text = limit
             createWalletButton.setOnClickListener {
                 viewModel.createWallet(wallet)
             }
 
-            viewModel.responseServerData.observe(viewLifecycleOwner) { result: Result? ->
-                when (result) {
-                    is Result.Success<*> -> launchDetailWalletFragment(result.data as Long)
-                    is Result.Error -> errorHandler.createErrorShackBar(result.throwable, root)
-                }
+            viewModel.walletIdData.observe(viewLifecycleOwner) { walletId ->
+                launchDetailWalletFragment(walletId)
+            }
+
+            viewModel.errorData.observe(viewLifecycleOwner) { throwable ->
+                errorHandler.createErrorShackBar(throwable, root)
             }
         }
     }

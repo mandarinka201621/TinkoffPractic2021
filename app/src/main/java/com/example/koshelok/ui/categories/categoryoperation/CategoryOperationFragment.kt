@@ -11,7 +11,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentCategoryOperationTransactionBinding
 import com.example.koshelok.domain.Category
-import com.example.koshelok.domain.Result
 import com.example.koshelok.domain.TypeOperation
 import com.example.koshelok.ui.main.appComponent
 import com.example.koshelok.ui.transactions.sumoperation.SumOperationFragmentArgs
@@ -65,10 +64,9 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
                 isSelectedCategory()
             }
         }
-        viewModel.resultData.observe(viewLifecycleOwner) { result: Result ->
-            when (result) {
-                is Result.Error -> errorHandler.createErrorShackBar(result.throwable, binding.root)
-            }
+
+        viewModel.errorData.observe(viewLifecycleOwner) { throwable ->
+            errorHandler.createErrorShackBar(throwable, binding.root)
         }
     }
 

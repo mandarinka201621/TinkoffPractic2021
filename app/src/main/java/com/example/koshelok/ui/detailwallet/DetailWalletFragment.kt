@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentDetailWalletBinding
-import com.example.koshelok.domain.Result
+import com.example.koshelok.domain.LoadState
 import com.example.koshelok.ui.main.appComponent
 import com.example.koshelok.ui.util.ErrorHandler
 import com.example.koshelok.ui.util.entity.TransactionEntity
@@ -56,19 +56,29 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
                 adapter = detailWalletAdapter
                 layoutManager = LinearLayoutManager(requireContext())
             }
-            viewModel.detailWalletData.observe(viewLifecycleOwner) { data: List<DetailWalletItem>? ->
-                if (data != null) {
-                    detailWalletAdapter.setData(data)
-                    emptyNotes.visibility = if (data.size <= 1) View.VISIBLE else View.GONE
-                }
+
+            viewModel.detailWalletData.observe(viewLifecycleOwner) { detailWallet ->
+                detailWalletAdapter.setData(detailWallet)
+                emptyNotes.visibility =
+                    if (detailWallet.size <= 1) View.VISIBLE else View.GONE
+                detailWalletList.scrollToPosition(0)
+                refreshLayout.isRefreshing = false
             }
 
-            viewModel.resultData.observe(viewLifecycleOwner) { result: Result ->
-                when (result) {
-                    is Result.Success<*> -> viewModel.loadWalletData(walletId)
-                    is Result.Error -> errorHandler.createErrorShackBar(result.throwable, root)
-
+            viewModel.loadStateData.observe(viewLifecycleOwner) { loadState: LoadState ->
+                when (loadState) {
+                    LoadState.SUCCESS -> viewModel.loadWalletData(walletId)
                 }
+                refreshLayout.isRefreshing = false
+            }
+
+            viewModel.errorData.observe(viewLifecycleOwner) { throwable ->
+                refreshLayout.isRefreshing = false
+                errorHandler.createErrorShackBar(throwable, root)
+            }
+
+            refreshLayout.setOnRefreshListener {
+                viewModel.loadWalletData(walletId)
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(

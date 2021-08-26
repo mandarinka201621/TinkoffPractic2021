@@ -14,13 +14,13 @@ class SharedPreferencesModule {
     fun createEncryptedSharedPreferences(context: Context): SharedPreferences =
         EncryptedSharedPreferences.create(
             context,
-            NAME_SHARED_PREF,
+            NAME_SHARED_PREF_KEY,
             MasterKey.Builder(context).setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build(),
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
 
     private companion object {
-        const val NAME_SHARED_PREF = "name_shared_pref"
+        const val NAME_SHARED_PREF_KEY = "name_shared_pref_key"
     }
 }

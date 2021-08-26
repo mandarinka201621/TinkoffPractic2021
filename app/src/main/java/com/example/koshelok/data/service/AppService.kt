@@ -4,6 +4,7 @@ import com.example.koshelok.data.service.api.CategoryApi
 import com.example.koshelok.data.service.api.CreateTransactionApi
 import com.example.koshelok.data.service.api.MainScreenDataApi
 import com.example.koshelok.data.service.api.TransactionApi
+import com.example.koshelok.data.service.api.UserApi
 import com.example.koshelok.data.service.api.WalletApi
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
@@ -22,13 +23,13 @@ interface AppService {
     @POST("wallets")
     fun createWallet(@Body walletApi: WalletApi): Single<Long>
 
-    @GET("getMainScreen/{personId}")
+    @GET("wallets/person/{personId}/all")
     fun getDataForMainScreen(@Path("personId") personId: Long): Single<MainScreenDataApi>
 
     @POST("transactions")
     fun createTransaction(@Body transactionApi: CreateTransactionApi): Completable
 
-    @GET("transactions/category/wallet/{walletId}")
+    @GET("transactions/withCategory/{walletId}")
     fun getTransactions(@Path("walletId") walletId: Long): Single<List<TransactionApi>>
 
     @PUT("transactions/{transactionId}")
@@ -50,6 +51,6 @@ interface AppService {
     @POST("categories")
     fun createCategory(@Body categoryApi: CategoryApi): Completable
 
-    @GET("registration")
-    fun registrationUser(email: String): Single<Long>
+    @POST("person")
+    fun registrationUser(@Body userApi: UserApi): Single<Long>
 }

@@ -2,7 +2,7 @@ package com.example.koshelok.ui.transactions.addoperation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.koshelok.domain.Result
+import com.example.koshelok.domain.LoadState
 import com.example.koshelok.domain.usecase.CreateTransactionUseCase
 import com.example.koshelok.domain.usecase.EditTransactionUseCase
 import com.example.koshelok.ui.main.RxViewModel
@@ -18,11 +18,14 @@ class AddOperationViewModel @Inject constructor(
 
     val transactionEntity: LiveData<TransactionEntity>
         get() = _transaction
-    val responseServerData: LiveData<Result>
-        get() = _responseServerData
+    val loadStateData: LiveData<LoadState>
+        get() = _loadStateData
+    val errorData: LiveData<Throwable>
+        get() = _errorData
 
     private val _transaction = MutableLiveData<TransactionEntity>()
-    private val _responseServerData = MutableLiveData<Result>()
+    private val _loadStateData = MutableLiveData<LoadState>()
+    private val _errorData = MutableLiveData<Throwable>()
 
     fun setTransaction(transactionEntity: TransactionEntity) {
         _transaction.value = transactionEntity
@@ -33,9 +36,9 @@ class AddOperationViewModel @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                _responseServerData.value = Result.Success(Unit)
+                _loadStateData.value = LoadState.SUCCESS
             }, {
-                _responseServerData.value = Result.Error(it)
+                _errorData.value = it
             })
             .disposeOnFinish()
     }
@@ -45,9 +48,9 @@ class AddOperationViewModel @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                _responseServerData.value = Result.Success(Unit)
+                _loadStateData.value = LoadState.SUCCESS
             }, {
-                _responseServerData.value = Result.Error(it)
+                _errorData.value = it
             })
             .disposeOnFinish()
     }

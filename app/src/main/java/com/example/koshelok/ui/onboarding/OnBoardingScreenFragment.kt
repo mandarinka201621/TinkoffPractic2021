@@ -13,13 +13,14 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentOnboardingScreenBinding
-import com.example.koshelok.domain.Result
+import com.example.koshelok.domain.LoadState
 import com.example.koshelok.ui.main.appComponent
 import com.example.koshelok.ui.util.ErrorHandler
 import com.example.koshelok.ui.util.factory.ViewModelFactory
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import javax.inject.Inject
 
 class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
@@ -32,13 +33,16 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
 
     private val viewBinding by viewBinding(FragmentOnboardingScreenBinding::bind)
     private val viewModel: OnBoardScreenViewModel by viewModels { viewModelFactory }
+
     private val loginResultHandler =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result: ActivityResult? ->
-            val task = GoogleSignIn.getSignedInAccountFromIntent(result?.data)
-            val account = task.result
-            if (account != null) {
-                startDetailWalletFragment(account)
+            try {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(result?.data)
+                    .getResult(ApiException::class.java)
+                startDetailWalletFragment(task)
+            } catch (exception: ApiException) {
+                errorHandler.createErrorShackBar(exception, viewBinding.root.rootView)
             }
         }
 
@@ -61,16 +65,14 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
             loginResultHandler.launch(getSignInIntent())
         }
 
-        viewModel.resultData.observe(viewLifecycleOwner) { result: Result ->
-            when (result) {
-                is Result.Success<*> -> {
-                    findNavController()
-                        .navigate(R.id.action_onboardScreenFragment_to_walletListFragment)
-                }
-                is Result.Error -> errorHandler.createErrorShackBar(
-                    result.throwable,
-                    viewBinding.root
-                )
+        viewModel.errorData.observe(viewLifecycleOwner) { throwable ->
+            errorHandler.createErrorShackBar(throwable, viewBinding.root)
+        }
+
+        viewModel.loadStateData.observe(viewLifecycleOwner) { loadState: LoadState ->
+            when (loadState) {
+                LoadState.SUCCESS -> findNavController()
+                    .navigate(R.id.action_onboardScreenFragment_to_walletListFragment)
             }
         }
     }
@@ -87,7 +89,7 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
     }
 
     private fun startDetailWalletFragment(account: GoogleSignInAccount) {
-        val email = account.email.orEmpty()
-        viewModel.registrationUser(email = email)
+        val user = UserEntity(email = account.email.orEmpty())
+        viewModel.registrationUser(user)
     }
 }

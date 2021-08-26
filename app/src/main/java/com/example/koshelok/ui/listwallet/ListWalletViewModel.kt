@@ -3,7 +3,6 @@ package com.example.koshelok.ui.listwallet
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.koshelok.data.AccountSharedPreferences
-import com.example.koshelok.domain.Result
 import com.example.koshelok.domain.usecase.MainScreenUseCase
 import com.example.koshelok.ui.listwallet.entity.MainScreenDataEntity
 import com.example.koshelok.ui.main.RxViewModel
@@ -16,24 +15,23 @@ class ListWalletViewModel @Inject constructor(
     private val accountSharedPreferences: AccountSharedPreferences
 ) : RxViewModel() {
 
-    val resultData: LiveData<Result>
-        get() = _loadStateData
-    private val _loadStateData = MutableLiveData<Result>()
+    val errorData: LiveData<Throwable>
+        get() = _errorData
+    val mainScreenData: LiveData<MainScreenDataEntity>
+        get() = _mainScreenData
+    private val _mainScreenData = MutableLiveData<MainScreenDataEntity>()
+    private val _errorData = MutableLiveData<Throwable>()
 
-    init {
-        loadMainScreenData()
-    }
-
-    private fun loadMainScreenData() {
+    fun loadMainScreenData() {
         mainScreenUseCase(accountSharedPreferences.personId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { mainScreenData ->
-                    _loadStateData.value = Result.Success<MainScreenDataEntity>(mainScreenData)
+                    _mainScreenData.value = mainScreenData
                 },
                 { error ->
-                    _loadStateData.value = Result.Error(error)
+                    _errorData.value = error
                 }
             )
             .disposeOnFinish()

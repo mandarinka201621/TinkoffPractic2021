@@ -43,7 +43,7 @@ class AddTitleWalletFragment : Fragment(R.layout.fragment_add_title_wallet) {
         val title = binding.titleWalletEditText.text.toString().trim()
         findNavController().navigate(
             AddTitleWalletFragmentDirections.actionAddTitleWalletFragmentToEditWalletFragment(
-                CreateWalletEntity(null, getString(R.string.limit_not_install), title, Currency.RUB)
+                CreateWalletEntity(null, null, title, Currency.RUB)
             )
         )
     }

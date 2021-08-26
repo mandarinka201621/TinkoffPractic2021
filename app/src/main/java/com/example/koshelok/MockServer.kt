@@ -5,6 +5,7 @@ import com.example.koshelok.data.service.api.CategoryApi
 import com.example.koshelok.data.service.api.CreateTransactionApi
 import com.example.koshelok.data.service.api.MainScreenDataApi
 import com.example.koshelok.data.service.api.TransactionApi
+import com.example.koshelok.data.service.api.UserApi
 import com.example.koshelok.data.service.api.WalletApi
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
@@ -48,7 +49,7 @@ class MockServer @Inject constructor() : AppService {
         TODO("Not yet implemented")
     }
 
-    override fun registrationUser(email: String): Single<Long> {
+    override fun registrationUser(userApi: UserApi): Single<Long> {
         TODO("Not yet implemented")
     }
 

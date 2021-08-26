@@ -1,6 +1,6 @@
 package com.example.koshelok.data.repository
 
-import com.example.koshelok.data.mappers.CreateWalletEntityToWalletApi
+import com.example.koshelok.data.mappers.CreateWalletEntityToWalletApiMapper
 import com.example.koshelok.data.service.AppService
 import com.example.koshelok.domain.repository.CreateWalletRepository
 import com.example.koshelok.ui.util.entity.CreateWalletEntity
@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class CreateWalletRepositoryImpl @Inject constructor(
     private val appService: AppService,
-    private val mapperWallet: CreateWalletEntityToWalletApi,
+    private val mapperWallet: CreateWalletEntityToWalletApiMapper,
 ) : CreateWalletRepository {
     override fun createWallet(
         personId: Long,

@@ -5,7 +5,5 @@ import io.reactivex.rxjava3.core.Observable
 
 interface DetailWalletRepository {
 
-    fun getTransactions(walletId: Long): Observable<List<DetailWalletItem>>
-
-    fun getDataWallet(walletId: Long): Observable<DetailWalletItem.HeaderDetailWallet>
+    fun getDetailWalletData(walletId: Long): Observable<List<DetailWalletItem>>
 }

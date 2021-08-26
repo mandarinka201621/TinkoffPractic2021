@@ -1,44 +1,27 @@
 package com.example.koshelok.data.db.source
 
+import android.util.Log
 import com.example.koshelok.data.db.KoshelokDatabase
-import com.example.koshelok.data.mappers.transactions.TransactionDbToTransactionApiMapper
+import com.example.koshelok.data.mappers.DetailWalletDbToApiMapper
 import com.example.koshelok.data.mappers.transactions.TransactionsApiToTransactionsDbMapper
-import com.example.koshelok.data.mappers.wallets.WalletDbToWalletApiMapper
+import com.example.koshelok.data.service.api.DetailWalletApi
 import com.example.koshelok.data.service.api.TransactionApi
-import com.example.koshelok.data.service.api.WalletApi
 import io.reactivex.rxjava3.core.Maybe
 import javax.inject.Inject
 
 interface DetailWalletSource {
 
-    fun getWallet(walletId: Long): Maybe<WalletApi>
-
     fun insertAllTransactions(wallets: List<TransactionApi>, walletId: Long)
 
-    fun getTransactions(walletId: Long): Maybe<List<TransactionApi>>
+    fun getDetailWallet(walletId: Long): Maybe<DetailWalletApi>
 }
 
 class DetailWalletSourceImpl @Inject constructor(
     private val database: KoshelokDatabase,
     private val transactionsDbMapper: TransactionsApiToTransactionsDbMapper,
-    private val transMapper: TransactionDbToTransactionApiMapper,
-    private val walletMapper: WalletDbToWalletApiMapper
+    private val detailMapper: DetailWalletDbToApiMapper
 ) : DetailWalletSource {
 
-
-    override fun getWallet(walletId: Long): Maybe<WalletApi> {
-        return database.getWalletsDao()
-            .getWalletByWalletId(walletId)
-            .map(walletMapper)
-    }
-
-    override fun getTransactions(walletId: Long): Maybe<List<TransactionApi>> {
-        return database.getTransactionDao()
-            .getTransactionsByWalletId(walletId)
-            .map {
-                it.map(transMapper)
-            }
-    }
 
     override fun insertAllTransactions(wallets: List<TransactionApi>, walletId: Long) {
         return database.getTransactionDao()
@@ -47,5 +30,13 @@ class DetailWalletSourceImpl @Inject constructor(
                     transactionsDbMapper(it, walletId)
                 }
             )
+    }
+
+    override fun getDetailWallet(walletId: Long): Maybe<DetailWalletApi> {
+        return database.getWalletsDao().getDetailWalletDb(walletId)
+            .doOnSuccess {
+                Log.d("tut_det", it.toString())
+            }
+            .map(detailMapper)
     }
 }

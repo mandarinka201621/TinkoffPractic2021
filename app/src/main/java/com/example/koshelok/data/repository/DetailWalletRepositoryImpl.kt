@@ -2,13 +2,12 @@ package com.example.koshelok.data.repository
 
 import android.content.Context
 import com.example.koshelok.data.db.source.DetailWalletSource
-import com.example.koshelok.data.db.source.WalletSource
 import com.example.koshelok.data.extentions.checkDate
 import com.example.koshelok.data.extentions.getFormattedDate
 import com.example.koshelok.data.mappers.transactions.TransactionApiToDetailWalletTransactionMapper
 import com.example.koshelok.data.mappers.wallets.WalletApiToHeaderWalletMapper
 import com.example.koshelok.data.service.AppService
-import com.example.koshelok.data.service.api.TransactionApi
+import com.example.koshelok.data.service.api.DetailWalletApi
 import com.example.koshelok.domain.repository.DetailWalletRepository
 import com.example.koshelok.ui.detailwallet.DetailWalletItem
 import io.reactivex.rxjava3.core.Observable
@@ -20,50 +19,44 @@ class DetailWalletRepositoryImpl @Inject constructor(
     private val mapWallet: WalletApiToHeaderWalletMapper,
     private val context: Context,
     private val walletDbSource: DetailWalletSource,
-    private val walletSource: WalletSource
 ) :
     DetailWalletRepository {
 
-    override fun getTransactions(walletId: Long): Observable<List<DetailWalletItem>> {
-        return startLoadTransactions(walletId)
-            .map {
-                it.sortedByDescending { api -> api.time }
-                    .groupBy { transactionApi -> transactionApi.time.getFormattedDate() }
-            }
-            .map { groupMap ->
-                mutableListOf<DetailWalletItem>().apply {
-                    groupMap.forEach { (key, transactions) ->
-                        this.add(
-                            DetailWalletItem.Day(
-                                transactions.firstOrNull()?.time?.checkDate(context) ?: key
-                            )
+    override fun getDetailWalletData(walletId: Long): Observable<List<DetailWalletItem>> {
+        return getDetailWalletDataApi(walletId).map { detailWallet ->
+            val groupMap = detailWallet.transactions.sortedByDescending { api -> api.time }
+                .groupBy { transactionApi -> transactionApi.time.getFormattedDate() }
+            return@map mutableListOf<DetailWalletItem>().apply {
+                add(mapWallet(detailWallet.walletApi))
+                groupMap.forEach { (key, transactions) ->
+                    this.add(
+                        DetailWalletItem.Day(
+                            transactions.firstOrNull()?.time?.checkDate(context) ?: key
                         )
-                        this.addAll(transactions.map(mapperTransaction))
-                    }
+                    )
+                    this.addAll(transactions.map(mapperTransaction))
                 }
-                    .toList()
-                    .reversed()
-            }
+            }.toList()
+        }
     }
 
-    private fun startLoadTransactions(walletId: Long): Observable<List<TransactionApi>> {
+    private fun getDetailWalletDataApi(walletId: Long): Observable<DetailWalletApi> {
         return Observable.concat(
-            walletDbSource.getTransactions(walletId).toObservable(),
-            appService.getTransactions(walletId)
-                .doOnSuccess { list ->
-                    walletDbSource.insertAllTransactions(list, walletId)
-                }.toObservable()
-        )
-            .distinctUntilChanged()
-    }
-
-    override fun getDataWallet(walletId: Long): Observable<DetailWalletItem.HeaderDetailWallet> {
-        return Observable.concat(
-            walletDbSource.getWallet(walletId).map(mapWallet).toObservable(),
-            appService.getWallet(walletId)
-                .doOnSuccess { walletApi ->
-                    walletSource.insertWallet(walletApi)
-                }.map(mapWallet).toObservable()
+            walletDbSource.getDetailWallet(walletId).toObservable(),
+            getDetailWalletApi(walletId)
         ).distinctUntilChanged()
+    }
+
+    private fun getDetailWalletApi(walletId: Long): Observable<DetailWalletApi> {
+        return Observable.zip(
+            appService.getWallet(walletId).toObservable(),
+            appService.getTransactions(walletId)
+                .doOnSuccess {
+                    walletDbSource.insertAllTransactions(it, walletId)
+                }
+                .toObservable()
+        ) { wallet, transactions ->
+            return@zip DetailWalletApi(wallet, transactions)
+        }
     }
 }

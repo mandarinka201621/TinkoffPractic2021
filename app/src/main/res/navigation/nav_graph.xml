@@ -11,7 +11,9 @@
         tools:layout="@layout/fragment_onboarding_screen">
         <action
             android:id="@+id/action_onboardScreenFragment_to_walletListFragment"
-            app:destination="@id/walletListFragment" />
+            app:destination="@id/walletListFragment"
+            app:enterAnim="@anim/slide_in_left"
+            />
     </fragment>
     <fragment
         android:id="@+id/detailWalletFragment"
@@ -21,8 +23,8 @@
         <action
             android:id="@+id/action_detailWalletFragment_to_sumOperationFragment"
             app:destination="@id/sumOperationFragment"
-            app:exitAnim="@anim/slide_out_bottom"
             app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/slide_out_bottom"
             app:popEnterAnim="@anim/slide_out_top"
             app:popExitAnim="@anim/slide_in_bottom" />
         <argument
@@ -37,9 +39,9 @@
         <action
             android:id="@+id/action_sumOperationFragment_to_typeOperationFragment"
             app:destination="@id/typeOperationFragment"
+            app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_right"
-            app:enterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/sumOperationFragment" />
         <argument
@@ -54,9 +56,9 @@
         <action
             android:id="@+id/action_typeOperationFragment_to_categoryOperationFragment"
             app:destination="@id/categoryOperationFragment"
+            app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_right"
-            app:enterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/typeOperationFragment" />
         <argument
@@ -71,9 +73,9 @@
         <action
             android:id="@+id/action_categoryOperationFragment_to_addOperationFragment"
             app:destination="@id/addOperationFragment"
+            app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_right"
-            app:enterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/categoryOperationFragment" />
         <argument
@@ -81,7 +83,11 @@
             app:argType="com.example.koshelok.ui.util.entity.TransactionEntity" />
         <action
             android:id="@+id/action_categoryOperationFragment_to_createCategoryFragment"
-            app:destination="@id/createCategoryFragment" />
+            app:destination="@id/createCategoryFragment"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/slide_in_bottom" />
     </fragment>
     <fragment
         android:id="@+id/addOperationFragment"
@@ -99,11 +105,20 @@
         tools:layout="@layout/fragment_list_wallet">
         <action
             android:id="@+id/action_walletListFragment_to_addTitleWalletFragment"
-            app:destination="@id/addTitleWalletFragment" />
+            app:destination="@id/addTitleWalletFragment"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/slide_in_bottom" />
 
         <action
             android:id="@+id/action_walletListFragment_to_detailWalletFragment"
-            app:destination="@id/detailWalletFragment" />
+            app:destination="@id/detailWalletFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right"
+            />
     </fragment>
     <fragment
         android:id="@+id/addTitleWalletFragment"
@@ -113,6 +128,10 @@
         <action
             android:id="@+id/action_addTitleWalletFragment_to_editWalletFragment"
             app:destination="@id/editWalletFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/addTitleWalletFragment" />
     </fragment>
     <fragment
@@ -123,19 +142,24 @@
         <action
             android:id="@+id/action_editWalletFragment_to_detailWalletFragment"
             app:destination="@id/detailWalletFragment"
+            app:enterAnim="@anim/slide_out_top"
             app:popUpTo="@layout/fragment_edit_wallet" />
         <argument
             android:name="createWallet"
             app:argType="com.example.koshelok.ui.util.entity.CreateWalletEntity" />
         <action
             android:id="@+id/action_editWalletFragment_to_limitWalletFragment"
-            app:destination="@id/limitWalletFragment" />
+            app:destination="@id/limitWalletFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/limitWalletFragment"
-        tools:layout="@layout/fragment_limit_wallet"
         android:name="com.example.koshelok.ui.wallet.limitwallet.LimitWalletFragment"
-        android:label="LimitWalletFragment" >
+        android:label="LimitWalletFragment"
+        tools:layout="@layout/fragment_limit_wallet">
         <argument
             android:name="wallet"
             app:argType="com.example.koshelok.ui.util.entity.CreateWalletEntity" />
@@ -149,15 +173,23 @@
             app:argType="com.example.koshelok.domain.Category" />
         <action
             android:id="@+id/action_createCategoryFragment_to_addTypeCategoryFragment"
-            app:destination="@id/addTypeCategoryFragment" />
+            app:destination="@id/addTypeCategoryFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_createCategoryFragment_to_addTitleCategoryFragment"
-            app:destination="@id/addTitleCategoryFragment" />
+            app:destination="@id/addTitleCategoryFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/addTypeCategoryFragment"
         android:name="com.example.koshelok.ui.transactions.typecategory.CreateTypeCategoryFragment"
-        android:label="AddTypeCategoryFragment" >
+        android:label="AddTypeCategoryFragment">
         <argument
             android:name="category"
             app:argType="com.example.koshelok.domain.Category" />
@@ -165,7 +197,7 @@
     <fragment
         android:id="@+id/addTitleCategoryFragment"
         android:name="com.example.koshelok.ui.categories.titlecategory.AddTitleCategoryFragment"
-        android:label="AddTitleCategoryFragment" >
+        android:label="AddTitleCategoryFragment">
         <argument
             android:name="category"
             app:argType="com.example.koshelok.domain.Category" />

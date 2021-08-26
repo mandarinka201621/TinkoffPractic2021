@@ -18,6 +18,8 @@ import com.example.koshelok.ui.main.appComponent
 import com.example.koshelok.ui.transactions.sumoperation.SumOperationFragmentArgs
 import com.example.koshelok.ui.util.ErrorHandler
 import com.example.koshelok.ui.util.factory.ViewModelFactory
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.datepicker.MaterialDatePicker.INPUT_MODE_CALENDAR
 import javax.inject.Inject
 
 class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transaction) {
@@ -43,11 +45,33 @@ class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transactio
         transaction.let { viewModel.setTransaction(it) }
         setupTransaction()
         setOnBackPressedListener()
-        binding.addOperationButton.setOnClickListener {
-            if (transaction.id != null) {
-                viewModel.editTransaction(transaction)
-            } else {
-                viewModel.createTransaction(transaction)
+        with(binding) {
+            binding.addOperationButton.setOnClickListener {
+                if (transaction.id != null) {
+                    viewModel.editTransaction(transaction)
+                } else {
+                    activeButton()
+                    viewModel.createTransaction(transaction)
+                }
+            }
+            sumFrame.setOnClickListener {
+                findNavController().popBackStack(R.id.sumOperationFragment, false)
+            }
+            typeFrame.setOnClickListener {
+                findNavController().popBackStack(R.id.typeOperationFragment, false)
+            }
+            categoryFrame.setOnClickListener {
+                findNavController().popBackStack(R.id.categoryOperationFragment, false)
+            }
+            dateFrame.setOnClickListener {
+                val dateBuilder = MaterialDatePicker.Builder.datePicker()
+                dateBuilder.setSelection(transaction.date).setInputMode(INPUT_MODE_CALENDAR).build()
+                val materialDatePicker = dateBuilder.build()
+                materialDatePicker.addOnPositiveButtonClickListener {
+                    transaction.date =  it
+                    binding.dateTextView.text = it.getCalendar().getDayWithMonth(root.context)
+                }
+                materialDatePicker.show(parentFragmentManager, "DATE")
             }
         }
 
@@ -63,7 +87,8 @@ class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transactio
         }
 
         viewModel.errorData.observe(viewLifecycleOwner) { throwable ->
-            errorHandler.createErrorShackBar(throwable, binding.root)
+            errorHandler.createErrorToastBar(throwable, layoutInflater, requireContext())
+            finishButton()
         }
     }
 
@@ -86,6 +111,20 @@ class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transactio
     private fun setOnBackPressedListener() {
         binding.toolbar.setNavigationOnClickListener {
             requireActivity().onBackPressed()
+        }
+    }
+
+    private fun activeButton() {
+        with(binding) {
+            progressIndicator.visibility = View.VISIBLE
+            buttonText.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun finishButton() {
+        with(binding) {
+            progressIndicator.visibility = View.GONE
+            buttonText.visibility = View.VISIBLE
         }
     }
 }

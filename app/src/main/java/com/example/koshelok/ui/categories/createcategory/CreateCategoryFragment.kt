@@ -45,7 +45,6 @@ class CreateCategoryFragment : Fragment(R.layout.fragment_create_category) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecycler()
-        isSelectedCategory()
 
         viewModel.enableColor.observe(viewLifecycleOwner, Observer {
             adapterIcon.setEnableColor(it)
@@ -67,15 +66,15 @@ class CreateCategoryFragment : Fragment(R.layout.fragment_create_category) {
                 setColorPickerClickListener()
             }
             createCategoryButton.setOnClickListener {
-                category.color = viewModel.getEnableIcon()?.color ?: 0
-                category.iconId = viewModel.getEnableIcon()?.id ?: 0
+                category.color = viewModel.enableColor.value ?: 0
+                category.iconId = viewModel.getEnableIcon()?.resIcon ?: 0
                 viewModel.createCategory(category)
             }
             binding.toolbar.setNavigationOnClickListener {
                 requireActivity().onBackPressed()
             }
             viewModel.errorData.observe(viewLifecycleOwner) { throwable ->
-                errorHandler.createErrorShackBar(throwable, root)
+                errorHandler.createErrorToastBar(throwable, layoutInflater, requireContext())
             }
 
             viewModel.loadStateData.observe(viewLifecycleOwner) { state: LoadState ->
@@ -99,9 +98,10 @@ class CreateCategoryFragment : Fragment(R.layout.fragment_create_category) {
             setOnChooseColorListener(
                 object : OnChooseColorListener {
                     override fun onChooseColor(position: Int, color: Int) {
-                        viewModel.setEnableColor(color)
+                        if (color != 0) {
+                            viewModel.setEnableColor(color)
+                        }
                     }
-
                     override fun onCancel() = Unit
                 })
             show()

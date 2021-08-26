@@ -12,7 +12,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/wallet_text"
-        android:textColor="@color/black"
+        android:textColor="@color/background_black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:text="@string/zero_money"
-        android:textColor="@color/black"
+        android:textColor="@color/background_black"
         android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/wallet"
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="4dp"
-        android:backgroundTint="@color/background_card"
+        android:backgroundTint="@drawable/selector_background_card"
         android:minHeight="79dp"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="@id/centerGuideline"
@@ -77,7 +77,7 @@
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/income_text"
-                android:textColor="@color/white"
+                android:textColor="@color/light_white"
                 app:layout_constraintStart_toEndOf="@id/greenIcon"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -101,7 +101,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/background_card"
+        android:backgroundTint="@drawable/selector_background_card"
         android:minHeight="79dp"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -130,7 +130,7 @@
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/consumption_text"
-                android:textColor="@color/white"
+                android:textColor="@color/light_white"
                 app:layout_constraintStart_toEndOf="@id/redIcon"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -151,10 +151,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
+                android:textColor="@color/light_white"
                 android:textSize="9sp"
-                app:layout_constraintBottom_toBottomOf="@id/consumption"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/consumption"
-                app:layout_constraintTop_toTopOf="@id/consumption"
                 tools:ignore="SmallSp"
                 tools:text="/ 100000" />
         </androidx.constraintlayout.widget.ConstraintLayout>

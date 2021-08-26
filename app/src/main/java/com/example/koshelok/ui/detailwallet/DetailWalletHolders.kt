@@ -21,9 +21,9 @@ class HeaderHolder(view: View) : DetailWalletHolder(view) {
         if (data is DetailWalletItem.HeaderDetailWallet) {
             with(binding) {
                 wallet.text = data.nameWallet
-                amountMoney.text = data.amountMoney + data.currency.icon
-                income.text = data.income + data.currency.icon
-                consumption.text = data.consumption + data.currency.icon
+                amountMoney.text = data.amountMoney + " " + data.currency.icon
+                income.text = data.income + " " + data.currency.icon
+                consumption.text = data.consumption + " " + data.currency.icon
                 if (data.limit == null) {
                     limit.visibility = View.GONE
                 } else {
@@ -75,7 +75,7 @@ class TransactionHolder(view: View, private val swipeCallback: SwipeOptionsCallb
                         category = root.context.getString(R.string.spending)
                     }
                 }
-                money.text = moneyText + data.currency.icon
+                money.text = moneyText + " " + data.currency.icon
                 categoryText.text = category
                 time.text = data.time
                 deleteButton.setOnClickListener {
@@ -92,7 +92,6 @@ class TransactionHolder(view: View, private val swipeCallback: SwipeOptionsCallb
         binding.swipeLayout.reset()
     }
 }
-
 
 abstract class DetailWalletHolder(view: View) : RecyclerView.ViewHolder(view) {
 

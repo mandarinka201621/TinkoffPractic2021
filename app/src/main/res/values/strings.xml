@@ -90,4 +90,5 @@
     <string name="spending_limit">Лимит на траты</string>
     <string name="save">Сохранить</string>
     <string name="you_exceeded_limit">Вы превысили лимит по тратам</string>
+    <string name="auth_error">Ошибка при регистрации</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.koshelok.ui.wallet.currencywallet
+package com.example.koshelok.ui.transactions.currencyoperation
 
 import android.content.Context
 import android.os.Bundle
@@ -14,17 +14,18 @@ import com.example.koshelok.domain.Currency
 import com.example.koshelok.ui.main.appComponent
 import com.example.koshelok.ui.util.entity.CurrencyEntity
 import com.example.koshelok.ui.util.factory.ViewModelFactory
+import com.example.koshelok.ui.wallet.currencywallet.AdapterCurrency
+import com.example.koshelok.ui.wallet.currencywallet.CurrencyWalletFragmentViewModel
 import javax.inject.Inject
 
-class CurrencyWalletFragment : Fragment(R.layout.fragment_currency){
-
+class CurrencyOperationFragment : Fragment(R.layout.fragment_currency) {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
     private val binding by viewBinding(FragmentCurrencyBinding::bind)
     private val viewModel: CurrencyWalletFragmentViewModel by viewModels{viewModelFactory}
-    private val args by navArgs<CurrencyWalletFragmentArgs>()
-    private val wallet by lazy { args.wallet }
+    private val args by navArgs<CurrencyOperationFragmentArgs>()
+    private val transaction by lazy { args.transaction }
 
     private lateinit var adapterCurrency: AdapterCurrency
 
@@ -53,7 +54,7 @@ class CurrencyWalletFragment : Fragment(R.layout.fragment_currency){
     }
 
     private fun launchEditWalletFragment() {
-        wallet.currency = viewModel.getEnableCurrency()?.currency ?: Currency.RUB
+        transaction.currency = viewModel.getEnableCurrency()?.currency ?: Currency.RUB
         findNavController().popBackStack()
     }
 
@@ -63,7 +64,7 @@ class CurrencyWalletFragment : Fragment(R.layout.fragment_currency){
         }
     }
 
-     private fun onClickItem(position: Int, item: CurrencyEntity) {
+    private fun onClickItem(position: Int, item: CurrencyEntity) {
         viewModel.changeEnableState(position, item)
         adapterCurrency.notifyDataSetChanged()
     }

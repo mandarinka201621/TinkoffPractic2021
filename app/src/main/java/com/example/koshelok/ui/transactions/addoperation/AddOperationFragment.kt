@@ -12,6 +12,7 @@ import com.example.koshelok.R
 import com.example.koshelok.data.extentions.getCalendar
 import com.example.koshelok.data.extentions.getDayWithMonth
 import com.example.koshelok.databinding.FragmentAddOperationTransactionBinding
+import com.example.koshelok.domain.Currency
 import com.example.koshelok.domain.LoadState
 import com.example.koshelok.domain.TypeOperation
 import com.example.koshelok.ui.main.appComponent
@@ -63,12 +64,19 @@ class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transactio
             categoryFrame.setOnClickListener {
                 findNavController().popBackStack(R.id.categoryOperationFragment, false)
             }
+            currencyFrame.setOnClickListener {
+                findNavController().navigate(
+                    AddOperationFragmentDirections.actionAddOperationFragmentToCurrencyOperationFragment(
+                        transaction
+                    )
+                )
+            }
             dateFrame.setOnClickListener {
                 val dateBuilder = MaterialDatePicker.Builder.datePicker()
                 dateBuilder.setSelection(transaction.date).setInputMode(INPUT_MODE_CALENDAR).build()
                 val materialDatePicker = dateBuilder.build()
                 materialDatePicker.addOnPositiveButtonClickListener {
-                    transaction.date =  it
+                    transaction.date = it
                     binding.dateTextView.text = it.getCalendar().getDayWithMonth(root.context)
                 }
                 materialDatePicker.show(parentFragmentManager, "DATE")
@@ -97,6 +105,12 @@ class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transactio
             sumTextView.text = transaction.sum
             typeTextView.text = getTypeToString()
             categoryTextView.text = transaction.categoryEntity?.typeOperation
+            currencyTextView.text = when (transaction.currency) {
+                Currency.EUR -> binding.root.context.getString(R.string.eur)
+                Currency.RUB -> binding.root.context.getString(R.string.rub)
+                Currency.USD -> binding.root.context.getString(R.string.usd)
+                Currency.CHF -> binding.root.context.getString(R.string.chf)
+            }
             dateTextView.text =
                 transaction.date?.getCalendar()?.getDayWithMonth(root.context)
         }

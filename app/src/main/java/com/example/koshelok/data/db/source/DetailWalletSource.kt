@@ -1,8 +1,9 @@
-package com.example.koshelok.data.db
+package com.example.koshelok.data.db.source
 
-import com.example.koshelok.data.mappers.TransactionDbToTransactionApiMapper
-import com.example.koshelok.data.mappers.TransactionsApiToTransactionsDbMapper
-import com.example.koshelok.data.mappers.WalletDbToWalletApiMapper
+import com.example.koshelok.data.db.KoshelokDatabase
+import com.example.koshelok.data.mappers.transactions.TransactionDbToTransactionApiMapper
+import com.example.koshelok.data.mappers.transactions.TransactionsApiToTransactionsDbMapper
+import com.example.koshelok.data.mappers.wallets.WalletDbToWalletApiMapper
 import com.example.koshelok.data.service.api.TransactionApi
 import com.example.koshelok.data.service.api.WalletApi
 import io.reactivex.rxjava3.core.Single

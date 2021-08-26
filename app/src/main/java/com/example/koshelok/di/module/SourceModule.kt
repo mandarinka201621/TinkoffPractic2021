@@ -1,11 +1,11 @@
 package com.example.koshelok.di.module
 
-import com.example.koshelok.data.db.DetailWalletSource
-import com.example.koshelok.data.db.DetailWalletSourceImpl
-import com.example.koshelok.data.db.MainWalletSource
-import com.example.koshelok.data.db.MainWalletSourceImpl
-import com.example.koshelok.data.db.WalletSource
-import com.example.koshelok.data.db.WalletSourceImpl
+import com.example.koshelok.data.db.source.DetailWalletSource
+import com.example.koshelok.data.db.source.DetailWalletSourceImpl
+import com.example.koshelok.data.db.source.MainWalletSource
+import com.example.koshelok.data.db.source.MainWalletSourceImpl
+import com.example.koshelok.data.db.source.WalletSource
+import com.example.koshelok.data.db.source.WalletSourceImpl
 import dagger.Binds
 import dagger.Module
 

@@ -1,7 +1,8 @@
-package com.example.koshelok.data.mappers
+package com.example.koshelok.data.mappers.transactions
 
 import com.example.koshelok.data.extentions.getFormattedDate
 import com.example.koshelok.data.extentions.getTime
+import com.example.koshelok.data.mappers.IntToTypeCategoryMapper
 import com.example.koshelok.data.service.api.TransactionApi
 import com.example.koshelok.domain.Category
 import com.example.koshelok.domain.Currency

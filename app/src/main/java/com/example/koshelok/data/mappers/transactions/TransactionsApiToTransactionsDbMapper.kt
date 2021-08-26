@@ -1,14 +1,13 @@
-package com.example.koshelok.data.mappers
+package com.example.koshelok.data.mappers.transactions
 
 import com.example.koshelok.data.db.entity.TransactionDb
 import com.example.koshelok.data.service.api.TransactionApi
 import javax.inject.Inject
 
-class TransactionDbToTransactionApiMapper @Inject constructor() :
-        (TransactionDb) -> TransactionApi {
-
-    override fun invoke(transaction: TransactionDb): TransactionApi {
-        return TransactionApi(
+class TransactionsApiToTransactionsDbMapper @Inject constructor() :
+        (TransactionApi, Long) -> TransactionDb {
+    override operator fun invoke(transaction: TransactionApi, walletId: Long): TransactionDb {
+        return TransactionDb(
             id = transaction.id,
             money = transaction.money,
             idCategory = transaction.idCategory,
@@ -17,7 +16,8 @@ class TransactionDbToTransactionApiMapper @Inject constructor() :
             idIcon = transaction.idIcon,
             color = transaction.color,
             currency = transaction.currency,
-            time = transaction.time
+            time = transaction.time,
+            walletId = walletId
         )
     }
 }

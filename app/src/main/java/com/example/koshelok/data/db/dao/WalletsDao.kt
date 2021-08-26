@@ -10,16 +10,9 @@ import io.reactivex.rxjava3.core.Single
 @Dao
 interface WalletsDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addWallets(wallets: List<WalletDb>)
-
     @Query("SELECT * FROM wallets WHERE id = :walletId")
     fun getWalletByWalletId(walletId: Long): Single<WalletDb>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addWallet(wallet: WalletDb)
-
-    @Query("SELECT * FROM wallets WHERE personId =:personId")
-    fun getWalletByPersonId(personId: Long): Single<List<WalletDb>>
-
 }

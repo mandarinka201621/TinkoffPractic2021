@@ -1,4 +1,4 @@
-package com.example.koshelok.data.mappers
+package com.example.koshelok.data.mappers.transactions
 
 import com.example.koshelok.data.service.api.CreateTransactionApi
 import com.example.koshelok.ui.util.entity.TransactionEntity

@@ -1,12 +1,12 @@
 package com.example.koshelok.data.repository
 
 import android.content.Context
-import com.example.koshelok.data.db.DetailWalletSource
-import com.example.koshelok.data.db.WalletSource
+import com.example.koshelok.data.db.source.DetailWalletSource
+import com.example.koshelok.data.db.source.WalletSource
 import com.example.koshelok.data.extentions.checkDate
 import com.example.koshelok.data.extentions.getFormattedDate
-import com.example.koshelok.data.mappers.TransactionApiToDetailWalletTransactionMapper
-import com.example.koshelok.data.mappers.WalletApiToHeaderWalletMapper
+import com.example.koshelok.data.mappers.transactions.TransactionApiToDetailWalletTransactionMapper
+import com.example.koshelok.data.mappers.wallets.WalletApiToHeaderWalletMapper
 import com.example.koshelok.data.service.AppService
 import com.example.koshelok.data.service.api.TransactionApi
 import com.example.koshelok.domain.repository.DetailWalletRepository

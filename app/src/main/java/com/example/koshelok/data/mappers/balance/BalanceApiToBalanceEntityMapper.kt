@@ -1,4 +1,4 @@
-package com.example.koshelok.data.mappers
+package com.example.koshelok.data.mappers.balance
 
 import com.example.koshelok.ui.listwallet.entity.BalanceEntity
 import javax.inject.Inject

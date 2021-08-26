@@ -1,7 +1,7 @@
 package com.example.koshelok.data.repository
 
-import com.example.koshelok.data.db.WalletSource
-import com.example.koshelok.data.mappers.CreateWalletEntityToWalletApiMapper
+import com.example.koshelok.data.db.source.WalletSource
+import com.example.koshelok.data.mappers.category.CreateWalletEntityToWalletApiMapper
 import com.example.koshelok.data.service.AppService
 import com.example.koshelok.domain.repository.CreateWalletRepository
 import com.example.koshelok.ui.util.entity.CreateWalletEntity

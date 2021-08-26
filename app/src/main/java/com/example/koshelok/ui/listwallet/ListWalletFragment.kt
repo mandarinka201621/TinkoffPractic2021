@@ -58,7 +58,6 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
             }
 
             walletViewModel.errorData.observe(viewLifecycleOwner) { throwable ->
-                disableScroll()
                 errorHandler.createErrorShackBar(throwable, root)
                 refreshLayout.isRefreshing = false
             }

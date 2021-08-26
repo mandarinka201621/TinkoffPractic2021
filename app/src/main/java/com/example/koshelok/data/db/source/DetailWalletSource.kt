@@ -1,6 +1,5 @@
 package com.example.koshelok.data.db.source
 
-import android.util.Log
 import com.example.koshelok.data.db.KoshelokDatabase
 import com.example.koshelok.data.mappers.DetailWalletDbToApiMapper
 import com.example.koshelok.data.mappers.transactions.TransactionsApiToTransactionsDbMapper
@@ -36,9 +35,6 @@ class DetailWalletSourceImpl @Inject constructor(
 
     override fun getDetailWallet(walletId: Long): Maybe<DetailWalletApi> {
         return database.getWalletsDao().getDetailWalletDb(walletId)
-            .doOnSuccess {
-                Log.d("tut_det", it.toString())
-            }
             .map(detailMapper)
     }
 

@@ -48,6 +48,7 @@ class WalletListAdapter(
         diffUtil.submitList(data)
     }
 
+    fun isEmptyList() = diffUtil.currentList.isEmpty()
 
     inner class WalletHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding by viewBinding(ItemWalletBinding::bind)

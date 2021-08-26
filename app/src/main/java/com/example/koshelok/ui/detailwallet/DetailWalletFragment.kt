@@ -123,8 +123,7 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
             .setNegativeButton(requireContext().getString(R.string.cancel)) { dialog, _ ->
                 dialog.cancel()
             }
-            .create().apply {
-                show()
+            .show().apply {
                 getButton(AlertDialog.BUTTON_POSITIVE)
                     .setTextColor(requireContext().getColor(R.color.red))
                 getButton(AlertDialog.BUTTON_NEGATIVE)

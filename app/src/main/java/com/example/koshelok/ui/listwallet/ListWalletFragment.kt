@@ -88,6 +88,7 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
 
             appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
                 refreshLayout.isEnabled = abs(verticalOffset) - appBarLayout.totalScrollRange != 0
+                if (walletsAdapter.isEmptyList()) refreshLayout.isEnabled = true
             })
 
             refreshLayout.setOnRefreshListener {
@@ -165,8 +166,7 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
             .setNegativeButton(requireContext().getString(R.string.cancel)) { dialog, _ ->
                 dialog.cancel()
             }
-            .create().apply {
-                show()
+            .show().apply {
                 getButton(AlertDialog.BUTTON_POSITIVE)
                     .setTextColor(requireContext().getColor(R.color.red))
                 getButton(AlertDialog.BUTTON_NEGATIVE)

@@ -22,7 +22,7 @@ import com.example.koshelok.ui.util.ErrorHandler
 import com.example.koshelok.ui.util.factory.ViewModelFactory
 import com.google.android.material.appbar.AppBarLayout
 import javax.inject.Inject
-import kotlin.math.abs
+
 
 @SuppressWarnings("TooManyFunctions")
 class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
@@ -86,10 +86,7 @@ class ListWalletFragment : Fragment(R.layout.fragment_list_wallet) {
                 }
             }
 
-            appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-                refreshLayout.isEnabled = abs(verticalOffset) - appBarLayout.totalScrollRange != 0
-                if (walletsAdapter.isEmptyList()) refreshLayout.isEnabled = true
-            })
+            appBar.addOnOffsetChangedListener(AppBarRefreshListener(refreshLayout))
 
             refreshLayout.setOnRefreshListener {
                 walletViewModel.loadMainScreenData()

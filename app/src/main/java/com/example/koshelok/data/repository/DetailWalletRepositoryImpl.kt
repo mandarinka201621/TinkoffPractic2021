@@ -11,7 +11,10 @@ import com.example.koshelok.data.service.AppService
 import com.example.koshelok.data.service.api.DetailWalletApi
 import com.example.koshelok.domain.repository.DetailWalletRepository
 import com.example.koshelok.ui.detailwallet.DetailWalletItem
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 class DetailWalletRepositoryImpl @Inject constructor(
@@ -21,8 +24,7 @@ class DetailWalletRepositoryImpl @Inject constructor(
     private val context: Context,
     private val walletSource: WalletSource,
     private val walletDbSource: DetailWalletSource,
-) :
-    DetailWalletRepository {
+) : DetailWalletRepository {
 
     override fun getDetailWalletData(walletId: Long): Observable<List<DetailWalletItem>> {
         return getDetailWalletDataApi(walletId).map { detailWallet ->
@@ -44,23 +46,27 @@ class DetailWalletRepositoryImpl @Inject constructor(
 
     private fun getDetailWalletDataApi(walletId: Long): Observable<DetailWalletApi> {
         return Observable.concat(
-            walletDbSource.getDetailWallet(walletId).toObservable(),
+            walletDbSource.getDetailWallet(walletId)
+                .toObservable(),
             getDetailWalletApi(walletId)
-        ).distinctUntilChanged()
+        )
     }
 
     private fun getDetailWalletApi(walletId: Long): Observable<DetailWalletApi> {
         return Observable.zip(
             appService.getWallet(walletId)
-                .doOnSuccess { wallet ->
-                    walletSource.insertWallet(wallet = wallet)
-                }
-                .toObservable(),
+                .flatMap { wallet ->
+                    Completable.fromCallable { walletSource.insertWallet(wallet = wallet) }
+                        .subscribeOn(Schedulers.computation())
+                        .andThen(Single.just(wallet))
+                }.toObservable(),
             appService.getTransactions(walletId)
-                .doOnSuccess {
-                    walletDbSource.insertAllTransactions(it, walletId)
-                }
-                .toObservable()
+                .flatMap { it ->
+                    Completable.fromCallable { walletDbSource.insertAllTransactions(it, walletId) }
+                        .subscribeOn(Schedulers.computation())
+                        .andThen(Single.just(it))
+                }.toObservable()
+
         ) { wallet, transactions ->
             return@zip DetailWalletApi(wallet, transactions)
         }

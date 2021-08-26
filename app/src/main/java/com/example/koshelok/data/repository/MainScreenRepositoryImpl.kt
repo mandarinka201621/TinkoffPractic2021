@@ -15,7 +15,8 @@ class MainScreenRepositoryImpl @Inject constructor(
 ) : MainScreenRepository {
 
     override fun getMainScreenData(personId: Long): Observable<MainScreenDataEntity> {
-        return Observable.concat(mainWalletSource.getMainScreenData(personId).map(mapper)
+        return Observable.concat(mainWalletSource.getMainScreenData(personId)
+            .map(mapper)
             .toObservable(),
             appService.getDataForMainScreen(personId)
                 .doOnSuccess {

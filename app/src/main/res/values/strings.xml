@@ -91,9 +91,9 @@
     <string name="save">Сохранить</string>
     <string name="you_exceeded_limit">Вы превысили лимит по тратам</string>
     <string name="auth_error">Ошибка при регистрации</string>
-    <string name="you_really_delete_wallet">Вы действительно хотите удалить кошелек?</string>
     <string name="eur">Eвро</string>
     <string name="rub">Российский рубль</string>
     <string name="usd">Доллар США</string>
     <string name="chf">Швейцарские франки</string>
+    <string name="you_really_delete_wallet">Вы действительно хотите удалить кошелек?</string>
 </resources>

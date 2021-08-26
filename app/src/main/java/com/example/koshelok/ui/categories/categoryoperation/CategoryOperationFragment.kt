@@ -66,7 +66,7 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
         }
 
         viewModel.errorData.observe(viewLifecycleOwner) { throwable ->
-            errorHandler.createErrorShackBar(throwable, binding.root)
+            errorHandler.createErrorToastBar(throwable, layoutInflater, requireContext())
         }
     }
 

@@ -11,11 +11,13 @@ import com.example.koshelok.ui.transactions.addoperation.AddOperationViewModel
 import com.example.koshelok.ui.transactions.sumoperation.SumOperationViewModel
 import com.example.koshelok.ui.transactions.typecategory.CreateTypeCategoryViewModel
 import com.example.koshelok.ui.transactions.typeoperation.TypeOperationViewModel
+import com.example.koshelok.ui.wallet.currencywallet.CurrencyWalletFragmentViewModel
 import com.example.koshelok.ui.wallet.editwallet.EditWalletViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 
+@SuppressWarnings("TooManyFunctions")
 @Module
 interface ViewModelModule {
 
@@ -62,4 +64,10 @@ interface ViewModelModule {
     @Binds
     @[IntoMap ViewModelKey(OnBoardScreenViewModel::class)]
     fun bindOnBoardScreenViewMode(onBoardScreenViewModel: OnBoardScreenViewModel): ViewModel
+
+    @Binds
+    @[IntoMap ViewModelKey(CurrencyWalletFragmentViewModel::class)]
+    fun bindCurrencyWalletFragmentViewModel(
+        currencyWalletFragmentViewModel: CurrencyWalletFragmentViewModel
+    ): ViewModel
 }

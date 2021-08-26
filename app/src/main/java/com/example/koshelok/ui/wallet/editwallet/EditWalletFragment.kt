@@ -62,9 +62,17 @@ class EditWalletFragment : Fragment(R.layout.fragment_edit_wallet) {
 
     private fun getCurrency(): String =
         when (wallet.currency) {
-            Currency.RUB -> getString(R.string.RUB)
-            else -> {
-                getString(R.string.limit_not_install)
+            Currency.EUR -> {
+                "${binding.root.context.getString(R.string.eur)} (${Currency.EUR.name})"
+            }
+            Currency.RUB -> {
+                "${binding.root.context.getString(R.string.rub)} (${Currency.RUB.name})"
+            }
+            Currency.USD -> {
+                "${binding.root.context.getString(R.string.usd)} (${Currency.USD.name})"
+            }
+            Currency.CHF -> {
+                "${binding.root.context.getString(R.string.chf)} (${Currency.CHF.name})"
             }
         }
 
@@ -80,7 +88,11 @@ class EditWalletFragment : Fragment(R.layout.fragment_edit_wallet) {
                 findNavController().popBackStack()
             }
             currencyLayout.setOnClickListener {
-
+                findNavController().navigate(
+                    EditWalletFragmentDirections.actionEditWalletFragmentToCurrencyWalletFragment(
+                        wallet
+                    )
+                )
             }
             limitLayout.setOnClickListener {
                 findNavController().navigate(

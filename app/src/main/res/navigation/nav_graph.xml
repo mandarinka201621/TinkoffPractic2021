@@ -154,6 +154,14 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_editWalletFragment_to_currencyWalletFragment"
+            app:destination="@id/currencyWalletFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right"
+            />
     </fragment>
     <fragment
         android:id="@+id/limitWalletFragment"
@@ -201,5 +209,13 @@
         <argument
             android:name="category"
             app:argType="com.example.koshelok.domain.Category" />
+    </fragment>
+    <fragment
+        android:id="@+id/currencyWalletFragment"
+        android:name="com.example.koshelok.ui.wallet.currencywallet.CurrencyWalletFragment"
+        android:label="CurrencyWalletFragment" >
+        <argument
+            android:name="wallet"
+            app:argType="com.example.koshelok.ui.util.entity.CreateWalletEntity" />
     </fragment>
 </navigation>

@@ -45,7 +45,8 @@
 
                 <TextView
                     android:id="@+id/titleTextView"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
+                    android:textColor="@drawable/selector_color_text_edit"
                     android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -85,7 +86,8 @@
 
                 <TextView
                     android:id="@+id/typeTextView"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
+                    android:textColor="@drawable/selector_color_text_edit"
                     android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -123,7 +125,7 @@
                 android:layout_gravity="end"
                 android:text="@string/ask_color"
                 android:textColor="@color/background_black"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
         </FrameLayout>
 
         <androidx.recyclerview.widget.RecyclerView

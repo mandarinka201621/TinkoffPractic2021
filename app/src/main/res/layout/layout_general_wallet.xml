@@ -1,96 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/background_card"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:background="@color/background_card">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/generalBalance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
         android:layout_marginStart="16dp"
-        android:textColor="@color/white"
+        android:layout_marginTop="55dp"
         android:text="@string/general_score"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/amountMoney"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="32sp"
         android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/generalBalance"
+        android:textSize="32sp"
         app:layout_constraintStart_toStartOf="@id/generalBalance"
-        tools:text ="0"/>
+        app:layout_constraintTop_toBottomOf="@id/generalBalance"
+        tools:text="0" />
 
     <ImageView
         android:id="@+id/incomeImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/green_circle"
         android:layout_marginTop="27.5dp"
+        android:src="@drawable/green_circle"
         app:layout_constraintStart_toStartOf="@id/generalBalance"
-        app:layout_constraintTop_toBottomOf="@id/amountMoney"/>
+        app:layout_constraintTop_toBottomOf="@id/amountMoney" />
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/generalIncome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="13sp"
+        android:layout_marginStart="6dp"
         android:text="@string/general_income"
         android:textColor="@color/white"
-        android:layout_marginStart="6dp"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/incomeImage"
         app:layout_constraintStart_toEndOf="@id/incomeImage"
-        app:layout_constraintTop_toTopOf="@id/incomeImage"
-        app:layout_constraintBottom_toBottomOf="@id/incomeImage"/>
+        app:layout_constraintTop_toTopOf="@id/incomeImage" />
 
     <ImageView
         android:id="@+id/consumptionImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/red_circle"
         android:layout_marginStart="12dp"
-        app:layout_constraintStart_toStartOf="@id/centerGuideline"
-        app:layout_constraintTop_toTopOf="@id/generalIncome"
+        android:src="@drawable/red_circle"
         app:layout_constraintBottom_toBottomOf="@id/generalIncome"
-        />
+        app:layout_constraintStart_toStartOf="@id/centerGuideline"
+        app:layout_constraintTop_toTopOf="@id/generalIncome" />
+
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="13sp"
+        android:layout_marginStart="6dp"
         android:text="@string/general_consumption"
         android:textColor="@color/white"
-        android:layout_marginStart="6dp"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/consumptionImage"
         app:layout_constraintStart_toEndOf="@id/consumptionImage"
-        app:layout_constraintTop_toTopOf="@id/consumptionImage"
-        app:layout_constraintBottom_toBottomOf="@id/consumptionImage"/>
+        app:layout_constraintTop_toTopOf="@id/consumptionImage" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/incomeMoney"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
         android:layout_marginTop="12dp"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@id/incomeImage"
         app:layout_constraintTop_toBottomOf="@id/incomeImage"
-        tools:text="0"
-        />
+        tools:text="0" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/consumptionMoney"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
         android:layout_marginTop="12dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="18dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/consumptionImage"
         app:layout_constraintTop_toBottomOf="@id/consumptionImage"
-        tools:text="0"
-        />
+        tools:text="0" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/centerGuideline"

@@ -90,4 +90,5 @@
     <string name="server_error">Ошибка с сервером</string>
     <string name="spending_limit">Лимит на траты</string>
     <string name="save">Сохранить</string>
+    <string name="auth_error">Ошибка при регистрации</string>
 </resources>

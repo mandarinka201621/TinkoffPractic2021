@@ -20,7 +20,7 @@ import com.example.koshelok.ui.util.factory.ViewModelFactory
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.tasks.RuntimeExecutionException
+import com.google.android.gms.common.api.ApiException
 import javax.inject.Inject
 
 class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
@@ -37,10 +37,11 @@ class OnBoardingScreenFragment : Fragment(R.layout.fragment_onboarding_screen) {
     private val loginResultHandler =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result: ActivityResult? ->
-            val task = GoogleSignIn.getSignedInAccountFromIntent(result?.data)
             try {
-                startDetailWalletFragment(task.result)
-            } catch (exception: RuntimeExecutionException) {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(result?.data)
+                    .getResult(ApiException::class.java)
+                startDetailWalletFragment(task)
+            } catch (exception: ApiException) {
                 errorHandler.createErrorShackBar(exception, viewBinding.root.rootView)
             }
         }

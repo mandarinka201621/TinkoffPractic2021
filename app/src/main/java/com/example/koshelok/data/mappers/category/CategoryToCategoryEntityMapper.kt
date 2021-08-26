@@ -1,4 +1,4 @@
-package com.example.koshelok.data.mappers
+package com.example.koshelok.data.mappers.category
 
 import com.example.koshelok.domain.Category
 import com.example.koshelok.ui.util.entity.CategoryEntity

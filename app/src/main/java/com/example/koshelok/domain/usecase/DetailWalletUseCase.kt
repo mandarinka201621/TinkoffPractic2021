@@ -5,16 +5,15 @@ import com.example.koshelok.ui.detailwallet.DetailWalletItem
 import io.reactivex.rxjava3.core.Observable
 import javax.inject.Inject
 
-interface TransactionsUseCase {
+interface DetailWalletUseCase {
 
     operator fun invoke(walletId: Long): Observable<List<DetailWalletItem>>
 }
 
-class TransactionsUseCaseImpl @Inject constructor(
+class DetailWalletUseCaseImpl @Inject constructor(
     private val detailWalletRepository: DetailWalletRepository
-) : TransactionsUseCase {
-
+) : DetailWalletUseCase {
     override fun invoke(walletId: Long): Observable<List<DetailWalletItem>> {
-        return detailWalletRepository.getTransactions(walletId)
+        return detailWalletRepository.getDetailWalletData(walletId)
     }
 }

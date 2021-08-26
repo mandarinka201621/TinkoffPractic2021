@@ -6,18 +6,16 @@ import com.example.koshelok.domain.usecase.CreateTransactionUseCase
 import com.example.koshelok.domain.usecase.CreateTransactionUseCaseImpl
 import com.example.koshelok.domain.usecase.CreateWalletUseCase
 import com.example.koshelok.domain.usecase.CreateWalletUseCaseImpl
+import com.example.koshelok.domain.usecase.DetailWalletUseCase
+import com.example.koshelok.domain.usecase.DetailWalletUseCaseImpl
 import com.example.koshelok.domain.usecase.EditTransactionUseCase
 import com.example.koshelok.domain.usecase.EditTransactionUseCaseImpl
-import com.example.koshelok.domain.usecase.HeaderHeaderWalletUseCaseImpl
-import com.example.koshelok.domain.usecase.HeaderWalletUseCase
 import com.example.koshelok.domain.usecase.LoadCategoriesUseCase
 import com.example.koshelok.domain.usecase.LoadCategoriesUseCaseImpl
 import com.example.koshelok.domain.usecase.MainScreenUseCase
 import com.example.koshelok.domain.usecase.MainScreenUseCaseImpl
 import com.example.koshelok.domain.usecase.RegistrationUserUseCase
 import com.example.koshelok.domain.usecase.RegistrationUserUseCaseImpl
-import com.example.koshelok.domain.usecase.TransactionsUseCase
-import com.example.koshelok.domain.usecase.TransactionsUseCaseImpl
 import dagger.Binds
 import dagger.Module
 
@@ -25,12 +23,7 @@ import dagger.Module
 interface BindsUseCaseModule {
 
     @Binds
-    fun bindTransactionUseCase(transactionsUseCaseImpl: TransactionsUseCaseImpl)
-            : TransactionsUseCase
-
-    @Binds
-    fun bindHeaderWalletUseCase(headerHeaderWalletUseCaseImpl: HeaderHeaderWalletUseCaseImpl)
-            : HeaderWalletUseCase
+    fun bindDetailWalletUseCase(detailWalletUseCaseImpl: DetailWalletUseCaseImpl): DetailWalletUseCase
 
     @Binds
     fun bindWalletsUseCase(walletsUseCaseImpl: MainScreenUseCaseImpl): MainScreenUseCase

@@ -4,22 +4,20 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
+import com.example.koshelok.data.db.entity.DetailWalletDb
 import com.example.koshelok.data.db.entity.WalletDb
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.core.Maybe
 
 @Dao
 interface WalletsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addWallets(wallets: List<WalletDb>)
-
-    @Query("SELECT * FROM wallets WHERE id = :walletId")
-    fun getWalletByWalletId(walletId: Long): Single<WalletDb>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addWallet(wallet: WalletDb)
 
-    @Query("SELECT * FROM wallets WHERE personId =:personId")
-    fun getWalletByPersonId(personId: Long): Single<List<WalletDb>>
+
+    @Transaction
+    @Query("SELECT * FROM Wallets WHERE id=:walletId")
+    fun getDetailWalletDb(walletId: Long): Maybe<DetailWalletDb>
 
 }

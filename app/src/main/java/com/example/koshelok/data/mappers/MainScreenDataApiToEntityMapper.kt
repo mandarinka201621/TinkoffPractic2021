@@ -1,5 +1,8 @@
 package com.example.koshelok.data.mappers
 
+import com.example.koshelok.data.mappers.balance.BalanceApiToBalanceEntityMapper
+import com.example.koshelok.data.mappers.exchangerates.ExchangeRatesApiToExchangeRatesEntityMapper
+import com.example.koshelok.data.mappers.wallets.WalletApiToWalletEntityMapper
 import com.example.koshelok.data.service.api.MainScreenDataApi
 import com.example.koshelok.ui.listwallet.entity.MainScreenDataEntity
 import javax.inject.Inject

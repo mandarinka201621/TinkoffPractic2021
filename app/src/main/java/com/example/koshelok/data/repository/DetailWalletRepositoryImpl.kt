@@ -1,14 +1,14 @@
 package com.example.koshelok.data.repository
 
 import android.content.Context
-import com.example.koshelok.data.db.DetailWalletSource
-import com.example.koshelok.data.db.WalletSource
+import com.example.koshelok.data.db.source.DetailWalletSource
+import com.example.koshelok.data.db.source.WalletSource
 import com.example.koshelok.data.extentions.checkDate
 import com.example.koshelok.data.extentions.getFormattedDate
-import com.example.koshelok.data.mappers.TransactionApiToDetailWalletTransactionMapper
-import com.example.koshelok.data.mappers.WalletApiToHeaderWalletMapper
+import com.example.koshelok.data.mappers.transactions.TransactionApiToDetailWalletTransactionMapper
+import com.example.koshelok.data.mappers.wallets.WalletApiToHeaderWalletMapper
 import com.example.koshelok.data.service.AppService
-import com.example.koshelok.data.service.api.TransactionApi
+import com.example.koshelok.data.service.api.DetailWalletApi
 import com.example.koshelok.domain.repository.DetailWalletRepository
 import com.example.koshelok.ui.detailwallet.DetailWalletItem
 import io.reactivex.rxjava3.core.Observable
@@ -19,62 +19,50 @@ class DetailWalletRepositoryImpl @Inject constructor(
     private val mapperTransaction: TransactionApiToDetailWalletTransactionMapper,
     private val mapWallet: WalletApiToHeaderWalletMapper,
     private val context: Context,
+    private val walletSource: WalletSource,
     private val walletDbSource: DetailWalletSource,
-    private val walletSource: WalletSource
 ) :
     DetailWalletRepository {
 
-    override fun getTransactions(walletId: Long): Observable<List<DetailWalletItem>> {
-        return startLoadTransactions(walletId)
-            .map {
-                it.sortedByDescending { api -> api.time }
-                    .groupBy { transactionApi -> transactionApi.time.getFormattedDate() }
-            }
-            .map { groupMap ->
-                mutableListOf<DetailWalletItem>().apply {
-                    groupMap.forEach { (key, transactions) ->
-                        this.add(
-                            DetailWalletItem.Day(
-                                transactions.firstOrNull()?.time?.checkDate(context) ?: key
-                            )
+    override fun getDetailWalletData(walletId: Long): Observable<List<DetailWalletItem>> {
+        return getDetailWalletDataApi(walletId).map { detailWallet ->
+            val groupMap = detailWallet.transactions.sortedByDescending { api -> api.time }
+                .groupBy { transactionApi -> transactionApi.time.getFormattedDate() }
+            return@map mutableListOf<DetailWalletItem>().apply {
+                add(mapWallet(detailWallet.walletApi))
+                groupMap.forEach { (key, transactions) ->
+                    this.add(
+                        DetailWalletItem.Day(
+                            transactions.firstOrNull()?.time?.checkDate(context) ?: key
                         )
-                        this.addAll(transactions.map(mapperTransaction))
-                    }
+                    )
+                    this.addAll(transactions.map(mapperTransaction))
                 }
-                    .toList()
-                    .reversed()
-            }
-    }
-
-    private fun startLoadTransactions(walletId: Long): Observable<List<TransactionApi>> {
-        return Observable.create { emitter ->
-            walletDbSource.getTransactions(walletId)
-                .flatMap {
-                    emitter.onNext(it)
-                    return@flatMap appService.getTransactions(walletId)
-                }.subscribe({ list ->
-                    emitter.onNext(list)
-                    walletDbSource.insertAllTransactions(list, walletId)
-                }, {
-                    emitter.onError(it)
-                })
+            }.toList()
         }
     }
 
-    override fun getDataWallet(walletId: Long): Observable<DetailWalletItem.HeaderDetailWallet> {
-        return Observable.create { emitter ->
-            walletDbSource.getWallet(walletId)
-                .flatMap {
-                    emitter.onNext(mapWallet(it))
-                    return@flatMap appService.getWallet(walletId)
-                        .doOnSuccess { walletApi ->
-                            walletSource.insertWallet(walletApi)
-                        }
-                        .map(mapWallet)
+    private fun getDetailWalletDataApi(walletId: Long): Observable<DetailWalletApi> {
+        return Observable.concat(
+            walletDbSource.getDetailWallet(walletId).toObservable(),
+            getDetailWalletApi(walletId)
+        ).distinctUntilChanged()
+    }
+
+    private fun getDetailWalletApi(walletId: Long): Observable<DetailWalletApi> {
+        return Observable.zip(
+            appService.getWallet(walletId)
+                .doOnSuccess { wallet ->
+                    walletSource.insertWallet(wallet = wallet)
                 }
-                .subscribe { header ->
-                    emitter.onNext(header)
+                .toObservable(),
+            appService.getTransactions(walletId)
+                .doOnSuccess {
+                    walletDbSource.insertAllTransactions(it, walletId)
                 }
+                .toObservable()
+        ) { wallet, transactions ->
+            return@zip DetailWalletApi(wallet, transactions)
         }
     }
 }

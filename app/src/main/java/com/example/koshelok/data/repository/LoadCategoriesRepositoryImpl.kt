@@ -1,6 +1,6 @@
 package com.example.koshelok.data.repository
 
-import com.example.koshelok.data.mappers.CategoryApiToCategoryMapper
+import com.example.koshelok.data.mappers.category.CategoryApiToCategoryMapper
 import com.example.koshelok.data.service.AppService
 import com.example.koshelok.domain.Category
 import com.example.koshelok.domain.repository.LoadCategoriesRepository

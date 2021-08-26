@@ -3,7 +3,7 @@ package com.example.koshelok.ui.categories.categoryoperation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.koshelok.data.AccountSharedPreferences
-import com.example.koshelok.data.mappers.CategoryToCategoryEntityMapper
+import com.example.koshelok.data.mappers.category.CategoryToCategoryEntityMapper
 import com.example.koshelok.domain.usecase.LoadCategoriesUseCase
 import com.example.koshelok.ui.main.RxViewModel
 import com.example.koshelok.ui.util.entity.CategoryEntity

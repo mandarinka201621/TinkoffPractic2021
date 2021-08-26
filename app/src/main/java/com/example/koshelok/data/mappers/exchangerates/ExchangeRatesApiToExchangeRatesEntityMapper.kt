@@ -1,4 +1,4 @@
-package com.example.koshelok.data.mappers
+package com.example.koshelok.data.mappers.exchangerates
 
 import com.example.koshelok.data.service.api.ExchangeRatesApi
 import com.example.koshelok.domain.Currency

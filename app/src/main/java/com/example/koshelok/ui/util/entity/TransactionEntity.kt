@@ -13,5 +13,5 @@ data class TransactionEntity(
     var type: TypeOperation?,
     var categoryEntity: CategoryEntity?,
     var date: Long?,
-    val currency: Currency = Currency.RUB
+    var currency: Currency = Currency.RUB
 ) : Parcelable

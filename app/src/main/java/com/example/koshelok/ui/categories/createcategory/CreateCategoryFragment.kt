@@ -74,7 +74,7 @@ class CreateCategoryFragment : Fragment(R.layout.fragment_create_category) {
                 requireActivity().onBackPressed()
             }
             viewModel.errorData.observe(viewLifecycleOwner) { throwable ->
-                errorHandler.createErrorToastBar(throwable, layoutInflater)
+                errorHandler.createErrorToastBar(throwable)
             }
 
             viewModel.loadStateData.observe(viewLifecycleOwner) { state: LoadState ->

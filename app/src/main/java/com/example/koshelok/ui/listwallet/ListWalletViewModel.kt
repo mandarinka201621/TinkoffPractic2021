@@ -8,6 +8,7 @@ import com.example.koshelok.domain.repository.DeleteWalletRepository
 import com.example.koshelok.domain.usecase.MainScreenUseCase
 import com.example.koshelok.ui.listwallet.entity.MainScreenDataEntity
 import com.example.koshelok.ui.main.RxViewModel
+import com.example.koshelok.ui.util.ErrorHandler
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
@@ -15,17 +16,15 @@ import javax.inject.Inject
 class ListWalletViewModel @Inject constructor(
     private val mainScreenUseCase: MainScreenUseCase,
     private val deleteWalletRepository: DeleteWalletRepository,
-    private val accountSharedPreferences: AccountSharedPreferences
+    private val accountSharedPreferences: AccountSharedPreferences,
+    private val errorHandler: ErrorHandler
 ) : RxViewModel() {
 
     val loadStateData: LiveData<LoadState>
         get() = _loadStateData
-    val errorData: LiveData<Throwable>
-        get() = _errorData
     val mainScreenData: LiveData<MainScreenDataEntity>
         get() = _mainScreenData
     private val _mainScreenData = MutableLiveData<MainScreenDataEntity>()
-    private val _errorData = MutableLiveData<Throwable>()
     private val _loadStateData = MutableLiveData<LoadState>()
 
     fun loadMainScreenData() {
@@ -37,7 +36,7 @@ class ListWalletViewModel @Inject constructor(
                     _mainScreenData.value = mainScreenData
                 },
                 { error ->
-                    _errorData.value = error
+                    errorHandler.createErrorToastBar(error)
                 }
             )
             .disposeOnFinish()
@@ -50,9 +49,8 @@ class ListWalletViewModel @Inject constructor(
             .subscribe({
                 _loadStateData.value = LoadState.SUCCESS
             }, {
-                _errorData.value = it
+                errorHandler.createErrorToastBar(it)
             })
             .disposeOnFinish()
     }
-
 }

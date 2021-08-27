@@ -3,8 +3,8 @@ package com.example.koshelok.ui.util
 import android.content.Context
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.Toast
+import androidx.annotation.LayoutRes
 import com.example.koshelok.R
 import com.google.android.gms.common.api.ApiException
 import retrofit2.HttpException
@@ -18,35 +18,25 @@ class ErrorHandler @Inject constructor(
 
     fun createErrorToastBar(
         throwable: Throwable,
-        layoutInflater: LayoutInflater,
     ) {
         when (throwable) {
             is HttpException -> {
-                createToastBarHttp(layoutInflater)
+                showToast(R.layout.item_custom_snackbar_http)
             }
             is ConnectException -> {
-                createToastBarConnect(layoutInflater)
+                showToast(R.layout.item_custom_snackbar_connect)
             }
             is ApiException -> {
-                createToastBarHttp(layoutInflater)
+                showToast(R.layout.item_custom_snackbar_http)
             }
             else -> {
-                createToastBarHttp(layoutInflater)
+                showToast(R.layout.item_custom_snackbar_http)
             }
         }
     }
 
-    private fun createToastBarHttp(layoutInflater: LayoutInflater) {
-        val layout = layoutInflater.inflate(R.layout.item_custom_snackbar_http, null)
-        showToast(layout)
-    }
-
-    private fun createToastBarConnect(layoutInflater: LayoutInflater) {
-        val layout = layoutInflater.inflate(R.layout.item_custom_snackbar_connect, null)
-        showToast(layout)
-    }
-
-    private fun showToast(layout: View) {
+    private fun showToast(@LayoutRes layoutId: Int) {
+        val layout = LayoutInflater.from(context).inflate(layoutId, null)
         val toast = Toast(context)
         with(toast) {
             setGravity(Gravity.TOP, 0, 0)

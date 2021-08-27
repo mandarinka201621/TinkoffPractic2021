@@ -54,7 +54,7 @@ class EditWalletFragment : Fragment(R.layout.fragment_edit_wallet) {
             }
 
             viewModel.errorData.observe(viewLifecycleOwner) { throwable ->
-                errorHandler.createErrorToastBar(throwable, layoutInflater, requireContext())
+                errorHandler.createErrorToastBar(throwable)
                 finishButton()
             }
         }

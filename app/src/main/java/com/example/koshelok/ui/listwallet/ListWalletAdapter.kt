@@ -13,7 +13,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.koshelok.R
 import com.example.koshelok.databinding.ItemWalletBinding
 import com.example.koshelok.ui.listwallet.entity.WalletEntity
-import java.util.*
 import kotlin.math.abs
 
 class WalletListAdapter(
@@ -31,20 +30,15 @@ class WalletListAdapter(
         )
 
         viewHolder.itemView.setOnTouchListener(object : View.OnTouchListener {
-            private var startClickTime: Long = 0
             private var downPoint = PointF(0f, 0f)
 
             override fun onTouch(v: View?, event: MotionEvent): Boolean {
                 when (event.action) {
                     MotionEvent.ACTION_DOWN -> {
                         downPoint = PointF(event.x, event.y)
-                        startClickTime = Calendar.getInstance().timeInMillis
                     }
                     MotionEvent.ACTION_UP -> {
-                        val clickDuration: Long =
-                            Calendar.getInstance().timeInMillis - startClickTime
-                        if (clickDuration < MAX_CLICK_DURATION
-                            && viewHolder.adapterPosition != RecyclerView.NO_POSITION
+                        if (viewHolder.adapterPosition != RecyclerView.NO_POSITION
                             && absPointClick(PointF(event.x, event.y), downPoint)
                         ) {
                             transitionToDetailWallet(diffUtil.currentList[viewHolder.adapterPosition].id)
@@ -79,7 +73,6 @@ class WalletListAdapter(
     fun isEmptyList() = diffUtil.currentList.isEmpty()
 
     private companion object {
-        const val MAX_CLICK_DURATION = 200
         const val ABS_PIXEL = 10
     }
 

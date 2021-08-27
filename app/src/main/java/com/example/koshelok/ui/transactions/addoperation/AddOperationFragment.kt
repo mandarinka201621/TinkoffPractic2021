@@ -95,7 +95,7 @@ class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transactio
         }
 
         viewModel.errorData.observe(viewLifecycleOwner) { throwable ->
-            errorHandler.createErrorToastBar(throwable, layoutInflater, requireContext())
+            errorHandler.createErrorToastBar(throwable)
             finishButton()
         }
     }

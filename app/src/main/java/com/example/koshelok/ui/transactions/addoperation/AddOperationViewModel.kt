@@ -6,6 +6,7 @@ import com.example.koshelok.domain.LoadState
 import com.example.koshelok.domain.usecase.CreateTransactionUseCase
 import com.example.koshelok.domain.usecase.EditTransactionUseCase
 import com.example.koshelok.ui.main.RxViewModel
+import com.example.koshelok.ui.util.ErrorHandler
 import com.example.koshelok.ui.util.entity.TransactionEntity
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 class AddOperationViewModel @Inject constructor(
     private val createTransactionUseCase: CreateTransactionUseCase,
-    private val editTransactionUseCase: EditTransactionUseCase
+    private val editTransactionUseCase: EditTransactionUseCase,
+    private val errorHandler: ErrorHandler
 ) : RxViewModel() {
 
     val transactionEntity: LiveData<TransactionEntity>
@@ -39,6 +41,7 @@ class AddOperationViewModel @Inject constructor(
                 _loadStateData.value = LoadState.SUCCESS
             }, {
                 _errorData.value = it
+                errorHandler.createErrorToastBar(it)
             })
             .disposeOnFinish()
     }
@@ -51,6 +54,7 @@ class AddOperationViewModel @Inject constructor(
                 _loadStateData.value = LoadState.SUCCESS
             }, {
                 _errorData.value = it
+                errorHandler.createErrorToastBar(it)
             })
             .disposeOnFinish()
     }

@@ -20,10 +20,13 @@ class ListWalletViewModel @Inject constructor(
     private val errorHandler: ErrorHandler
 ) : RxViewModel() {
 
+    val errorData: LiveData<Throwable>
+        get() = _errorData
     val loadStateData: LiveData<LoadState>
         get() = _loadStateData
     val mainScreenData: LiveData<MainScreenDataEntity>
         get() = _mainScreenData
+    private val _errorData = MutableLiveData<Throwable>()
     private val _mainScreenData = MutableLiveData<MainScreenDataEntity>()
     private val _loadStateData = MutableLiveData<LoadState>()
 
@@ -37,6 +40,7 @@ class ListWalletViewModel @Inject constructor(
                 },
                 { error ->
                     errorHandler.createErrorToastBar(error)
+                    _errorData.value = error
                 }
             )
             .disposeOnFinish()
@@ -50,6 +54,7 @@ class ListWalletViewModel @Inject constructor(
                 _loadStateData.value = LoadState.SUCCESS
             }, {
                 errorHandler.createErrorToastBar(it)
+                _errorData.value = it
             })
             .disposeOnFinish()
     }

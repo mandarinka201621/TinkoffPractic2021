@@ -20,7 +20,6 @@ class CreateCategoryViewModel @Inject constructor(
 
     val listIconModel = MutableLiveData<List<IconEntity>>()
     val enableColor = MutableLiveData<Int>()
-    val errorData = MutableLiveData<Throwable>()
     val loadStateData = MutableLiveData<LoadState>()
 
     private val iconListValue: List<IconEntity>
@@ -46,15 +45,12 @@ class CreateCategoryViewModel @Inject constructor(
         createCategoryUseCase(accountSharedPreferences.personId, category)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe {
-
-            }
             .subscribe(
                 {
                     loadStateData.value = LoadState.SUCCESS
                 },
                 {
-                    errorData.value = it
+                    errorHandler.createErrorToastBar(it)
                 }
             )
     }

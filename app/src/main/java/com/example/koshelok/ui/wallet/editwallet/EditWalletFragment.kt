@@ -12,14 +12,10 @@ import com.example.koshelok.R
 import com.example.koshelok.databinding.FragmentEditWalletBinding
 import com.example.koshelok.domain.Currency
 import com.example.koshelok.ui.main.appComponent
-import com.example.koshelok.ui.util.ErrorHandler
 import com.example.koshelok.ui.util.factory.ViewModelFactory
 import javax.inject.Inject
 
 class EditWalletFragment : Fragment(R.layout.fragment_edit_wallet) {
-
-    @Inject
-    lateinit var errorHandler: ErrorHandler
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -55,7 +51,6 @@ class EditWalletFragment : Fragment(R.layout.fragment_edit_wallet) {
             }
 
             viewModel.errorData.observe(viewLifecycleOwner) { throwable ->
-                errorHandler.createErrorToastBar(throwable)
                 createWalletButton.isClickable = true
                 finishButton()
             }

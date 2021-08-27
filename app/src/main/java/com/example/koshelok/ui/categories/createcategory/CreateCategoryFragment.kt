@@ -45,7 +45,7 @@ class CreateCategoryFragment : Fragment(R.layout.fragment_create_category) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecycler()
-
+        isSelectedCategory()
         viewModel.enableColor.observe(viewLifecycleOwner, Observer {
             adapterIcon.setEnableColor(it)
             binding.adkColorTextView.setTextColor(it)
@@ -73,9 +73,6 @@ class CreateCategoryFragment : Fragment(R.layout.fragment_create_category) {
             binding.toolbar.setNavigationOnClickListener {
                 requireActivity().onBackPressed()
             }
-            viewModel.errorData.observe(viewLifecycleOwner) { throwable ->
-                errorHandler.createErrorToastBar(throwable)
-            }
 
             viewModel.loadStateData.observe(viewLifecycleOwner) { state: LoadState ->
                 when (state) {
@@ -102,6 +99,7 @@ class CreateCategoryFragment : Fragment(R.layout.fragment_create_category) {
                             viewModel.setEnableColor(color)
                         }
                     }
+
                     override fun onCancel() = Unit
                 })
             show()

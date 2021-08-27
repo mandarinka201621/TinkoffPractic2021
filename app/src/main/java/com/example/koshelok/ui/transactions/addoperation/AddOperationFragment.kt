@@ -17,16 +17,12 @@ import com.example.koshelok.domain.LoadState
 import com.example.koshelok.domain.TypeOperation
 import com.example.koshelok.ui.main.appComponent
 import com.example.koshelok.ui.transactions.sumoperation.SumOperationFragmentArgs
-import com.example.koshelok.ui.util.ErrorHandler
 import com.example.koshelok.ui.util.factory.ViewModelFactory
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.datepicker.MaterialDatePicker.INPUT_MODE_CALENDAR
 import javax.inject.Inject
 
 class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transaction) {
-
-    @Inject
-    lateinit var errorHandler: ErrorHandler
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -95,7 +91,6 @@ class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transactio
         }
 
         viewModel.errorData.observe(viewLifecycleOwner) { throwable ->
-            errorHandler.createErrorToastBar(throwable)
             binding.addOperationButton.isClickable = true
             finishButton()
         }

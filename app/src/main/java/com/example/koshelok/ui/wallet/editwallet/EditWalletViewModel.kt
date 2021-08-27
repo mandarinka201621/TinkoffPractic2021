@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.koshelok.data.AccountSharedPreferences
 import com.example.koshelok.domain.usecase.CreateWalletUseCase
 import com.example.koshelok.ui.main.RxViewModel
+import com.example.koshelok.ui.util.ErrorHandler
 import com.example.koshelok.ui.util.entity.CreateWalletEntity
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -12,7 +13,8 @@ import javax.inject.Inject
 
 class EditWalletViewModel @Inject constructor(
     private val createWalletUseCase: CreateWalletUseCase,
-    private val accountSharedPreferences: AccountSharedPreferences
+    private val accountSharedPreferences: AccountSharedPreferences,
+    private val errorHandler: ErrorHandler
 ) : RxViewModel() {
 
     val walletIdData: LiveData<Long>
@@ -32,6 +34,7 @@ class EditWalletViewModel @Inject constructor(
                 },
                 {
                     _errorData.value = it
+                    errorHandler.createErrorToastBar(it)
                 }
             )
             .disposeOnFinish()

@@ -60,13 +60,14 @@ class CategoryOperationFragment : Fragment(R.layout.fragment_category_operation_
         binding.categoryRecyclerView.adapter = adapterCategory
         viewModel.listCategoryModel.observe(viewLifecycleOwner) { data: List<CategoryEntity>? ->
             if (data != null) {
+                transaction.categoryEntity?.let {
+                    if (it.position > CategoryEntity.DEFAULT_POSITION && it.position < data.size){
+                        data[it.position].isEnable = true
+                    }
+                }
                 adapterCategory.submitList(data)
                 isSelectedCategory()
             }
-        }
-
-        viewModel.errorData.observe(viewLifecycleOwner) { throwable ->
-            errorHandler.createErrorToastBar(throwable)
         }
     }
 

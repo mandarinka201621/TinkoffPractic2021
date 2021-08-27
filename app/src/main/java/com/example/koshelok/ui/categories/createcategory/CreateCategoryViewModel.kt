@@ -7,6 +7,7 @@ import com.example.koshelok.data.AccountSharedPreferences
 import com.example.koshelok.domain.Category
 import com.example.koshelok.domain.LoadState
 import com.example.koshelok.domain.usecase.CreateCategoryUseCase
+import com.example.koshelok.ui.util.ErrorHandler
 import com.example.koshelok.ui.util.IconConverter
 import com.example.koshelok.ui.util.entity.IconEntity
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 class CreateCategoryViewModel @Inject constructor(
     private val createCategoryUseCase: CreateCategoryUseCase,
-    private val accountSharedPreferences: AccountSharedPreferences
+    private val accountSharedPreferences: AccountSharedPreferences,
+    private val errorHandler: ErrorHandler
 ) : ViewModel() {
 
     val listIconModel = MutableLiveData<List<IconEntity>>()

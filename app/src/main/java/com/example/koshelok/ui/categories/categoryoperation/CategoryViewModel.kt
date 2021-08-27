@@ -1,11 +1,11 @@
 package com.example.koshelok.ui.categories.categoryoperation
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.koshelok.data.AccountSharedPreferences
 import com.example.koshelok.data.mappers.category.CategoryToCategoryEntityMapper
 import com.example.koshelok.domain.usecase.LoadCategoriesUseCase
 import com.example.koshelok.ui.main.RxViewModel
+import com.example.koshelok.ui.util.ErrorHandler
 import com.example.koshelok.ui.util.entity.CategoryEntity
 import com.example.koshelok.ui.util.entity.TransactionEntity
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -15,14 +15,11 @@ import javax.inject.Inject
 class CategoryViewModel @Inject constructor(
     private val loadCategoriesUseCase: LoadCategoriesUseCase,
     private val categoryMapper: CategoryToCategoryEntityMapper,
-    private val accountSharedPreferences: AccountSharedPreferences
+    private val accountSharedPreferences: AccountSharedPreferences,
+    private val errorHandler: ErrorHandler
 ) : RxViewModel() {
 
-    val errorData: LiveData<Throwable>
-        get() = _errorData
-
     val listCategoryModel = MutableLiveData<List<CategoryEntity>>()
-    private val _errorData = MutableLiveData<Throwable>()
 
     private val transactionLiveData = MutableLiveData<TransactionEntity>()
     private val categoryListValue: List<CategoryEntity>
@@ -40,7 +37,7 @@ class CategoryViewModel @Inject constructor(
                     listCategoryModel.value = categories
                 },
                 {
-                    _errorData.value = it
+                    errorHandler.createErrorToastBar(it)
                 }
             )
             .disposeOnFinish()
@@ -57,7 +54,9 @@ class CategoryViewModel @Inject constructor(
     fun changeEnableState(position: Int, categoryEntityModule: CategoryEntity) {
         if (!categoryEntityModule.isEnable) {
             getEnableCategory()?.isEnable = false
+            getEnableCategory()?.position = position
             categoryListValue[position].isEnable = true
+            categoryListValue[position].position = position
             updateLD()
         }
     }

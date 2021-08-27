@@ -96,4 +96,5 @@
     <string name="usd">Доллар США</string>
     <string name="chf">Швейцарские франки</string>
     <string name="you_really_delete_wallet">Вы действительно хотите удалить кошелек?</string>
+    <string name="by_team">By Android Team</string>
 </resources>

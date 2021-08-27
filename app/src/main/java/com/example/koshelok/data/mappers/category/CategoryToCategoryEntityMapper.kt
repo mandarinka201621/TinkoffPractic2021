@@ -8,6 +8,7 @@ class CategoryToCategoryEntityMapper @Inject constructor() : (Category) -> Categ
 
     override fun invoke(category: Category): CategoryEntity {
         return CategoryEntity(
+            position = CategoryEntity.DEFAULT_POSITION,
             id = category.id,
             icon = category.iconId,
             typeOperation = category.operation,

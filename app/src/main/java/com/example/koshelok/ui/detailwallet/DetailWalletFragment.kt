@@ -3,8 +3,8 @@ package com.example.koshelok.ui.detailwallet
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -49,6 +49,16 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
             toolbar.setNavigationOnClickListener {
                 findNavController().popBackStack(R.id.walletListFragment, false)
             }
+
+            toolbar.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.settingsButton -> {
+                        Toast.makeText(context, getString(R.string.by_team), Toast.LENGTH_LONG).show()
+                        return@setOnMenuItemClickListener true
+                    }
+                    else -> {return@setOnMenuItemClickListener super.onOptionsItemSelected(it)}
+                }
+            }
             val detailWalletAdapter = DetailWalletAdapter(this@DetailWalletFragment)
             addOperation.setOnClickListener {
                 launchTypeFragment()
@@ -89,15 +99,6 @@ class DetailWalletFragment : Fragment(R.layout.fragment_detail_wallet), SwipeOpt
                     findNavController().popBackStack(R.id.walletListFragment, false)
                 }
             })
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.settingsButton -> {
-                //TODO сделать кнопку настроек
-            }
-        }
-        return true
     }
 
     private fun launchTypeFragment() {

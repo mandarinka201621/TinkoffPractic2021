@@ -96,6 +96,7 @@ class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transactio
 
         viewModel.errorData.observe(viewLifecycleOwner) { throwable ->
             errorHandler.createErrorToastBar(throwable)
+            binding.addOperationButton.isClickable = true
             finishButton()
         }
     }
@@ -132,6 +133,7 @@ class AddOperationFragment : Fragment(R.layout.fragment_add_operation_transactio
         with(binding) {
             progressIndicator.visibility = View.VISIBLE
             buttonText.visibility = View.INVISIBLE
+            addOperationButton.isClickable = false
         }
     }
 

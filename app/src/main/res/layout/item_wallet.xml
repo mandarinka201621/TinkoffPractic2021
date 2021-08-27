@@ -68,18 +68,7 @@
         app:bring_to_clamp="40dp"
         app:clamp="self"
         app:gravity="right"
-        app:sticky="120dp">
-
-        <ImageView
-            android:id="@+id/editButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:background="@drawable/circle_icon"
-            android:backgroundTint="@color/background_gray"
-            android:scaleType="center"
-            android:layout_marginStart="16dp"
-            android:src="@drawable/edit" />
+        app:sticky="60dp">
 
         <ImageView
             android:id="@+id/deleteButton"
@@ -90,18 +79,6 @@
             android:backgroundTint="@color/background_gray"
             android:scaleType="center"
             android:layout_margin="16dp"
-            android:src="@drawable/delete" />
-
-
-        <ImageView
-            android:id="@+id/hideButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:background="@drawable/circle_icon"
-            android:backgroundTint="@color/background_gray"
-            android:scaleType="center"
-            android:layout_marginEnd="16dp"
             android:src="@drawable/delete" />
 
     </LinearLayout>

@@ -86,7 +86,7 @@
         app:bring_to_clamp="40dp"
         app:clamp="self"
         app:gravity="right"
-        app:sticky="100dp">
+        app:sticky="60dp">
 
         <ImageView
             android:id="@+id/editButton"
@@ -96,6 +96,7 @@
             android:background="@drawable/circle_icon"
             android:backgroundTint="@color/background_gray"
             android:scaleType="center"
+            android:visibility="gone"
             android:layout_marginStart="16dp"
             android:src="@drawable/edit" />
 

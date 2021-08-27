@@ -50,11 +50,13 @@ class EditWalletFragment : Fragment(R.layout.fragment_edit_wallet) {
             }
 
             viewModel.walletIdData.observe(viewLifecycleOwner) { walletId ->
+
                 launchDetailWalletFragment(walletId)
             }
 
             viewModel.errorData.observe(viewLifecycleOwner) { throwable ->
                 errorHandler.createErrorToastBar(throwable)
+                createWalletButton.isClickable = true
                 finishButton()
             }
         }
@@ -108,6 +110,7 @@ class EditWalletFragment : Fragment(R.layout.fragment_edit_wallet) {
         with(binding) {
             progressIndicator.visibility = View.VISIBLE
             buttonText.visibility = View.INVISIBLE
+            createWalletButton.isClickable = false
         }
     }
 
